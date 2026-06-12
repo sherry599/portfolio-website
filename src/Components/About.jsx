@@ -28,7 +28,7 @@ import {
   SiFigma,
 } from 'react-icons/si';
 
-import { CircularTestimonials } from '@/components/ui/circular-testimonials';
+import { CircularTestimonials } from '@/Components/ui/circular-testimonials';
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 40 },

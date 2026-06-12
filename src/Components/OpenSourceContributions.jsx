@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, GitBranch, Grid, Calendar, DollarSign } from 'lucide-react';
 import { SiApache } from 'react-icons/si';
 import { use3DTilt } from '../hooks/use3DAnimations';
-import { ExpandableTabs } from '@/components/ui/expandable-tabs';
+import { ExpandableTabs } from '@/Components/ui/expandable-tabs';
 
 const ContributionCard = ({ contribution, cardVariants }) => {
   return (

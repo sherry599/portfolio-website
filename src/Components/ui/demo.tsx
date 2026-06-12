@@ -1,5 +1,5 @@
-import { ParticleButton } from "@/components/ui/particle-button"
-import { Button } from "@/components/ui/button"
+import { ParticleButton } from "@/Components/ui/particle-button"
+import { Button } from "@/Components/ui/button"
 import { LucideIcon } from "lucide-react"
 
 function ParticleButtonDemo() {

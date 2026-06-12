@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, ArrowUpRight, Eye, Github, Lock, Bell, Zap, Lightbulb, Grid, Monitor, Smartphone, Terminal } from 'lucide-react';
 import { SiReact, SiNodedotjs, SiMongodb, SiExpress, SiTailwindcss, SiStripe, SiCloudinary, SiJsonwebtokens, SiNextdotjs, SiRedis, SiSocketdotio, SiRedux, SiPaypal, SiAmazons3, SiShadcnui, SiFramer, SiTypescript, SiDocker, SiGooglemaps, SiPrisma } from 'react-icons/si';
 import { Link } from 'react-router-dom';
-import { ExpandableTabs } from '@/components/ui/expandable-tabs';
+import { ExpandableTabs } from '@/Components/ui/expandable-tabs';
 
 const ProjectCard = ({ project, index, cardVariants, getTechIcon, getTechColor }) => {
   return (

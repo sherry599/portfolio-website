@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link as ScrollLink, scroller } from 'react-scroll';
 import { FaDownload, FaBars, FaTimes, FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { Home, User, Settings, FolderKanban, GitPullRequest, GraduationCap, Award, Share2 } from 'lucide-react';
-import { ExpandableTabs } from '@/components/ui/expandable-tabs';
+import { ExpandableTabs } from '@/Components/ui/expandable-tabs';
 import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
