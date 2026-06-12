@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Target, Zap, Code2, CheckCircle, Github, AlertCircle, Lightbulb } from 'lucide-react';
-import { SiReact, SiNodedotjs, SiMongodb, SiExpress, SiTailwindcss, SiJsonwebtokens, SiCloudinary, SiNextdotjs, SiRedis, SiSocketdotio, SiStripe, SiRedux, SiPaypal, SiAmazons3, SiShadcnui, SiFramer } from 'react-icons/si';
+import { SiReact, SiNodedotjs, SiMongodb, SiExpress, SiTailwindcss, SiJsonwebtokens, SiCloudinary, SiNextdotjs, SiRedis, SiSocketdotio, SiStripe, SiRedux, SiPaypal, SiAmazons3, SiShadcnui, SiFramer, SiTypescript, SiDocker, SiGooglemaps, SiPrisma } from 'react-icons/si';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const ProjectDetails = () => {
@@ -10,6 +10,79 @@ const ProjectDetails = () => {
   const navigate = useNavigate();
 
   const projects = {
+    envarmor: {
+      id: 'envarmor',
+      title: "EnvArmor",
+      description: "A secure, local-first secret leak prevention suite. Intercepts API keys, variables, and credentials before they leave the developer machine using CLI pre-commit hooks and an encrypted web dashboard.",
+      image: "EnvArmor.png",
+      objectPosition: "center 10%",
+      tech: ["Next.js", "Supabase", "Prisma", "Redis", "TypeScript", "Node.js", "Framer Motion", "Tailwind CSS"],
+      link: "https://env-armor.vercel.app/",
+      githubLink: "https://github.com/AliRana30/EnvArmor",
+      category: "Web & CLI",
+      featured: true,
+      purpose: "EnvArmor was built to eliminate the risk of accidental secret leaks. By combining a zero-trust local-first CLI scanner with an end-to-end encrypted web dashboard, it intercepts API keys, environment files, and credentials before they leave the developer's machine—without exposing raw variables to cloud servers.",
+      keyFeatures: [
+        "Pre-commit hook scanning utilizing regex signatures and Shannon Entropy",
+        "AI context protection generating auto-exclusion files (.cursorignore, .claudeignore)",
+        "Financial abuse risk mapping dynamically calculating leak cost estimates ($200–$5000)",
+        "E2E AES-256 encrypted configuration vault with client-side zero-knowledge sync",
+        "Project workspace auto-provisioning and dynamic CLI context switching",
+        "Prisma database persistence and Upstash Redis rate-limiting"
+      ],
+      challenges: [
+        {
+          challenge: "Zero-Knowledge Cloud Secret Synchronization",
+          solution: "Implemented client-side AES-256 encryption. Plaintext secrets are encrypted in the local CLI runtime before dispatch, ensuring the dashboard database only stores ciphertext that the user decrypts on the client."
+        },
+        {
+          challenge: "Balancing Low-Latency Scanning with High Detection Accuracy",
+          solution: "Combined static regular expression patterns (Stripe, AWS, OpenAI signature matching) with lightweight Shannon Entropy calculation for high-randomness strings to catch custom or structured secret leaks in milliseconds."
+        },
+        {
+          challenge: "Cross-Environment Project Context Switching",
+          solution: "Architected a global selector in the web app header synchronized with the CLI's --project flag, allowing developers to switch between workspaces and auto-provision project credentials dynamically."
+        }
+      ]
+    },
+    khidmat: {
+      id: 'khidmat',
+      title: "KHIDMAT",
+      description: "An AI-powered service orchestration platform built for Pakistan's informal economy, allowing users to discover, rank, price, and schedule local service providers using natural language chat (English/Urdu/Roman Urdu).",
+      image: "Khidmat.png",
+      objectPosition: "center 10%",
+      tech: ["React Native", "Expo", "TypeScript", "Redux Toolkit", "Express", "Supabase", "Gemini API", "Google Maps", "Docker", "Tailwind CSS"],
+      link: "https://khidmat-orchestrator.vercel.app/",
+      githubLink: "https://github.com/AliRana30/KHIDMAT",
+      category: "Mobile App",
+      featured: true,
+      purpose: "KHIDMAT was engineered to resolve trust and discovery bottlenecks in Pakistan's informal service sector. By leveraging natural-language inputs, geocoding, and multi-agent orchestration, the platform replaces unstructured chats and phone calls with structured workflows—automating everything from intent parsing and radius expansion mapping to dynamic surge pricing, double-booking checks, and trace-logged dispute handling.",
+      keyFeatures: [
+        "Multilingual natural language parsing (English, Urdu, Roman Urdu)",
+        "Multi-agent orchestration pipeline (Intent, Discovery, Ranking, Pricing, Dispute)",
+        "Geocoded provider discovery with progressive radius expansion",
+        "Dynamic surge pricing considering travel, complexity, and urgency",
+        "Double-booking prevention and travel-time buffers",
+        "Interactive live booking tracking screen with real-time updates",
+        "Explainable AI trace viewer to debug backend decisions",
+        "Supabase persistence and JWT-based session security",
+        "Dockerized backend ready for Cloud Run deployment"
+      ],
+      challenges: [
+        {
+          challenge: "Noisy Multilingual Intent Parsing",
+          solution: "Built a customized prompt matrix for Gemini and Groq model templates to parse code-mixed Roman Urdu & English inputs ('kal subah AC check krwana ha'), mapping them to clean ISO schedules, urgency classes, and service sectors with over 94% accuracy."
+        },
+        {
+          challenge: "Dynamic Geographic Coverage in Sparse Areas",
+          solution: "Developed an expansion ring algorithm inside the Discovery Agent that automatically increments search radii from 5km up to 25km when nearby matches are unavailable, falling back to verified reputation-ranked providers."
+        },
+        {
+          challenge: "AI Agent Observability and Explanations",
+          solution: "Integrated a custom Trace Agent logging system mapping agent execution sequences, prompt payloads, and confidence ratings to a dashboard, rendering an explainable decision timeline for end-user trust."
+        }
+      ]
+    },
     noretmy: {
       id: 'noretmy',
       title: "Noretmy",
@@ -289,6 +362,9 @@ const ProjectDetails = () => {
   const getTechIcon = (tech) => {
     const iconMap = {
       'react': <SiReact className="w-4 h-4 md:w-5 md:h-5" />,
+      'react native': <SiReact className="w-4 h-4 md:w-5 md:h-5" />,
+      'expo': <Zap className="w-4 h-4 md:w-5 md:h-5" />,
+      'typescript': <SiTypescript className="w-4 h-4 md:w-5 md:h-5" />,
       'next.js': <SiNextdotjs className="w-4 h-4 md:w-5 md:h-5" />,
       'node.js': <SiNodedotjs className="w-4 h-4 md:w-5 md:h-5" />,
       'mongodb': <SiMongodb className="w-4 h-4 md:w-5 md:h-5" />,
@@ -304,7 +380,12 @@ const ProjectDetails = () => {
       'paypal': <SiPaypal className="w-4 h-4 md:w-5 md:h-5" />,
       'aws s3': <SiAmazons3 className="w-4 h-4 md:w-5 md:h-5" />,
       'shadcn/ui': <SiShadcnui className="w-4 h-4 md:w-5 md:h-5" />,
-      'framer motion': <SiFramer className="w-4 h-4 md:w-5 md:h-5" />
+      'framer motion': <SiFramer className="w-4 h-4 md:w-5 md:h-5" />,
+      'docker': <SiDocker className="w-4 h-4 md:w-5 md:h-5" />,
+      'google maps': <SiGooglemaps className="w-4 h-4 md:w-5 md:h-5" />,
+      'supabase': <SiMongodb className="w-4 h-4 md:w-5 md:h-5" />,
+      'gemini api': <Lightbulb className="w-4 h-4 md:w-5 md:h-5" />,
+      'prisma': <SiPrisma className="w-4 h-4 md:w-5 md:h-5" />
     };
 
     return iconMap[tech.toLowerCase()] || <Code2 className="w-4 h-4 md:w-5 md:h-5" />;
@@ -313,8 +394,10 @@ const ProjectDetails = () => {
   const getTechColor = (tech) => {
     const colorMap = {
       'react': 'text-[#61DAFB]',
-      'next.js': 'text-primary',
+      'react native': 'text-[#61DAFB]',
+      'expo': 'text-primary',
       'typescript': 'text-[#3178C6]',
+      'next.js': 'text-primary',
       'framer motion': 'text-[#0055FF]',
       'gsap': 'text-[#88CE02]',
       'canvas api': 'text-[#888888]',
@@ -334,7 +417,12 @@ const ProjectDetails = () => {
       'redux toolkit': 'text-[#764ABC]',
       'paypal': 'text-[#00457C]',
       'aws s3': 'text-[#FF9900]',
-      'shadcn/ui': 'text-[#888888]'
+      'shadcn/ui': 'text-[#888888]',
+      'docker': 'text-[#2496ED]',
+      'google maps': 'text-[#4285F4]',
+      'supabase': 'text-[#3ECF8E]',
+      'gemini api': 'text-[#1A73E8]',
+      'prisma': 'text-[#5A67D8]'
     };
 
     return colorMap[tech.toLowerCase()] || 'text-[#888888]';

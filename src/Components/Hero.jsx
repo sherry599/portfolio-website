@@ -1,39 +1,68 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link as ScrollLink } from 'react-scroll';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 
-const Hero = () => {
-  const profileImage = "/my_image.png";
-
-  const [displayedText, setDisplayedText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [roleIndex, setRoleIndex] = useState(0);
-
-  const roles = ['Full Stack Developer', 'MERN Stack Developer', 'Problem Solver'];
+// BlurText animation component
+const BlurText = ({
+  text,
+  delay = 50,
+  animateBy = "words",
+  direction = "top",
+  className = "",
+  style,
+}) => {
+  const [inView, setInView] = useState(false);
+  const ref = useRef(null);
 
   useEffect(() => {
-    const currentRole = roles[roleIndex];
-    const typingSpeed = isDeleting ? 80 : 120;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
 
-    const timeout = setTimeout(() => {
-      if (!isDeleting && currentIndex < currentRole.length) {
-        setDisplayedText(currentRole.substring(0, currentIndex + 1));
-        setCurrentIndex(currentIndex + 1);
-      } else if (isDeleting && currentIndex > 0) {
-        setDisplayedText(currentRole.substring(0, currentIndex - 1));
-        setCurrentIndex(currentIndex - 1);
-      } else if (!isDeleting && currentIndex === currentRole.length) {
-        setTimeout(() => setIsDeleting(true), 2000);
-      } else if (isDeleting && currentIndex === 0) {
-        setIsDeleting(false);
-        setRoleIndex((prevIndex) => (prevIndex + 1) % roles.length);
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
       }
-    }, typingSpeed);
+    };
+  }, []);
 
-    return () => clearTimeout(timeout);
-  }, [currentIndex, isDeleting, roleIndex, roles]);
+  const segments = useMemo(() => {
+    return animateBy === "words" ? text.split(" ") : text.split("");
+  }, [text, animateBy]);
+
+  return (
+    <p ref={ref} className={`inline-flex flex-wrap ${className}`} style={style}>
+      {segments.map((segment, i) => (
+        <span
+          key={i}
+          style={{
+            display: "inline-block",
+            filter: inView ? "blur(0px)" : "blur(10px)",
+            opacity: inView ? 1 : 0,
+            transform: inView ? "translateY(0)" : `translateY(${direction === "top" ? "-20px" : "20px"})`,
+            transition: `all 0.5s ease-out ${i * delay}ms`,
+          }}
+        >
+          {segment}
+          {animateBy === "words" && i < segments.length - 1 ? "\u00A0" : ""}
+        </span>
+      ))}
+    </p>
+  );
+};
+
+const Hero = () => {
+  const profileImage = "/my_image.png";
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -60,7 +89,11 @@ const Hero = () => {
 
   return (
     <>
-      <div className="relative min-h-screen bg-primary mt-10">
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&family=Antic&display=swap"
+      />
+      <div className="relative min-h-screen bg-primary">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 right-20 w-64 h-64 border border-subtle rotate-45"></div>
           <div className="absolute bottom-40 left-10 w-32 h-32 border border-subtle rounded-full"></div>
@@ -80,92 +113,93 @@ const Hero = () => {
 
         <section
           id="home"
-          className="pt-16 md:pt-0 min-h-screen flex items-center justify-center relative z-10"
+          className="min-h-screen flex flex-col justify-center items-center relative z-10 px-6 py-20"
         >
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="container mx-auto px-8 py-16 flex flex-col lg:flex-row items-center justify-between max-w-6xl"
+            className="w-full max-w-6xl flex flex-col items-center text-center relative"
           >
-            {/* Text Content */}
-            <div className="w-full lg:w-3/5 text-left mb-16 lg:mb-0 lg:pr-12">
-              <motion.div
-                variants={itemVariants}
-                className="mb-8"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-[1.5px] bg-black"></div>
-                  <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Introduction</span>
-                </div>
-                <h1 className="text-5xl md:text-6xl lg:text-5xl font-light leading-[0.9] mb-4 section-heading">
-                  <span className="block font-bold text-primary">Ali Mahmood</span>
-                </h1>
-              </motion.div>
+            {/* Introduction Label */}
+            <motion.div variants={itemVariants} className="flex items-center gap-4 mb-10">
+              <div className="w-12 h-[1.5px] bg-accent"></div>
+              <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Introduction</span>
+              <div className="w-12 h-[1.5px] bg-accent"></div>
+            </motion.div>
 
-              <motion.div
-                variants={itemVariants}
-                className="mb-8"
-              >
-                <div className="text-2xl md:text-3xl lg:text-4xl font-medium text-primary min-h-[1.2em]">
-                  <span>{displayedText}</span>
-                  <span className="animate-pulse text-primary font-light">|</span>
-                </div>
-              </motion.div>
-
-              <motion.p
-                variants={itemVariants}
-                className="text-lg text-secondary mb-10 max-w-lg leading-relaxed font-light"
-              >
-                I build modern web applications with clean code and thoughtful design.
-                Specializing in the MERN stack to create digital experiences that matter.
-              </motion.p>
-
-              {/* CTA Buttons */}
-              <motion.div
-                variants={itemVariants}
-                className="flex flex-col sm:flex-row gap-4"
-              >
-                <ScrollLink
-                  to="projects"
-                  smooth={true}
-                  duration={500}
-                  className="group px-8 py-4 bg-black text-white border border-default transition-colors duration-200 cursor-pointer font-medium flex items-center gap-3 w-fit"
-                >
-                  <span>View My Work</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-                </ScrollLink>
-
-                <ScrollLink
-                  to="socials"
-                  smooth={true}
-                  duration={500}
-                  className="px-8 py-4 border border-default bg-surface text-primary hover:bg-primary transition-all duration-200 cursor-pointer font-medium flex items-center justify-center w-fit"
-                >
-                  Get In Touch
-                </ScrollLink>
-              </motion.div>
-            </div>
-
-            {/* Profile Image */}
-            <motion.div
-              variants={itemVariants}
-              className="w-full lg:w-2/5 flex justify-center lg:justify-end"
-            >
-              <div
-                className="relative w-72 h-72 md:w-80 md:h-80 bg-surface p-2 border border-subtle hover:shadow-[0_0_50px_rgba(0,0,0,0.05)] transition-all duration-300"
-                style={{
-                  borderRadius: '38% 62% 55% 45% / 44% 36% 64% 56%',
-                  animation: 'heroFloat 4.2s ease-in-out infinite'
-                }}
-              >
-                <img
-                  src={profileImage}
-                  alt="Ali Mahmood Rana"
-                  className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-300"
-                  style={{ borderRadius: '36% 64% 48% 52% / 52% 38% 62% 48%' }}
+            {/* Centered Main Name with overlapping profile photo */}
+            <motion.div variants={itemVariants} className="relative w-full mb-12 select-none">
+              <div>
+                <BlurText
+                  text="ALI"
+                  delay={100}
+                  animateBy="letters"
+                  direction="top"
+                  className="font-bold text-[85px] sm:text-[130px] md:text-[170px] lg:text-[200px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap text-primary"
+                  style={{ fontFamily: "'Fira Code', monospace" }}
                 />
               </div>
+              <div className="mt-2">
+                <BlurText
+                  text="MAHMOOD"
+                  delay={100}
+                  animateBy="letters"
+                  direction="top"
+                  className="font-bold text-[85px] sm:text-[130px] md:text-[170px] lg:text-[200px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap text-primary"
+                  style={{ fontFamily: "'Fira Code', monospace" }}
+                />
+              </div>
+
+              {/* Profile Picture overlapping the text */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                <div 
+                  className="w-[60px] h-[100px] sm:w-[85px] sm:h-[142px] md:w-[105px] md:h-[175px] lg:w-[124px] lg:h-[208px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 cursor-pointer border border-default bg-surface"
+                >
+                  <img
+                    src={profileImage}
+                    alt="Ali Mahmood"
+                    className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-300"
+                  />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Tagline */}
+            <motion.div variants={itemVariants} className="max-w-2xl mb-12">
+              <BlurText
+                text="I build modern web applications with clean code and thoughtful design. Specializing in the MERN stack to create digital experiences that matter."
+                delay={40}
+                animateBy="words"
+                direction="top"
+                className="text-[15px] sm:text-[18px] md:text-[20px] lg:text-[22px] text-center transition-colors duration-300 text-secondary hover:text-primary leading-relaxed"
+                style={{ fontFamily: "'Antic', sans-serif" }}
+              />
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row gap-4 z-30"
+            >
+              <ScrollLink
+                to="projects"
+                smooth={true}
+                duration={500}
+                className="group px-8 py-4 bg-accent text-inverse border border-default transition-colors duration-200 cursor-pointer font-medium flex items-center gap-3 justify-center w-full sm:w-fit"
+              >
+                <span>View My Work</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+              </ScrollLink>
+
+              <ScrollLink
+                to="socials"
+                smooth={true}
+                duration={500}
+                className="px-8 py-4 border border-default bg-surface text-primary hover:bg-primary transition-all duration-200 cursor-pointer font-medium flex items-center justify-center w-full sm:w-fit"
+              >
+                Get In Touch
+              </ScrollLink>
             </motion.div>
           </motion.div>
 
@@ -189,7 +223,6 @@ const Hero = () => {
               <span className="text-sm font-medium ml-4 mono">SCROLL</span>
             </ScrollLink>
           </motion.div>
-
         </section>
       </div>
     </>

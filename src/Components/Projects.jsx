@@ -1,14 +1,18 @@
-import { motion } from 'framer-motion';
-import { ExternalLink, ArrowUpRight, Eye, Github } from 'lucide-react';
-import { SiReact, SiNodedotjs, SiMongodb, SiExpress, SiTailwindcss, SiStripe, SiCloudinary, SiJsonwebtokens, SiNextdotjs, SiRedis, SiSocketdotio, SiRedux, SiPaypal, SiAmazons3, SiShadcnui, SiFramer } from 'react-icons/si';
-import { Lock, Bell, Zap } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ExternalLink, ArrowUpRight, Eye, Github, Lock, Bell, Zap, Lightbulb, Grid, Monitor, Smartphone, Terminal } from 'lucide-react';
+import { SiReact, SiNodedotjs, SiMongodb, SiExpress, SiTailwindcss, SiStripe, SiCloudinary, SiJsonwebtokens, SiNextdotjs, SiRedis, SiSocketdotio, SiRedux, SiPaypal, SiAmazons3, SiShadcnui, SiFramer, SiTypescript, SiDocker, SiGooglemaps, SiPrisma } from 'react-icons/si';
 import { Link } from 'react-router-dom';
+import { ExpandableTabs } from '@/components/ui/expandable-tabs';
 
 const ProjectCard = ({ project, index, cardVariants, getTechIcon, getTechColor }) => {
   return (
     <motion.div
-      key={index}
+      layout
       variants={cardVariants}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
       whileHover={{
         boxShadow: '0 20px 40px rgba(0,0,0,0.05)',
       }}
@@ -29,7 +33,7 @@ const ProjectCard = ({ project, index, cardVariants, getTechIcon, getTechColor }
           </div>
         </div>
 
-        <div className="relative h-[350px] md:h-[450px] overflow-hidden bg-primary">
+        <div className="relative h-[220px] md:h-[280px] overflow-hidden bg-primary">
           <img
             src={`/${project.image}`}
             alt={project.title}
@@ -50,7 +54,7 @@ const ProjectCard = ({ project, index, cardVariants, getTechIcon, getTechColor }
           </div>
         </div>
 
-        <div className="p-8 space-y-5">
+        <div className="p-6 space-y-4">
           <Link to={`/project/${project.id}`} className="group/title inline-block" data-cursor="pointer">
             <div className="inline-flex items-center gap-2">
               <h3 className="text-2xl font-bold text-primary group-hover/title:text-primary transition-colors duration-200">
@@ -76,7 +80,7 @@ const ProjectCard = ({ project, index, cardVariants, getTechIcon, getTechColor }
             ))}
           </div>
 
-          <div className="pt-6 flex flex-wrap gap-3 md:gap-4">
+          <div className="pt-4 flex flex-wrap gap-3 md:gap-4">
             <Link
               to={`/project/${project.id}`}
               className="flex-1 min-w-[120px] inline-flex items-center justify-center gap-2 border border-default text-primary px-4 py-3 hover:bg-primary hover:text-primary transition-all duration-300 font-semibold uppercase tracking-wider text-[10px] md:text-xs shadow-sm"
@@ -119,7 +123,61 @@ const ProjectCard = ({ project, index, cardVariants, getTechIcon, getTechColor }
 };
 
 const Projects = () => {
+  const [activeFilterIndex, setActiveFilterIndex] = useState(0);
+
+  const filterTabs = [
+    { title: "All", icon: Grid },
+    { title: "Web Apps", icon: Monitor },
+    { title: "Mobile Apps", icon: Smartphone },
+    { title: "CLI Tools", icon: Terminal }
+  ];
+
   const projects = [
+    {
+      id: 'envarmor',
+      title: "EnvArmor",
+      description: "A secure, local-first secret leak prevention suite. Intercepts API keys, variables, and credentials before they leave the developer machine using CLI pre-commit hooks and an encrypted web dashboard.",
+      image: "EnvArmor.png",
+      objectPosition: "center 10%",
+      tech: ["Next.js", "Supabase", "Prisma", "Redis", "TypeScript", "Node.js", "Framer Motion", "Tailwind CSS"],
+      link: "https://env-armor.vercel.app/",
+      githubLink: "https://github.com/AliRana30/EnvArmor",
+      category: "Web & CLI",
+      featured: true,
+      purpose: "EnvArmor was built to eliminate the risk of accidental secret leaks. By combining a zero-trust local-first CLI scanner with an end-to-end encrypted web dashboard, it intercepts API keys, environment files, and credentials before they leave the developer's machine—without exposing raw variables to cloud servers.",
+      keyFeatures: [
+        "Pre-commit hook scanning utilizing regex signatures and Shannon Entropy",
+        "AI context protection generating auto-exclusion files (.cursorignore, .claudeignore)",
+        "Financial abuse risk mapping dynamically calculating leak cost estimates ($200–$5000)",
+        "E2E AES-256 encrypted configuration vault with client-side zero-knowledge sync",
+        "Project workspace auto-provisioning and dynamic CLI context switching",
+        "Prisma database persistence and Upstash Redis rate-limiting"
+      ]
+    },
+    {
+      id: 'khidmat',
+      title: "KHIDMAT",
+      description: "An AI-powered service orchestration platform built for Pakistan's informal economy, allowing users to discover, rank, price, and schedule local service providers using natural language chat (English/Urdu/Roman Urdu).",
+      image: "Khidmat.png",
+      objectPosition: "center 10%",
+      tech: ["React Native", "Expo", "TypeScript", "Redux Toolkit", "Express", "Supabase", "Gemini API", "Google Maps", "Docker", "Tailwind CSS"],
+      link: "https://khidmat-orchestrator.vercel.app/",
+      githubLink: "https://github.com/AliRana30/KHIDMAT",
+      category: "Mobile App",
+      featured: true,
+      purpose: "KHIDMAT was engineered to resolve trust and discovery bottlenecks in Pakistan's informal service sector. By leveraging natural-language inputs, geocoding, and multi-agent orchestration, the platform replaces unstructured chats and phone calls with structured workflows—automating everything from intent parsing and radius expansion mapping to dynamic surge pricing, double-booking checks, and trace-logged dispute handling.",
+      keyFeatures: [
+        "Multilingual natural language parsing (English, Urdu, Roman Urdu)",
+        "Multi-agent orchestration pipeline (Intent, Discovery, Ranking, Pricing, Dispute)",
+        "Geocoded provider discovery with progressive radius expansion",
+        "Dynamic surge pricing considering travel, complexity, and urgency",
+        "Double-booking prevention and travel-time buffers",
+        "Interactive live booking tracking screen with real-time updates",
+        "Explainable AI trace viewer to debug backend decisions",
+        "Supabase persistence and JWT-based session security",
+        "Dockerized backend ready for Cloud Run deployment"
+      ]
+    },
     {
       id: 'noretmy',
       title: "Noretmy",
@@ -301,6 +359,9 @@ const Projects = () => {
 
     const iconMap = {
       'react': <SiReact className="w-4 h-4" />,
+      'react native': <SiReact className="w-4 h-4" />,
+      'expo': <Zap className="w-4 h-4" />,
+      'typescript': <SiTypescript className="w-4 h-4" />,
       'next.js': <SiNextdotjs className="w-4 h-4" />,
       'node.js': <SiNodedotjs className="w-4 h-4" />,
       'mongodb': <SiMongodb className="w-4 h-4" />,
@@ -317,7 +378,12 @@ const Projects = () => {
       'shadcn/ui': <SiShadcnui className="w-4 h-4" />,
       'framer motion': <SiFramer className="w-4 h-4" />,
       'bcrypt': <Lock className="w-4 h-4" />,
-      'react-hot-toast': <Bell className="w-4 h-4" />
+      'react-hot-toast': <Bell className="w-4 h-4" />,
+      'docker': <SiDocker className="w-4 h-4" />,
+      'google maps': <SiGooglemaps className="w-4 h-4" />,
+      'supabase': <SiMongodb className="w-4 h-4" />,
+      'gemini api': <Lightbulb className="w-4 h-4" />,
+      'prisma': <SiPrisma className="w-4 h-4" />
     };
 
     return iconMap[techLower] || <Zap className="w-4 h-4" />;
@@ -328,6 +394,9 @@ const Projects = () => {
 
     const colorMap = {
       'react': 'text-[#61DAFB]',
+      'react native': 'text-[#61DAFB]',
+      'expo': 'text-primary',
+      'typescript': 'text-[#3178C6]',
       'next.js': 'text-primary',
       'node.js': 'text-[#339933]',
       'mongodb': 'text-[#47A248]',
@@ -341,11 +410,30 @@ const Projects = () => {
       'redis': 'text-[#DC382D]',
       'socket.io': 'text-primary',
       'bcrypt': 'text-red-500',
-      'react-hot-toast': 'text-amber-600'
+      'react-hot-toast': 'text-amber-600',
+      'docker': 'text-[#2496ED]',
+      'google maps': 'text-[#4285F4]',
+      'supabase': 'text-[#3ECF8E]',
+      'gemini api': 'text-[#1A73E8]',
+      'prisma': 'text-[#5A67D8]'
     };
 
     return colorMap[techLower] || 'text-[#888888]';
   };
+
+  const filteredProjects = projects.filter((project) => {
+    if (activeFilterIndex === 0) return true;
+    if (activeFilterIndex === 1) {
+      return project.category === "Full-Stack" || project.category === "Frontend" || project.category === "Web & CLI";
+    }
+    if (activeFilterIndex === 2) {
+      return project.category === "Mobile App";
+    }
+    if (activeFilterIndex === 3) {
+      return project.category === "CLI Tool" || project.category === "Web & CLI";
+    }
+    return true;
+  });
 
   return (
     <>
@@ -367,7 +455,7 @@ const Projects = () => {
               className="mb-12 md:mb-20"
             >
               <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-[1.5px] bg-black"></div>
+                <div className="w-12 h-[1.5px] bg-accent"></div>
                 <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Projects</span>
               </div>
 
@@ -381,24 +469,44 @@ const Projects = () => {
                 Explore my latest work showcasing modern web development with cutting-edge technologies and user-centric design patterns.
               </p>
             </motion.div>
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-8"
-            >
-              {projects.map((project, index) => (
-                <ProjectCard
-                  key={project.id}
-                  project={project}
-                  index={index}
-                  cardVariants={cardVariants}
-                  getTechIcon={getTechIcon}
-                  getTechColor={getTechColor}
+
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+              {/* Sticky Sidebar Filter for Desktop, Top row for Mobile */}
+              <div className="w-full md:w-auto md:sticky md:top-28 z-20 flex justify-center md:justify-start">
+                <ExpandableTabs
+                  tabs={filterTabs}
+                  activeColor="text-primary"
+                  activeTab={activeFilterIndex}
+                  onChange={(val) => val !== null && setActiveFilterIndex(val)}
+                  showAllTitles={true}
+                  className="flex-row md:flex-col md:items-stretch p-1.5 border border-subtle bg-surface shadow-xl rounded-xl md:w-44"
                 />
-              ))}
-            </motion.div>
+              </div>
+
+              {/* Projects Grid */}
+              <div className="flex-1 w-full">
+                <motion.div
+                  variants={containerVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.1 }}
+                  className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+                >
+                  <AnimatePresence mode="popLayout">
+                    {filteredProjects.map((project, index) => (
+                      <ProjectCard
+                        key={project.id}
+                        project={project}
+                        index={index}
+                        cardVariants={cardVariants}
+                        getTechIcon={getTechIcon}
+                        getTechColor={getTechColor}
+                      />
+                    ))}
+                  </AnimatePresence>
+                </motion.div>
+              </div>
+            </div>
 
             {/* Portfolio note */}
             <motion.div

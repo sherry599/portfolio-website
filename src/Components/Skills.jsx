@@ -6,32 +6,54 @@ const SkillCard = ({ skill, skillVariants }) => {
   return (
     <motion.div
       variants={skillVariants}
-      className="group relative bg-elevated p-6 border border-subtle transition-all duration-500 hover:border-default"
+      whileHover={{
+        y: -6,
+        scale: 1.02,
+        borderColor: skill.hexColor,
+        boxShadow: `0 20px 40px -15px ${skill.hexColor}35`,
+      }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="group relative bg-elevated p-6 border border-subtle rounded-2xl overflow-hidden transition-colors duration-300"
       data-cursor="pointer"
-      onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = `0 15px 35px -5px ${skill.hexColor}25`;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.boxShadow = 'none';
-      }}
     >
-      <div className="flex items-center gap-5">
-        <div className={`p-4 rounded-2xl transition-all duration-500 bg-surface border border-subtle group-hover:border-default shadow-inner`}>
-          <div className={skill.iconColor}>{skill.icon}</div>
-        </div>
+      <div className="flex items-center gap-5 relative z-10">
+        {/* Icon wrapper with soft background glow on hover */}
+        <motion.div 
+          whileHover={{ rotate: 10, scale: 1.1 }}
+          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+          className="p-3.5 rounded-xl transition-all duration-300 bg-surface border border-subtle group-hover:border-default group-hover:bg-primary group-hover:shadow-md flex items-center justify-center"
+          style={{ 
+            boxShadow: `inset 0 2px 4px rgba(0,0,0,0.02)`
+          }}
+        >
+          <div className={`${skill.iconColor} group-hover:scale-105 transition-transform duration-300 flex items-center justify-center`}>
+            {skill.icon}
+          </div>
+        </motion.div>
 
-        <div>
-          <h4 className="text-sm font-bold tracking-wider uppercase text-primary transition-colors duration-300">
+        <div className="flex flex-col gap-1">
+          <h4 className="text-base font-bold tracking-wide text-primary transition-colors duration-300">
             {skill.name}
           </h4>
+          <span className="text-[10px] uppercase tracking-widest font-bold mono text-secondary opacity-70 group-hover:text-primary transition-colors duration-300">
+            Proficient
+          </span>
         </div>
       </div>
 
-      {/* Decorative corner accent */}
+      {/* Brand Color Bottom Bar Accent */}
       <div
-        className="absolute top-0 right-0 w-12 h-12 opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+        className="absolute bottom-0 left-0 right-0 h-[3px] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
         style={{
-          background: `radial-gradient(circle at top right, ${skill.hexColor}, transparent)`
+          background: skill.hexColor
+        }}
+      ></div>
+
+      {/* Soft Glow Ambient light */}
+      <div
+        className="absolute -right-10 -bottom-10 w-24 h-24 rounded-full blur-2xl opacity-0 group-hover:opacity-15 transition-opacity duration-500"
+        style={{
+          background: skill.hexColor
         }}
       ></div>
     </motion.div>
@@ -110,11 +132,12 @@ const Skills = () => {
   };
 
   const skillVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, y: 15 },
     visible: {
       opacity: 1,
+      y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.4,
         ease: [0.22, 1, 0.36, 1]
       }
     }
@@ -129,73 +152,72 @@ const Skills = () => {
         <div className="absolute top-2/3 right-1/3 w-2 h-24 bg-border-default rotate-45"></div>
       </div>
 
-        <section id="skills" className="pt-8 pb-16 md:pt-12 md:pb-24 relative z-10">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              viewport={{ once: true, amount: 0.1 }}
-              className="mb-12 md:mb-20"
-            >
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-[1.5px] bg-black"></div>
-                <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Skills & Expertise</span>
-              </div>
+      <section id="skills" className="pt-8 pb-16 md:pt-12 md:pb-24 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.1 }}
+            className="mb-12 md:mb-20"
+          >
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-12 h-[1.5px] bg-accent"></div>
+              <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Skills & Expertise</span>
+            </div>
 
-              <h2 className="text-3xl md:text-3xl font-light leading-tight mb-6 section-heading">
-                <span className="font-extralight text-secondary">Technical</span>
-                <br />
-                <span className="font-bold text-primary">Proficiency</span>
-              </h2>
+            <h2 className="text-3xl md:text-3xl font-light leading-tight mb-6 section-heading">
+              <span className="font-extralight text-secondary">Technical</span>
+              <br />
+              <span className="font-bold text-primary">Proficiency</span>
+            </h2>
+          </motion.div>
 
-            </motion.div>
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+          >
+            {skillCategories.map((category, categoryIndex) => (
+              <motion.div
+                key={category.title}
+                variants={categoryVariants}
+                className="bg-surface border border-subtle p-8 md:p-10 mb-8 last:mb-0 shadow-lg rounded-3xl relative overflow-hidden"
+              >
+                {/* Subtle decorative background gradient */}
+                <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-elevated to-transparent opacity-30 -mr-20 -mt-20 rounded-full blur-3xl pointer-events-none" />
 
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-            >
-              {skillCategories.map((category, categoryIndex) => (
-                <motion.div
-                  key={category.title}
-                  variants={categoryVariants}
-                  className="bg-surface border border-subtle p-8 md:p-12 mb-10 last:mb-0 shadow-xl"
-                >
-                  {/* Category Header */}
-                  <div className="flex items-center gap-6 mb-16">
-                    <motion.div
-                      className="p-4 border border-default text-primary bg-elevated rounded-2xl backdrop-blur-sm"
-                      transition={{ duration: 0.2 }}
-                    >
-                      {category.icon}
-                    </motion.div>
-                    <div>
-                      <h3 className="text-3xl font-bold text-primary mb-2 tracking-tight">
-                        {category.title}
-                      </h3>
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-[1.5px] bg-black"></div>
-                        <span className="text-xs text-secondary uppercase tracking-[0.2em] font-bold mono">
-                          {category.skills.length} Stack
-                        </span>
-                      </div>
+                {/* Category Header */}
+                <div className="flex items-center gap-5 mb-10 relative z-10">
+                  <div className="p-3.5 border border-default text-primary bg-elevated rounded-2xl shadow-sm">
+                    {category.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-primary tracking-tight">
+                      {category.title}
+                    </h3>
+                    <div className="flex items-center gap-2 mt-1">
+                      <div className="w-6 h-[1.5px] bg-accent/60"></div>
+                      <span className="text-[10px] text-secondary uppercase tracking-[0.2em] font-semibold mono">
+                        {category.skills.length} Technologies
+                      </span>
                     </div>
                   </div>
+                </div>
 
-                  {/* Skills Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {category.skills.map((skill) => (
-                      <SkillCard key={skill.name} skill={skill} skillVariants={skillVariants} />
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
-      </div>
+                {/* Skills Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+                  {category.skills.map((skill) => (
+                    <SkillCard key={skill.name} skill={skill} skillVariants={skillVariants} />
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+    </div>
   );
 };
 

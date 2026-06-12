@@ -93,7 +93,7 @@ const EducationTimeline = () => {
             className="mb-20"
           >
             <div className="mb-8 flex items-center gap-4">
-              <div className="h-[1.5px] w-12 bg-black" />
+              <div className="h-[1.5px] w-12 bg-accent" />
               <span className="mono text-sm font-medium uppercase tracking-wider text-secondary">Education</span>
             </div>
 
@@ -118,7 +118,7 @@ const EducationTimeline = () => {
                 viewport={{ once: true, amount: 0.2 }}
                 className="relative mb-12 last:mb-0"
               >
-                <span className="absolute -left-[41px] top-1 h-4 w-4 rounded-full border-4 border-primary bg-surface shadow-[0_0_10px_rgba(0,0,0,0.05)]" />
+                <span className="absolute -left-[41px] top-1 h-4 w-4 rounded-full border-4 border-[var(--accent)] bg-surface shadow-[0_0_10px_rgba(0,0,0,0.05)]" />
 
                 <div className="border border-subtle bg-surface p-8 transition-all duration-500 hover:border-default hover:shadow-xl">
                   <div className="mb-6 flex flex-col md:flex-row md:items-start justify-between gap-4">

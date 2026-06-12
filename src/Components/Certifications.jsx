@@ -113,7 +113,7 @@ const Certifications = () => {
               className="mb-20"
             >
               <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-[1.5px] bg-black"></div>
+                <div className="w-12 h-[1.5px] bg-accent"></div>
                 <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Achievements</span>
               </div>
 

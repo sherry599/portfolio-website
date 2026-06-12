@@ -28,6 +28,8 @@ import {
   SiFigma,
 } from 'react-icons/si';
 
+import { CircularTestimonials } from '@/components/ui/circular-testimonials';
+
 const sectionVariants = {
   hidden: { opacity: 0, y: 40 },
   visible: {
@@ -44,8 +46,6 @@ const stackVariants = {
     transition: { staggerChildren: 0.08 },
   },
 };
-
-// Project cards removed in favor of summarized Technical Excellence section
 
 const masterTechStack = [
   [
@@ -75,6 +75,39 @@ const masterTechStack = [
 ];
 
 const About = () => {
+  const aboutSlides = [
+    {
+      name: "Who I Am",
+      designation: "01 / Bio",
+      quote: "I am Ali Mahmood, a Full-Stack Software Engineer who bridges the gap between premium, high-end UI design and robust, scalable backend architecture. I don't just write code; I architect end-to-end solutions, specializing in complex marketplaces, real-time AI assistants, and production-ready Learning Management Systems.",
+      src: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1368&auto=format&fit=crop"
+    },
+    {
+      name: "Why Me",
+      designation: "02 / Value",
+      quote: "Hiring specialists often leads to fragmented results. I provide a single point of ownership, handling everything from pixel-perfect UI design with Framer Motion to secure backend architecture with Node.js and Stripe. You get consistent quality and zero handoff friction.",
+      src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1368&auto=format&fit=crop"
+    },
+    {
+      name: "Open Source",
+      designation: "03 / Contributions",
+      quote: "Beyond client work, I am an active open-source contributor. My patches have landed in foundational projects like Apache Arrow (C++), tackling deprecated API removals and sparse tensor safety—proving my commitment to writing code that holds up under enterprise-level scrutiny.",
+      src: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1368&auto=format&fit=crop"
+    },
+    {
+      name: "Technical Excellence",
+      designation: "04 / Projects",
+      quote: "My projects represent the peak of modern stack engineering. From Noretmy (freelancing platform) to CampusCore (scalable, Redis-cached LMS) and MultiMart (multivendor marketplace), I engineer high-performance systems with secure payment releases, low latency, and optimized assets.",
+      src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1368&auto=format&fit=crop"
+    },
+    {
+      name: "Problem Solving",
+      designation: "05 / Logic",
+      quote: "I am a passionate problem solver who views algorithmic efficiency as the cornerstone of great software engineering. My deep understanding of complex data structures and optimized algorithms allows me to write code that is not only functional but performant at scale, backed by daily progress on LeetCode.",
+      src: "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=1368&auto=format&fit=crop"
+    }
+  ];
+
   return (
     <div className="relative bg-primary">
       <section id="about" className="pt-14 pb-8 md:pt-24 md:pb-12 relative z-10">
@@ -88,7 +121,7 @@ const About = () => {
           >
             <motion.div variants={sectionVariants} className="mb-8">
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-[1.5px] bg-black"></div>
+                <div className="w-12 h-[1.5px] bg-accent"></div>
                 <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Introduction</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-light leading-tight section-heading text-primary">
@@ -96,73 +129,29 @@ const About = () => {
               </h2>
             </motion.div>
 
-            <motion.div variants={sectionVariants} className="w-full border border-subtle bg-surface p-6 md:p-8 mb-12 shadow-2xl">
-              <div className="space-y-6 text-sm md:text-base leading-relaxed text-secondary">
-                <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-[1.5px] bg-black"></div>
-                    <span className="text-[10px] font-bold text-secondary uppercase tracking-widest mono">01 / Bio</span>
-                  </div>
-                  <h4 className="text-primary font-bold text-xl mb-3 leading-tight">Who I Am</h4>
-                  <p>I am Ali Mahmood, a Full-Stack Software Engineer who bridges the gap between premium, high-end UI design and robust, scalable backend architecture. I don't just write code; I architect end-to-end solutions, specializing in complex marketplaces, real-time AI assistants, and production-ready Learning Management Systems.</p>
-                </div>
-
-                <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-[1.5px] bg-black"></div>
-                    <span className="text-[10px] font-bold text-secondary uppercase tracking-widest mono">02 / Value</span>
-                  </div>
-                  <h4 className="text-primary font-bold text-xl mb-3 leading-tight">Why Me</h4>
-                  <p>Hiring specialists often leads to fragmented results. I provide a single point of ownership, handling everything from pixel-perfect UI design with Framer Motion to secure backend architecture with Node.js and Stripe. You get consistent quality and zero handoff friction.</p>
-                </div>
-
-                <div>
-                  <p>Beyond client work, I am an active open-source contributor. My patches have landed in foundational projects like Apache Arrow (C++), tackling deprecated API removals and sparse tensor safety—proving my commitment to writing code that holds up under enterprise-level scrutiny.</p>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div variants={sectionVariants} className="w-full border border-subtle bg-surface p-6 md:p-8 mb-12 shadow-2xl">
-              <div className="space-y-8 text-sm md:text-base leading-relaxed text-secondary">
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-8 h-[1.5px] bg-black"></div>
-                    <span className="text-[10px] font-bold text-secondary uppercase tracking-widest mono">03 / Projects</span>
-                  </div>
-                  <h4 className="text-primary font-bold text-xl mb-4 leading-tight">Technical Excellence</h4>
-                  <div className="space-y-6">
-                    <p>
-                      <a href="https://noretmy.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-primary font-bold hover:underline">Noretmy</a> is a high-performance freelancing ecosystem featuring a sophisticated milestone-driven payment system. It includes real-time file sharing via Socket.io and automated authority level recalculations, ensuring a secure and scalable platform for global talent.
-                    </p>
-                    <p>
-                      <a href="https://lms-e-learning-system.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-primary font-bold hover:underline">CampusCore</a> is a robust LMS designed for secure content delivery. Using VDOCipher for encrypted streaming and Stripe for enrollments, it leverages Redis caching and Socket.io to provide a low-latency, real-time learning experience for students and instructors alike.
-                    </p>
-                    <p>
-                      <a href="https://multimarts.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-primary font-bold hover:underline">MultiMart</a> is a multivendor marketplace optimized for shared inventory management. It features role-separated dashboards and webhook-verified Stripe payments, utilizing Cloudinary for dynamic media optimization to ensure a fast, responsive shopping experience at scale.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div variants={sectionVariants} className="w-full border border-subtle bg-surface p-6 md:p-8 mb-12 shadow-2xl">
-              <div className="space-y-6 text-sm md:text-base leading-relaxed text-secondary">
-                <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-[1px] bg-border-default"></div>
-                    <span className="text-[10px] font-bold text-secondary uppercase tracking-widest mono">04 / Logic</span>
-                  </div>
-                  <h4 className="text-primary font-bold text-xl mb-3 leading-tight">Problem Solving</h4>
-                  <p>
-                    I am a passionate problem solver who views algorithmic efficiency as the cornerstone of great software engineering. My deep understanding of complex data structures and optimized algorithms allows me to write code that is not only functional but performant at scale. You can track my daily progress and problem-solving journey on <a href="https://leetcode.com/u/AliRana28/" target="_blank" rel="noopener noreferrer" className="text-primary font-bold hover:underline">LeetCode</a> where I have tackled hundreds of challenges ranging from dynamic programming and graph theory to system design patterns. This commitment to continuous learning on LeetCode ensures that my engineering decisions are always backed by a rigorous, logic-first approach to solving real-world production bottlenecks.
-                  </p>
-                </div>
-              </div>
+            <motion.div variants={sectionVariants} className="w-full border border-subtle bg-surface p-2 md:p-6 mb-12 shadow-2xl rounded-2xl flex justify-center items-center">
+              <CircularTestimonials
+                testimonials={aboutSlides}
+                autoplay={false}
+                colors={{
+                  name: "var(--text-primary)",
+                  designation: "var(--text-secondary)",
+                  testimony: "var(--text-secondary)",
+                  arrowBackground: "var(--bg-elevated)",
+                  arrowForeground: "var(--text-primary)",
+                  arrowHoverBackground: "var(--text-primary)",
+                }}
+                fontSizes={{
+                  name: "1.75rem",
+                  designation: "0.875rem",
+                  quote: "1rem"
+                }}
+              />
             </motion.div>
 
             <motion.div variants={sectionVariants} className="pt-12 mb-8">
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-[1.5px] bg-black"></div>
+                <div className="w-12 h-[1.5px] bg-accent"></div>
                 <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Capabilities</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-light leading-tight section-heading text-primary">

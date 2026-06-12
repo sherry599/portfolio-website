@@ -58,7 +58,7 @@ const Socials = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
             <div className="mb-12 md:mb-20">
               <div className="flex items-center gap-4 mb-6 md:mb-8">
-                <div className="w-12 h-[1.5px] bg-black"></div>
+                <div className="w-12 h-[1.5px] bg-accent"></div>
                 <span className="text-xs md:text-sm font-medium text-secondary tracking-wider uppercase mono">Get In Touch</span>
               </div>
               
