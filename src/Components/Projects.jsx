@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Github, Star, GitFork, ArrowUpRight } from 'lucide-react';
-import { usePageTransition } from './PageTransitionContext';
+import { usePageTransition } from '@/Components/PageTransitionContext';
 import MagneticButton from './ui/MagneticButton';
 import { fetchGitHubData } from '../lib/github';
 import { projectsData } from '../data/projectsData';
@@ -9,7 +9,7 @@ import { projectsData } from '../data/projectsData';
 const Projects = () => {
   const [gitData, setGitData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { transitionTo, isTransitioning, activeCardId } = usePageTransition();
+  const { transitionTo, isTransitioning, activeCardId, prefetch } = usePageTransition();
   const isThisTransitioning = isTransitioning && activeCardId === 'projects';
 
   useEffect(() => {
@@ -79,22 +79,22 @@ const Projects = () => {
           y: 0,
           transition: { duration: 0.5, ease: "easeOut" }
         }}
-        className="py-24 md:py-32 relative z-10"
+        className="py-10 md:py-14 relative z-10"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
           
           {/* Section Header */}
-          <div className="mb-16 max-w-2xl">
+          <div className="mb-12 max-w-2xl mx-auto flex flex-col items-center text-center">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-8 h-[1.5px] bg-accent"></div>
               <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Portfolio</span>
             </div>
 
             <h2 className="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">
-              Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-800 to-neutral-500 dark:from-white dark:to-neutral-400">Projects</span>
+              Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300">Projects</span>
             </h2>
 
-            <p className="text-lg text-secondary font-light leading-relaxed">
+            <p className="text-lg text-secondary font-light leading-relaxed max-w-xl mx-auto">
               Explore my featured project creations and case studies.
             </p>
           </div>
@@ -110,6 +110,7 @@ const Projects = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.45, delay: idx * 0.05 }}
                   whileHover={{ y: -4 }}
+                  onMouseEnter={() => prefetch(`/project/${project.id}`)}
                   onClick={() => transitionTo(`/project/${project.id}`, project.id)}
                   className="group relative flex flex-col justify-between overflow-hidden border border-subtle bg-surface/30 hover:bg-surface/50 transition-all duration-300 shadow-sm rounded-2xl p-6 cursor-pointer"
                 >
@@ -139,6 +140,7 @@ const Projects = () => {
                           <img
                             src={`/${project.image}`}
                             alt={project.title}
+                            loading="lazy"
                             className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-102 transition-transform duration-500"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-40" />
@@ -185,6 +187,7 @@ const Projects = () => {
           {/* Trigger Button to full Projects Page */}
           <div className="flex justify-center">
             <MagneticButton
+              onMouseEnter={() => prefetch('/projects')}
               onClick={() => transitionTo('/projects', 'projects')}
               className="group bg-accent text-inverse border border-default px-10 py-5 font-bold uppercase tracking-widest text-xs rounded-xl shadow-2xl transition-colors duration-300"
             >

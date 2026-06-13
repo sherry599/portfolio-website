@@ -1,7 +1,7 @@
 import { contributions } from '../data/openSourceData';
 
 const GITHUB_USERNAME = "AliRana30";
-const CACHE_KEY = "github_portfolio_data_v2";
+const CACHE_KEY = "github_portfolio_data_v3";
 const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes cache to keep it fresh
 
 export const fetchGitHubData = async () => {
@@ -130,7 +130,7 @@ const getFallbackData = () => {
       repo: repoName,
       org: org,
       prNumber: c.prNumber,
-      createdAt: new Date().toISOString(),
+      createdAt: c.date || new Date().toISOString(),
       body: c.description || "",
       impact: c.impact || "",
       language: c.language || "JavaScript"

@@ -1,6 +1,6 @@
 import { Calendar, Eye } from 'lucide-react';
 import { use3DTilt } from '../hooks/use3DAnimations';
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 
 const CertificateCard = ({ cert, index, onOpen }) => {
   const tiltRef = use3DTilt({ maxRotation: 8, perspective: 800 });
@@ -78,27 +78,25 @@ const EducationTimeline = () => {
         <div className="absolute bottom-24 left-20 h-32 w-32 border border-subtle rounded-full" />
       </div>
 
-      <section id="education" className="relative z-10 py-24">
+      <section id="education" className="relative z-10 py-10">
         <div className="container mx-auto max-w-6xl px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true, amount: 0.2 }}
-            className="mb-20"
+            className="mb-12 flex flex-col items-center text-center"
           >
-            <div className="mb-8 flex items-center gap-4">
-              <div className="h-[1.5px] w-12 bg-accent" />
-              <span className="mono text-sm font-medium uppercase tracking-wider text-secondary">Education</span>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-[1.5px] bg-accent"></div>
+              <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Education</span>
             </div>
 
-            <h2 className="section-heading mb-6 text-3xl font-light leading-tight md:text-4xl">
-              <span className="font-extralight text-secondary">Education and</span>
-              <br />
-              <span className="font-bold text-primary">Certifications</span>
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">
+              Education & <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300">Certifications</span>
             </h2>
 
-            <p className="max-w-2xl text-lg font-light text-secondary leading-relaxed">
+            <p className="max-w-2xl text-lg font-light text-secondary leading-relaxed mx-auto">
               A timeline of formal education and verified milestones with certificate previews.
             </p>
           </motion.div>
@@ -124,7 +122,7 @@ const EducationTimeline = () => {
                     <span className="inline-block self-start border border-subtle bg-elevated px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary">{entry.badge}</span>
                   </div>
 
-                  <div className="mb-4 flex flex-wrap items-center gap-4 text-xs font-bold uppercase tracking-wider text-tertiary">
+                  <div className="mb-4 flex flex-wrap items-center gap-4 text-xs font-bold uppercase tracking-wider text-secondary">
                     <span className="inline-flex items-center gap-2">
                       <Calendar className="h-3.5 w-3.5" />
                       {entry.duration}

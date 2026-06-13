@@ -15,7 +15,20 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
   const navigate = useNavigate();
   const location = useLocation();
-  const { transitionTo, isTransitioning } = usePageTransition();
+  const { transitionTo, isTransitioning, prefetch } = usePageTransition();
+
+  const handleHoverTab = (index) => {
+    const tab = tabs[index];
+    if (tab && tab.to) {
+      if (tab.to === 'projects') {
+        prefetch('/projects');
+      } else if (tab.to === 'openSource') {
+        prefetch('/open-source');
+      } else {
+        prefetch('/');
+      }
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -149,6 +162,7 @@ const Navbar = () => {
                 tabs={tabs} 
                 activeTab={activeTabIndex !== -1 ? activeTabIndex : null}
                 onChange={handleTabChange}
+                onHoverTab={handleHoverTab}
                 activeColor="text-primary"
                 className="bg-transparent border-none shadow-none"
               />
@@ -191,6 +205,7 @@ const Navbar = () => {
                 tab.to && (
                   <button
                     key={tab.title}
+                    onMouseEnter={() => handleHoverTab(index)}
                     onClick={() => {
                       handleMobileTabChange(index);
                       setIsOpen(false);

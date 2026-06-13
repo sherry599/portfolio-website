@@ -4,7 +4,7 @@ import { ArrowLeft, ExternalLink, Target, Zap, Code2, CheckCircle, Github, Alert
 import { 
   SiReact, SiNodedotjs, SiMongodb, SiExpress, SiTailwindcss, SiJsonwebtokens, 
   SiCloudinary, SiNextdotjs, SiRedis, SiSocketdotio, SiStripe, SiRedux, 
-  SiPaypal, SiAmazons3, SiShadcnui, SiFramer, SiTypescript, SiDocker, SiGooglemaps, SiPrisma, SiPython, SiGo, SiCplusplus 
+  SiPaypal, SiAmazons3, SiShadcnui, SiFramer, SiTypescript, SiDocker, SiGooglemaps, SiPrisma, SiPython, SiGo, SiCplusplus, SiSupabase
 } from 'react-icons/si';
 import { useParams } from 'react-router-dom';
 import { usePageTransition } from './PageTransitionContext';
@@ -102,7 +102,7 @@ const ProjectDetails = () => {
       'framer motion': <SiFramer className="w-4 h-4 text-[#db2777] dark:text-[#f472b6]" />,
       'docker': <SiDocker className="w-4 h-4 text-[#0284c7] dark:text-[#38bdf8]" />,
       'google maps': <SiGooglemaps className="w-4 h-4 text-[#2563eb] dark:text-[#60a5fa]" />,
-      'supabase': <SiMongodb className="w-4 h-4 text-[#16a34a] dark:text-[#4ade80]" />,
+      'supabase': <SiSupabase className="w-4 h-4 text-[#3ECF8E]" />,
       'gemini api': <Lightbulb className="w-4 h-4 text-[#eab308] dark:text-[#fde047]" />,
       'prisma': <SiPrisma className="w-4 h-4 text-primary dark:text-white" />,
       'python': <SiPython className="w-4 h-4 text-[#0284c7] dark:text-[#38bdf8]" />,

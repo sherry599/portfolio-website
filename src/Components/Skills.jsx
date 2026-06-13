@@ -1,233 +1,190 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { SiMongodb, SiExpress, SiReact, SiNodedotjs, SiTailwindcss, SiGit, SiJavascript, SiNextdotjs, SiRedux, SiDocker, SiRedis, SiGithubactions, SiFigma, SiFramer, SiShadcnui } from 'react-icons/si';
-import { Code, Database, Settings, Layout, Zap } from 'lucide-react';
+import {
+  SiMongodb, SiExpress, SiReact, SiNodedotjs, SiTailwindcss,
+  SiGit, SiJavascript, SiNextdotjs, SiRedux, SiDocker, SiRedis,
+  SiGithubactions, SiFigma, SiFramer, SiShadcnui, SiSupabase
+} from 'react-icons/si';
 
-const SkillCard = ({ skill, skillVariants }) => {
-  const [isHovered, setIsHovered] = useState(false);
 
-  return (
-    <motion.div
-      variants={skillVariants}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      whileHover={{
-        y: -6,
-        scale: 1.02,
-      }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="group relative p-6 border rounded-2xl overflow-hidden transition-all duration-300 bg-transparent"
-      style={{
-        borderColor: isHovered ? `${skill.hexColor}60` : 'var(--border-default)',
-        boxShadow: isHovered ? `0 16px 36px -12px ${skill.hexColor}25` : 'none',
-        background: isHovered ? `${skill.hexColor}06` : 'transparent',
-      }}
-      data-cursor="pointer"
-    >
-      <div className="flex items-center gap-5 relative z-10">
-        {/* Icon wrapper with soft background glow on hover */}
-        <motion.div 
-          whileHover={{ rotate: 10, scale: 1.1 }}
-          transition={{ type: "spring", stiffness: 400, damping: 15 }}
-          className="p-3.5 rounded-xl transition-all duration-300 border flex items-center justify-center"
-          style={{ 
-            borderColor: isHovered ? `${skill.hexColor}40` : 'var(--border-subtle)',
-            background: isHovered ? `${skill.hexColor}10` : 'var(--bg-surface)',
-          }}
+/* ─────────────────────────────────────────────────────────── */
+/*  Data                                                        */
+/* ─────────────────────────────────────────────────────────── */
+const CATEGORIES = [
+  {
+    label: 'Frontend',
+    techs: [
+      { name: 'React',       Icon: SiReact,       color: '#61DAFB' },
+      { name: 'Next.js',     Icon: SiNextdotjs,   color: '#888' },
+      { name: 'JavaScript',  Icon: SiJavascript,  color: '#F7DF1E' },
+      { name: 'Tailwind',    Icon: SiTailwindcss, color: '#06B6D4' },
+      { name: 'Redux / RTK', Icon: SiRedux,       color: '#764ABC' },
+    ],
+  },
+  {
+    label: 'Backend',
+    techs: [
+      { name: 'Node.js',  Icon: SiNodedotjs, color: '#339933' },
+      { name: 'Express',  Icon: SiExpress,   color: '#888' },
+    ],
+  },
+  {
+    label: 'Database',
+    techs: [
+      { name: 'MongoDB',   Icon: SiMongodb,  color: '#47A248' },
+      { name: 'Redis',     Icon: SiRedis,    color: '#DC382D' },
+      { name: 'Supabase',  Icon: SiSupabase, color: '#3ECF8E' },
+    ],
+  },
+  {
+    label: 'DevOps & Infra',
+    techs: [
+      { name: 'Docker',     Icon: SiDocker,        color: '#2496ED' },
+      { name: 'GitHub CI',  Icon: SiGithubactions, color: '#2088FF' },
+      { name: 'Git',        Icon: SiGit,           color: '#F05032' },
+    ],
+  },
+  {
+    label: 'Tools & Design',
+    techs: [
+      { name: 'Figma',          Icon: SiFigma,    color: '#F24E1E' },
+      { name: 'Framer Motion',  Icon: SiFramer,   color: '#0055FF' },
+      { name: 'shadcn/ui',      Icon: SiShadcnui, color: '#888' },
+    ],
+  },
+];
+
+/* ─────────────────────────────────────────────────────────── */
+/*  Single tech pill                                            */
+/* ─────────────────────────────────────────────────────────── */
+const TechPill = ({ name, Icon, color, delay }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 10 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: '-30px' }}
+    transition={{ duration: 0.35, delay, ease: [0.22, 1, 0.36, 1] }}
+    className="group flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-default bg-elevated hover:bg-surface hover:border-zinc-400 dark:hover:border-zinc-500 hover:-translate-y-[2.5px] hover:shadow-sm transition-all duration-200 cursor-default text-primary"
+  >
+    <Icon
+      size={16}
+      style={{ color: color === '#888' ? 'currentColor' : color }}
+      className="flex-shrink-0 transition-transform duration-200 group-hover:scale-110"
+    />
+    <span className="text-xs font-semibold tracking-wide whitespace-nowrap">
+      {name}
+    </span>
+  </motion.div>
+);
+
+/* ─────────────────────────────────────────────────────────── */
+/*  Category row                                               */
+/* ─────────────────────────────────────────────────────────── */
+const CategoryRow = ({ label, techs, rowIndex }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 18 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: '-40px' }}
+    transition={{ duration: 0.5, delay: rowIndex * 0.07, ease: [0.22, 1, 0.36, 1] }}
+    className="flex flex-col sm:flex-row sm:items-start gap-4 py-5 border-b border-subtle last:border-0"
+  >
+    {/* Label column */}
+    <div className="sm:w-36 flex-shrink-0 pt-1">
+      <span className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-primary mono">
+        {label}
+      </span>
+    </div>
+
+    {/* Pills */}
+    <div className="flex flex-wrap gap-2">
+      {techs.map((tech, i) => (
+        <TechPill
+          key={tech.name}
+          {...tech}
+          delay={rowIndex * 0.06 + i * 0.04}
+        />
+      ))}
+    </div>
+  </motion.div>
+);
+
+/* ─────────────────────────────────────────────────────────── */
+/*  Main section                                               */
+/* ─────────────────────────────────────────────────────────── */
+const Skills = () => (
+  <div className="relative bg-primary">
+    {/* Faint radial glow */}
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-radial from-zinc-200/30 dark:from-zinc-700/10 to-transparent rounded-full blur-3xl" />
+    </div>
+
+    <section id="skills" className="pt-6 pb-10 md:pt-8 md:pb-14 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+
+        {/* ── Heading ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-10 md:mb-14 flex flex-col items-center text-center"
         >
-          <div 
-            className={`${skill.iconColor} transition-transform duration-300 flex items-center justify-center`}
-            style={{ transform: isHovered ? 'scale(1.08)' : 'scale(1)' }}
-          >
-            {skill.icon}
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-8 h-[1.5px] bg-accent" />
+            <span className="text-xs font-bold text-secondary tracking-[0.2em] uppercase mono">
+              Capabilities
+            </span>
           </div>
+
+          <h2 className="text-3xl md:text-5xl font-black tracking-tight text-primary mb-3 leading-tight">
+            Tech{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300">
+              Stack
+            </span>
+          </h2>
+          <p className="text-sm text-secondary font-light max-w-md leading-relaxed mx-auto">
+            A curated set of tools and technologies I work with across the full development lifecycle.
+          </p>
         </motion.div>
 
-        <div className="flex items-center">
-          <h4 className="text-base font-bold tracking-wide text-primary transition-colors duration-300">
-            {skill.name}
-          </h4>
+        {/* ── Category table ── */}
+        <div className="relative rounded-2xl border border-subtle bg-surface/50 backdrop-blur-sm px-5 md:px-8 py-2 overflow-hidden">
+          {/* very faint inner grid */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-[0.015] dark:opacity-[0.03]"
+            style={{
+              backgroundImage: 'linear-gradient(var(--text-primary) 1px, transparent 1px), linear-gradient(90deg, var(--text-primary) 1px, transparent 1px)',
+              backgroundSize: '40px 40px',
+            }}
+          />
+
+          {CATEGORIES.map((cat, i) => (
+            <CategoryRow
+              key={cat.label}
+              label={cat.label}
+              techs={cat.techs}
+              rowIndex={i}
+            />
+          ))}
         </div>
+
+        {/* ── Bottom meta line ── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-6 flex items-center gap-3"
+        >
+          <div className="flex-1 h-px bg-zinc-200/60 dark:bg-zinc-800/60" />
+          <span className="text-[10px] mono text-secondary/60 tracking-widest uppercase">
+            {CATEGORIES.reduce((s, c) => s + c.techs.length, 0)} technologies
+          </span>
+          <div className="flex-1 h-px bg-zinc-200/60 dark:bg-zinc-800/60" />
+        </motion.div>
+
       </div>
-
-      {/* Brand Color Bottom Bar Accent */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-[3px] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-        style={{
-          background: skill.hexColor
-        }}
-      ></div>
-
-      {/* Soft Glow Ambient light */}
-      <div
-        className="absolute -right-10 -bottom-10 w-24 h-24 rounded-full blur-2xl opacity-0 group-hover:opacity-15 transition-opacity duration-500"
-        style={{
-          background: skill.hexColor
-        }}
-      ></div>
-    </motion.div>
-  );
-};
-
-const Skills = () => {
-  const skillCategories = [
-    {
-      title: "Frontend",
-      icon: <Code className="w-5 h-5" />,
-      skills: [
-        { name: "React", icon: <SiReact size={28} />, iconColor: 'text-[#61DAFB]', hexColor: '#61DAFB', bgColor: 'bg-[#61DAFB]10' },
-        { name: "JavaScript", icon: <SiJavascript size={28} />, iconColor: 'text-[#F7DF1E]', hexColor: '#F7DF1E', bgColor: 'bg-[#F7DF1E]10' },
-        { name: "Next.js", icon: <SiNextdotjs size={28} />, iconColor: 'text-primary', hexColor: '#888888', bgColor: 'bg-elevated' }
-      ]
-    },
-    {
-      title: "Backend",
-      icon: <Database className="w-5 h-5" />,
-      skills: [
-        { name: "Node.js", icon: <SiNodedotjs size={28} />, iconColor: 'text-[#339933]', hexColor: '#339933', bgColor: 'bg-[#339933]10' },
-        { name: "Express.js", icon: <SiExpress size={28} />, iconColor: 'text-secondary', hexColor: '#888888', bgColor: 'bg-elevated' },
-        { name: "MongoDB", icon: <SiMongodb size={28} />, iconColor: 'text-[#47A248]', hexColor: '#47A248', bgColor: 'bg-[#47A248]10' }
-      ]
-    },
-    {
-      title: "Infrastructure",
-      icon: <Zap className="w-5 h-5" />,
-      skills: [
-        { name: "Docker", icon: <SiDocker size={28} />, iconColor: 'text-[#2496ED]', hexColor: '#2496ED', bgColor: 'bg-[#2496ED]10' },
-        { name: "Redis", icon: <SiRedis size={28} />, iconColor: 'text-[#DC382D]', hexColor: '#DC382D', bgColor: 'bg-[#DC382D]10' },
-        { name: "GitHub Actions", icon: <SiGithubactions size={28} />, iconColor: 'text-[#2088FF]', hexColor: '#2088FF', bgColor: 'bg-[#2088FF]10' }
-      ]
-    },
-    {
-      title: "Workflow",
-      icon: <Settings className="w-5 h-5" />,
-      skills: [
-        { name: "Redux / RTK", icon: <SiRedux size={28} />, iconColor: 'text-[#764ABC]', hexColor: '#764ABC', bgColor: 'bg-[#764ABC]10' },
-        { name: "Tailwind CSS", icon: <SiTailwindcss size={28} />, iconColor: 'text-[#06B6D4]', hexColor: '#06B6D4', bgColor: 'bg-[#06B6D4]10' },
-        { name: "Git", icon: <SiGit size={28} />, iconColor: 'text-[#F05032]', hexColor: '#F05032', bgColor: 'bg-[#F05032]10' }
-      ]
-    },
-    {
-      title: "UI & Design",
-      icon: <Layout className="w-5 h-5" />,
-      skills: [
-        { name: "Figma", icon: <SiFigma size={28} />, iconColor: 'text-[#F24E1E]', hexColor: '#F24E1E', bgColor: 'bg-[#F24E1E]10' },
-        { name: "Framer Motion", icon: <SiFramer size={28} />, iconColor: 'text-[#0055FF]', hexColor: '#0055FF', bgColor: 'bg-[#0055FF]10' },
-        { name: "Shadcn/UI", icon: <SiShadcnui size={28} />, iconColor: 'text-primary', hexColor: '#888888', bgColor: 'bg-elevated' }
-      ]
-    }
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const categoryVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94]
-      }
-    }
-  };
-
-  const skillVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: [0.22, 1, 0.36, 1]
-      }
-    }
-  };
-
-  return (
-    <div className="relative bg-primary">
-      {/* Minimal geometric background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-32 right-24 w-56 h-56 border border-subtle rotate-12"></div>
-        <div className="absolute bottom-24 left-20 w-32 h-32 border border-subtle rounded-full"></div>
-        <div className="absolute top-2/3 right-1/3 w-2 h-24 bg-border-default rotate-45"></div>
-      </div>
-
-      <section id="skills" className="pt-8 pb-16 md:pt-12 md:pb-24 relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            viewport={{ once: true, amount: 0.1 }}
-            className="mb-12 md:mb-20"
-          >
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-[1.5px] bg-accent"></div>
-              <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Skills & Expertise</span>
-            </div>
-
-            <h2 className="text-3xl md:text-3xl font-light leading-tight mb-6 section-heading">
-              <span className="font-extralight text-secondary">Technical</span>
-              <br />
-              <span className="font-bold text-primary">Proficiency</span>
-            </h2>
-          </motion.div>
-
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-          >
-            {skillCategories.map((category, categoryIndex) => (
-              <motion.div
-                key={category.title}
-                variants={categoryVariants}
-                className="bg-transparent border border-subtle p-8 md:p-10 mb-8 last:mb-0 rounded-3xl relative overflow-hidden"
-              >
-                {/* Subtle decorative background gradient */}
-                <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-surface/30 to-transparent opacity-30 -mr-20 -mt-20 rounded-full blur-3xl pointer-events-none" />
-
-                {/* Category Header */}
-                <div className="flex items-center gap-5 mb-10 relative z-10">
-                  <div className="p-3.5 border border-default text-primary bg-surface/50 backdrop-blur-md rounded-2xl shadow-sm">
-                    {category.icon}
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-primary tracking-tight">
-                      {category.title}
-                    </h3>
-                    <div className="flex items-center gap-2 mt-1">
-                      <div className="w-8 h-[1.5px] bg-zinc-300 dark:bg-zinc-700"></div>
-                      <span className="text-[10px] text-secondary uppercase tracking-[0.2em] font-semibold mono">
-                        {category.skills.length} Technologies
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Skills Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
-                  {category.skills.map((skill) => (
-                    <SkillCard key={skill.name} skill={skill} skillVariants={skillVariants} />
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-    </div>
-  );
-};
+    </section>
+  </div>
+);
 
 export default Skills;

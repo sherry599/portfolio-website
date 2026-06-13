@@ -33,7 +33,7 @@ const Counter = ({ value, suffix = '' }) => {
 };
 
 /* ── GitHub activity grid ── */
-const ActivityGrid = ({ map }) => {
+const ActivityGrid = React.memo(({ map }) => {
   const cols = 26, rows = 7;
   const total = cols * rows;
   const today = new Date();
@@ -74,14 +74,10 @@ const ActivityGrid = ({ map }) => {
           {grid.map((col, ci) => (
             <div key={ci} className="flex flex-col gap-1">
               {col.map((cell, ri) => (
-                <motion.div
+                <div
                   key={ri}
-                  initial={{ scale: 0.6, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.2, delay: ci * 0.008 + ri * 0.004 }}
-                  whileHover={{ scale: 1.4 }}
                   title={`${cell.key}: ${cell.count}`}
-                  className={`w-2.5 h-2.5 rounded-[2px] ${shade[cell.level]}`}
+                  className={`w-2.5 h-2.5 rounded-[2px] transition-transform hover:scale-125 ${shade[cell.level]}`}
                 />
               ))}
             </div>
@@ -95,10 +91,10 @@ const ActivityGrid = ({ map }) => {
       </div>
     </div>
   );
-};
+});
 
 /* ── Timeline card ── */
-const TimelineCard = ({ item, index }) => {
+const TimelineCard = React.memo(({ item, index }) => {
   const orgKey = item.org?.toLowerCase().replace(/[^a-z]/g, '') || 'apache';
   const dotColors = { apache: 'bg-orange-400', fossasia: 'bg-emerald-400', voiceybill: 'bg-blue-400' };
   const dot = dotColors[orgKey] || 'bg-zinc-400';
@@ -140,7 +136,7 @@ const TimelineCard = ({ item, index }) => {
       </div>
     </motion.div>
   );
-};
+});
 
 /* ── Stat card ── */
 const StatCard = ({ label, value, suffix, icon: Icon, delay }) => (
@@ -168,8 +164,8 @@ const Chip = ({ label, active, onClick }) => (
     onClick={onClick}
     className={`px-3 py-1.5 rounded-lg text-[10px] mono font-bold uppercase tracking-wider border transition-all duration-200 ${
       active
-        ? 'bg-primary text-inverse border-primary'
-        : 'bg-surface/30 text-secondary border-subtle hover:border-white/20 hover:text-primary'
+        ? 'bg-zinc-200/80 dark:bg-white/15 text-zinc-950 dark:text-white border-zinc-300 dark:border-white/25'
+        : 'bg-surface/30 text-secondary border-subtle hover:border-zinc-400 hover:text-primary'
     }`}
   >
     {label}
@@ -207,6 +203,13 @@ export const OpenSourcePage = () => {
     });
   }, [gitData, search, activeFilter]);
 
+  const { totalStars, orgs } = useMemo(() => {
+    if (!gitData) return { totalStars: 0, orgs: 0 };
+    const stars = gitData.repos.reduce((s, r) => s + r.stars, 0);
+    const uniqueOrgs = [...new Set(gitData.prs.map(p => p.org))].length;
+    return { totalStars: stars, orgs: uniqueOrgs };
+  }, [gitData]);
+
   /* ── Loading ── */
   if (loading) {
     return (
@@ -222,9 +225,6 @@ export const OpenSourcePage = () => {
       </div>
     );
   }
-
-  const totalStars = gitData.repos.reduce((s, r) => s + r.stars, 0);
-  const orgs = [...new Set(gitData.prs.map(p => p.org))].length;
 
   return (
     <div className="relative min-h-screen bg-primary text-primary overflow-hidden pb-32">
@@ -333,7 +333,7 @@ export const OpenSourcePage = () => {
                   key={id}
                   onClick={() => setView(id)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] mono font-bold uppercase tracking-wider transition-all duration-200 ${
-                    view === id ? 'bg-primary text-inverse shadow-sm' : 'text-secondary hover:text-primary'
+                    view === id ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-sm' : 'text-secondary hover:text-primary'
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5" />
@@ -369,8 +369,7 @@ export const OpenSourcePage = () => {
                   <p className="text-secondary text-sm">No contributions match your search.</p>
                 </div>
               ) : (
-                <motion.div
-                  layout
+                <div
                   className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
                 >
                   <AnimatePresence>
@@ -378,7 +377,7 @@ export const OpenSourcePage = () => {
                       <PRCard key={item.id} item={item} index={i} />
                     ))}
                   </AnimatePresence>
-                </motion.div>
+                </div>
               )}
             </motion.div>
           ) : (

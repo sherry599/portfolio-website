@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, GitMerge, GitBranch, Check } from 'lucide-react';
 
@@ -26,27 +26,17 @@ const formatDate = (dateStr) => {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 };
 
-export const PRCard = ({ item, index }) => {
-  const [hovered, setHovered] = useState(false);
+export const PRCard = React.memo(({ item, index }) => {
   const orgKey = item.org?.toLowerCase().replace(/[^a-z]/g, '') || 'apache';
   const theme = orgColors[orgKey] || orgColors.apache;
   const langStyle = langColors[item.language] || 'bg-zinc-500/10 text-zinc-400 border-zinc-400/20';
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
-      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      transition={{ duration: 0.7, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      layout
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className={`relative group rounded-2xl border bg-gradient-to-br ${theme.bg} ${hovered ? theme.border : 'border-subtle'} p-6 flex flex-col gap-4 cursor-default transition-all duration-300`}
-      style={{
-        boxShadow: hovered
-          ? '0 20px 60px -10px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.03)'
-          : '0 2px 12px rgba(0,0,0,0.04)',
-        transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
-      }}
+      initial={{ opacity: 0, y: 32 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+      className={`relative group rounded-2xl border border-subtle bg-gradient-to-br ${theme.bg} ${theme.border} p-6 flex flex-col gap-4 cursor-default transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl`}
     >
       {/* Merged status + org */}
       <div className="flex items-center justify-between">
@@ -75,7 +65,7 @@ export const PRCard = ({ item, index }) => {
       </div>
 
       {/* Title */}
-      <h3 className="text-sm font-bold text-primary leading-snug line-clamp-2 group-hover:text-white dark:group-hover:text-white transition-colors duration-200">
+      <h3 className="text-sm font-bold text-primary leading-snug line-clamp-2 group-hover:text-zinc-600 dark:group-hover:text-white transition-colors duration-200">
         {cleanText(item.title)}
       </h3>
 
@@ -119,6 +109,6 @@ export const PRCard = ({ item, index }) => {
       </div>
     </motion.div>
   );
-};
+});
 
 export default PRCard;

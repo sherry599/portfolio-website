@@ -283,8 +283,9 @@ export const CircularTestimonials = ({
         }
         .image-container {
           position: relative;
-          width: 100%;
-          height: 24rem;
+          width: 12rem;
+          height: 12rem;
+          margin: 3.5rem auto 1.5rem auto;
           perspective: 1000px;
         }
         .testimonial-image {
@@ -319,6 +320,10 @@ export const CircularTestimonials = ({
         @media (min-width: 768px) {
           .testimonial-grid {
             grid-template-columns: 1fr 1fr;
+            align-items: center;
+          }
+          .image-container {
+            margin: 2rem auto;
           }
           .arrow-buttons {
             padding-top: 0;

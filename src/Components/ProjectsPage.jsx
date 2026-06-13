@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Grid, Monitor, Smartphone, Terminal, ArrowUpRight, Github, ArrowLeft, Star, GitFork, Code2 } from 'lucide-react';
+import { Grid, Monitor, Smartphone, Terminal, ArrowUpRight, Github, ArrowLeft, Star, GitFork, Code2, Lightbulb, Zap } from 'lucide-react';
 import { 
   SiReact, SiNextdotjs, SiNodedotjs, SiMongodb, SiExpress, SiTailwindcss, 
-  SiTypescript, SiDocker, SiRedis, SiSocketdotio, SiStripe, SiPrisma, SiPython, SiGo, SiCplusplus 
+  SiTypescript, SiDocker, SiRedis, SiSocketdotio, SiStripe, SiPrisma, SiPython, SiGo, SiCplusplus,
+  SiJavascript, SiSupabase, SiExpo, SiRedux, SiGooglemaps, SiPaypal, SiAmazons3, SiCloudinary, SiFramer
 } from 'react-icons/si';
 import { fetchGitHubData } from '../lib/github';
 import { ExpandableTabs } from './ui/expandable-tabs';
-import { usePageTransition } from './PageTransitionContext';
+import { usePageTransition } from '@/Components/PageTransitionContext';
 import NoiseMeshBackground from './ui/NoiseMeshBackground';
 import MagneticButton from './ui/MagneticButton';
 import ThemeToggle from './ThemeToggle';
@@ -28,6 +29,49 @@ export const ProjectsPage = () => {
     loadData();
   }, []);
 
+  const filterTabs = useMemo(() => [
+    { title: "All Projects", icon: Grid },
+    { title: "Web Apps", icon: Monitor },
+    { title: "Mobile Apps", icon: Smartphone },
+    { title: "CLI Tools", icon: Terminal }
+  ], []);
+
+  // Compile project list from projectsData static configurations
+  const projectsList = useMemo(() => {
+    return Object.values(projectsData).map(project => {
+      const matchedRepo = gitData?.repos?.find(r => 
+        r.name.toLowerCase() === project.id.toLowerCase() || 
+        (project.githubLink && r.link.toLowerCase() === project.githubLink.toLowerCase())
+      );
+      return {
+        ...project,
+        stars: matchedRepo ? matchedRepo.stars : 0,
+        forks: matchedRepo ? matchedRepo.forks : 0,
+      };
+    });
+  }, [gitData]);
+
+  // Filter projects dynamically based on categories in projectsData
+  const filteredProjects = useMemo(() => {
+    return projectsList.filter((project) => {
+      const cat = (project.category || "").toLowerCase();
+      const title = (project.title || "").toLowerCase();
+      const activeFilter = filterTabs[activeFilterIndex].title;
+
+      if (activeFilter === "All Projects") return true;
+      if (activeFilter === "Web Apps") {
+        return cat.includes('web') || cat.includes('stack') || cat.includes('frontend');
+      }
+      if (activeFilter === "Mobile Apps") {
+        return cat.includes('mobile');
+      }
+      if (activeFilter === "CLI Tools") {
+        return cat.includes('cli') || title.includes('envarmor');
+      }
+      return true;
+    });
+  }, [projectsList, activeFilterIndex, filterTabs]);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-primary text-primary flex items-center justify-center">
@@ -43,34 +87,39 @@ export const ProjectsPage = () => {
     );
   }
 
-  const filterTabs = [
-    { title: "All Projects", icon: Grid },
-    { title: "Web Apps", icon: Monitor },
-    { title: "Mobile Apps", icon: Smartphone },
-    { title: "CLI Tools", icon: Terminal }
-  ];
-
   const getTechIcon = (tech) => {
-    if (!tech) return <Code2 className="w-3.5 h-3.5" />;
+    if (!tech) return <Code2 className="w-3.5 h-3.5 text-secondary" />;
+    const lower = tech.toLowerCase();
     const iconMap = {
-      'react': <SiReact className="w-3.5 h-3.5 text-[#0ea5e9] dark:text-[#38bdf8]" />,
-      'react native': <SiReact className="w-3.5 h-3.5 text-[#0ea5e9] dark:text-[#38bdf8]" />,
-      'typescript': <SiTypescript className="w-3.5 h-3.5 text-[#2563eb] dark:text-[#60a5fa]" />,
+      'react': <SiReact className="w-3.5 h-3.5 text-[#61DAFB]" />,
+      'react native': <SiReact className="w-3.5 h-3.5 text-[#61DAFB]" />,
+      'typescript': <SiTypescript className="w-3.5 h-3.5 text-[#3178C6]" />,
+      'javascript': <SiJavascript className="w-3.5 h-3.5 text-[#F7DF1E]" />,
       'next.js': <SiNextdotjs className="w-3.5 h-3.5 text-primary dark:text-white" />,
-      'node.js': <SiNodedotjs className="w-3.5 h-3.5 text-[#16a34a] dark:text-[#4ade80]" />,
-      'mongodb': <SiMongodb className="w-3.5 h-3.5 text-[#15803d] dark:text-[#22c55e]" />,
-      'express': <SiExpress className="w-3.5 h-3.5 text-secondary dark:text-neutral-300" />,
-      'tailwind css': <SiTailwindcss className="w-3.5 h-3.5 text-[#0891b2] dark:text-[#22d3ee]" />,
-      'redis': <SiRedis className="w-3.5 h-3.5 text-[#dc2626] dark:text-[#f87171]" />,
-      'socket.io': <SiSocketdotio className="w-3.5 h-3.5 text-primary dark:text-white" />,
-      'stripe': <SiStripe className="w-3.5 h-3.5 text-[#4f46e5] dark:text-[#818cf8]" />,
-      'docker': <SiDocker className="w-3.5 h-3.5 text-[#0284c7] dark:text-[#38bdf8]" />,
-      'prisma': <SiPrisma className="w-3.5 h-3.5 text-primary dark:text-white" />,
-      'python': <SiPython className="w-3.5 h-3.5 text-[#0284c7] dark:text-[#38bdf8]" />,
-      'go': <SiGo className="w-3.5 h-3.5 text-[#0891b2] dark:text-[#22d3ee]" />,
-      'c++': <SiCplusplus className="w-3.5 h-3.5 text-[#2563eb] dark:text-[#60a5fa]" />
+      'node.js': <SiNodedotjs className="w-3.5 h-3.5 text-[#339933]" />,
+      'mongodb': <SiMongodb className="w-3.5 h-3.5 text-[#47A248]" />,
+      'express': <SiExpress className="w-3.5 h-3.5 text-primary dark:text-white" />,
+      'tailwind css': <SiTailwindcss className="w-3.5 h-3.5 text-[#06B6D4]" />,
+      'redis': <SiRedis className="w-3.5 h-3.5 text-[#DC382D]" />,
+      'socket.io': <SiSocketdotio className="w-3.5 h-3.5 text-[#010101] dark:text-white" />,
+      'stripe': <SiStripe className="w-3.5 h-3.5 text-[#635BFF]" />,
+      'docker': <SiDocker className="w-3.5 h-3.5 text-[#2496ED]" />,
+      'prisma': <SiPrisma className="w-3.5 h-3.5 text-[#2D3748] dark:text-white" />,
+      'supabase': <SiSupabase className="w-3.5 h-3.5 text-[#3ECF8E]" />,
+      'expo': <SiExpo className="w-3.5 h-3.5 text-primary dark:text-white" />,
+      'redux toolkit': <SiRedux className="w-3.5 h-3.5 text-[#764ABC]" />,
+      'gemini api': <Lightbulb className="w-3.5 h-3.5 text-[#EAB308]" />,
+      'google maps': <SiGooglemaps className="w-3.5 h-3.5 text-[#EA4335]" />,
+      'paypal': <SiPaypal className="w-3.5 h-3.5 text-[#003087]" />,
+      'aws s3': <SiAmazons3 className="w-3.5 h-3.5 text-[#FF9900]" />,
+      'cloudinary': <SiCloudinary className="w-3.5 h-3.5 text-[#3448C5]" />,
+      'framer motion': <SiFramer className="w-3.5 h-3.5 text-[#FF007F]" />,
+      'shadcn/ui': <SiNextdotjs className="w-3.5 h-3.5 text-primary dark:text-white" />,
+      'python': <SiPython className="w-3.5 h-3.5 text-[#3776AB]" />,
+      'go': <SiGo className="w-3.5 h-3.5 text-[#00ADD8]" />,
+      'c++': <SiCplusplus className="w-3.5 h-3.5 text-[#00599C]" />
     };
-    return iconMap[tech.toLowerCase()] || <Code2 className="w-3.5 h-3.5" />;
+    return iconMap[lower] || <Code2 className="w-3.5 h-3.5 text-secondary" />;
   };
 
   const getTechColor = (tech) => {
@@ -92,44 +141,21 @@ export const ProjectsPage = () => {
       'stripe': { text: 'text-[#4f46e5] dark:text-[#818cf8]', border: 'border-[#818cf8]/20', bg: 'bg-[#818cf8]/5' },
       'docker': { text: 'text-[#0284c7] dark:text-[#38bdf8]', border: 'border-[#38bdf8]/20', bg: 'bg-[#38bdf8]/5' },
       'prisma': { text: 'text-primary dark:text-white', border: 'border-zinc-500/20', bg: 'bg-zinc-500/5' },
-      'python': { text: 'text-[#0284c7] dark:text-[#38bdf8]', border: 'border-[#38bdf8]/20', bg: 'bg-[#38bdf8]/5' },
-      'go': { text: 'text-[#0891b2] dark:text-[#22d3ee]', border: 'border-[#22d3ee]/20', bg: 'bg-[#22d3ee]/5' },
-      'c++': { text: 'text-[#2563eb] dark:text-[#60a5fa]', border: 'border-[#60a5fa]/20', bg: 'bg-[#60a5fa]/5' }
+      'supabase': { text: 'text-[#3ecf8e] dark:text-[#3ecf8e]', border: 'border-[#3ecf8e]/20', bg: 'bg-[#3ecf8e]/5' },
+      'redux toolkit': { text: 'text-[#764abc] dark:text-[#a582e2]', border: 'border-[#764abc]/20', bg: 'bg-[#764abc]/5' },
+      'gemini api': { text: 'text-[#1a73e8] dark:text-[#66a3ff]', border: 'border-[#1a73e8]/20', bg: 'bg-[#1a73e8]/5' },
+      'google maps': { text: 'text-[#ea4335] dark:text-[#fb7268]', border: 'border-[#ea4335]/20', bg: 'bg-[#ea4335]/5' },
+      'paypal': { text: 'text-[#00457c] dark:text-[#3b8beb]', border: 'border-[#00457c]/20', bg: 'bg-[#00457c]/5' },
+      'aws s3': { text: 'text-[#ff9900] dark:text-[#ffb74d]', border: 'border-[#ff9900]/20', bg: 'bg-[#ff9900]/5' },
+      'cloudinary': { text: 'text-[#3448c5] dark:text-[#6a7ce8]', border: 'border-[#3448c5]/20', bg: 'bg-[#3448c5]/5' },
+      'framer motion': { text: 'text-[#ff007f] dark:text-[#ff409f]', border: 'border-[#ff007f]/20', bg: 'bg-[#ff007f]/5' },
+      'shadcn/ui': { text: 'text-primary dark:text-white', border: 'border-zinc-500/20', bg: 'bg-zinc-500/5' },
+      'python': { text: 'text-[#3776ab] dark:text-[#63a4db]', border: 'border-[#3776ab]/20', bg: 'bg-[#3776ab]/5' },
+      'go': { text: 'text-[#00add8] dark:text-[#33c9eb]', border: 'border-[#00add8]/20', bg: 'bg-[#00add8]/5' },
+      'c++': { text: 'text-[#00599c] dark:text-[#3382c4]', border: 'border-[#00599c]/20', bg: 'bg-[#00599c]/5' }
     };
     return colorMap[lower] || { text: "text-secondary", border: "border-subtle/50", bg: "bg-elevated/40" };
   };
-
-  // Compile project list from projectsData static configurations
-  const projectsList = Object.values(projectsData).map(project => {
-    const matchedRepo = gitData?.repos?.find(r => 
-      r.name.toLowerCase() === project.id.toLowerCase() || 
-      (project.githubLink && r.link.toLowerCase() === project.githubLink.toLowerCase())
-    );
-    return {
-      ...project,
-      stars: matchedRepo ? matchedRepo.stars : 0,
-      forks: matchedRepo ? matchedRepo.forks : 0,
-    };
-  });
-
-  // Filter projects dynamically based on categories in projectsData
-  const filteredProjects = projectsList.filter((project) => {
-    const cat = (project.category || "").toLowerCase();
-    const title = (project.title || "").toLowerCase();
-    const activeFilter = filterTabs[activeFilterIndex].title;
-
-    if (activeFilter === "All Projects") return true;
-    if (activeFilter === "Web Apps") {
-      return cat.includes('web') || cat.includes('stack') || cat.includes('frontend');
-    }
-    if (activeFilter === "Mobile Apps") {
-      return cat.includes('mobile');
-    }
-    if (activeFilter === "CLI Tools") {
-      return cat.includes('cli') || title.includes('envarmor');
-    }
-    return true;
-  });
 
   // Container variants
   const containerVariants = {
@@ -137,24 +163,18 @@ export const ProjectsPage = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05,
-        delayChildren: 0.05
+        staggerChildren: 0.04,
+        delayChildren: 0.0
       }
     }
   };
 
   const cardVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 20
-    },
-    visible: { 
-      opacity: 1, 
+    hidden: { opacity: 0, y: 16 },
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        duration: 0.4, 
-        ease: "easeOut" 
-      }
+      transition: { duration: 0.3, ease: 'easeOut' }
     }
   };
 
@@ -259,7 +279,6 @@ export const ProjectsPage = () => {
                 <motion.div
                   key={project.id}
                   variants={cardVariants}
-                  layoutId={`project-card-${project.id}`}
                   className="group relative flex flex-col justify-between overflow-hidden border border-subtle bg-surface/30 hover:bg-surface/50 transition-all duration-300 shadow-sm rounded-2xl p-6"
                 >
                   {/* Subtle Border Glow */}
@@ -290,6 +309,7 @@ export const ProjectsPage = () => {
                           <img
                             src={`/${project.image}`}
                             alt={project.title}
+                            loading="lazy"
                             className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 ease-out"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-40" />
@@ -313,58 +333,53 @@ export const ProjectsPage = () => {
                     </div>
 
                     {/* Title & Description */}
-                    <div className="mb-4">
-                      <h3 className="text-lg font-bold tracking-tight text-primary mb-2 truncate group-hover:text-neutral-500 dark:group-hover:text-neutral-300 transition-colors">
+                    <div className="mb-3">
+                      <h3 className="text-lg font-bold tracking-tight text-primary mb-1 truncate group-hover:text-neutral-500 dark:group-hover:text-neutral-300 transition-colors">
                         {project.title}
                       </h3>
                       <p className="text-xs text-secondary leading-relaxed line-clamp-3 font-light">
                         {project.description}
                       </p>
                     </div>
+
+                    {/* Tech Stack badge row */}
+                    <div className="mt-3 pt-3 border-t border-subtle">
+                      <div className="flex flex-wrap gap-2">
+                        {techTags.map((tag) => {
+                          const styleInfo = getTechColor(tag);
+                          return (
+                            <span
+                              key={tag}
+                              className={`inline-flex items-center gap-1.5 px-2 py-0.5 border ${styleInfo.border} ${styleInfo.bg} ${styleInfo.text} text-[9px] mono rounded`}
+                            >
+                              {getTechIcon(tag)}
+                              <span className="capitalize">{tag}</span>
+                            </span>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Tech Stack badge row */}
-                  <div className="mt-4 pt-4 border-t border-subtle flex flex-col gap-4">
-                    <div className="flex flex-wrap gap-1.5">
-                      {techTags.slice(0, 3).map((tag) => {
-                        const styleInfo = getTechColor(tag);
-                        return (
-                          <span 
-                            key={tag}
-                            className={`inline-flex items-center gap-1.5 px-2 py-0.5 border ${styleInfo.border} ${styleInfo.bg} ${styleInfo.text} text-[9px] mono rounded`}
-                          >
-                            {getTechIcon(tag)}
-                            <span className="capitalize">{tag}</span>
-                          </span>
-                        );
-                      })}
-                      {techTags.length > 3 && (
-                        <span className="text-[9px] mono text-secondary/50 self-center">
-                          +{techTags.length - 3}
-                        </span>
-                      )}
-                    </div>
+                  {/* Action buttons */}
+                  <div className="mt-5 pt-3 border-t border-subtle/40 flex gap-2.5">
+                    <MagneticButton
+                      onClick={() => transitionTo(`/project/${project.id}`, project.id)}
+                      className="flex-1 border border-subtle bg-elevated/50 hover:bg-primary text-primary px-3 py-2 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-colors shadow-sm"
+                    >
+                      <span>Inspect details</span>
+                    </MagneticButton>
 
-                    {/* Action buttons */}
-                    <div className="flex gap-2.5">
-                      <MagneticButton
-                        onClick={() => transitionTo(`/project/${project.id}`, project.id)}
-                        className="flex-1 border border-subtle bg-elevated/50 hover:bg-primary text-primary px-3 py-2 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-colors shadow-sm"
+                    {project.link && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center p-2 border border-subtle bg-elevated/20 hover:bg-primary text-secondary hover:text-primary transition-colors rounded-lg"
                       >
-                        <span>Inspect details</span>
-                      </MagneticButton>
-
-                      {project.link && (
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center p-2 border border-subtle bg-elevated/20 hover:bg-primary text-secondary hover:text-primary transition-colors rounded-lg"
-                        >
-                          <ArrowUpRight className="w-4 h-4" />
-                        </a>
-                      )}
-                    </div>
+                        <ArrowUpRight className="w-4 h-4" />
+                      </a>
+                    )}
                   </div>
 
                 </motion.div>

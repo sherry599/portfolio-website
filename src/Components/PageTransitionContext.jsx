@@ -47,8 +47,24 @@ export const PageTransitionProvider = ({ children }) => {
     }, 850);
   };
 
+  const prefetch = (url) => {
+    try {
+      if (url === '/projects') {
+        import('./ProjectsPage.jsx');
+      } else if (url === '/open-source') {
+        import('./OpenSourcePage.jsx');
+      } else if (url.startsWith('/project/')) {
+        import('./ProjectDetails.jsx');
+      } else if (url === '/') {
+        import('../Portfolio');
+      }
+    } catch (e) {
+      console.warn('Prefetch failed:', e);
+    }
+  };
+
   return (
-    <PageTransitionContext.Provider value={{ isTransitioning, activeCardId, transitionStep, transitionTo }}>
+    <PageTransitionContext.Provider value={{ isTransitioning, activeCardId, transitionStep, transitionTo, prefetch }}>
       {children}
     </PageTransitionContext.Provider>
   );

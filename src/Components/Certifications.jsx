@@ -103,27 +103,25 @@ const Certifications = () => {
         <div className="absolute top-2/3 left-1/3 w-2 h-20 bg-border-default rotate-45"></div>
       </div>
 
-        <section id="certifications" className="py-24 relative z-10">
+        <section id="certifications" className="py-10 md:py-14 relative z-10">
           <div className="container mx-auto px-8 max-w-6xl">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               viewport={{ once: true, amount: 0.2 }}
-              className="mb-20"
+              className="mb-12 flex flex-col items-center text-center"
             >
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-[1.5px] bg-accent"></div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-[1.5px] bg-accent"></div>
                 <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Achievements</span>
               </div>
 
-              <h2 className="text-3xl md:text-3xl font-light leading-tight mb-6 section-heading">
-                <span className="font-extralight text-secondary">Professional</span>
-                <br />
-                <span className="font-bold text-primary">Certifications</span>
+              <h2 className="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">
+                Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300">Certifications</span>
               </h2>
 
-              <p className="text-lg text-secondary font-light max-w-2xl leading-relaxed">
+              <p className="text-lg text-secondary font-light max-w-2xl leading-relaxed mx-auto">
                 Professional achievements and continuous learning milestones in my software engineering journey.
               </p>
             </motion.div>

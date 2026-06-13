@@ -28,6 +28,7 @@ interface ExpandableTabsProps {
   onChange?: (index: number | null) => void;
   activeTab?: number | null;
   showAllTitles?: boolean;
+  onHoverTab?: (index: number) => void;
 }
 
 // Custom hook to detect clicks outside of the element
@@ -81,6 +82,7 @@ export function ExpandableTabs({
   onChange,
   activeTab,
   showAllTitles = false,
+  onHoverTab,
 }: ExpandableTabsProps) {
   const [internalSelected, setInternalSelected] = React.useState<number | null>(null);
   const outsideClickRef = React.useRef<HTMLDivElement>(null);
@@ -142,6 +144,7 @@ export function ExpandableTabs({
             initial={false}
             animate="animate"
             custom={selected === index}
+            onMouseEnter={() => onHoverTab?.(index)}
             onClick={() => handleSelect(index)}
             transition={transition}
             className={cn(

@@ -129,7 +129,7 @@ const About = () => {
 
   return (
     <div className="relative bg-primary">
-      <section id="about" className="pt-14 pb-8 md:pt-24 md:pb-12 relative z-10">
+      <section id="about" className="pt-10 pb-6 md:pt-16 md:pb-8 relative z-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
           <motion.div
             initial="hidden"
@@ -138,17 +138,17 @@ const About = () => {
             variants={stackVariants}
             className="space-y-6"
           >
-            <motion.div variants={sectionVariants} className="mb-8">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-[1.5px] bg-accent"></div>
+            <motion.div variants={sectionVariants} className="mb-8 flex flex-col items-center text-center">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-[1.5px] bg-accent"></div>
                 <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Introduction</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-light leading-tight section-heading text-primary">
-                <span className="font-extralight text-secondary">About</span> <span className="font-bold">Me</span>
+              <h2 className="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">
+                About <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300">Me</span>
               </h2>
             </motion.div>
 
-            <motion.div variants={sectionVariants} className="w-full border border-subtle bg-surface p-2 md:p-6 mb-12 shadow-2xl rounded-2xl flex justify-center items-center">
+            <motion.div variants={sectionVariants} className="w-full border border-subtle bg-surface p-2 md:p-6 mb-4 shadow-2xl rounded-2xl flex justify-center items-center">
               <CircularTestimonials
                 testimonials={aboutSlides}
                 autoplay={false}
@@ -166,25 +166,6 @@ const About = () => {
                   quote: "1rem"
                 }}
               />
-            </motion.div>
-
-            <motion.div variants={sectionVariants} className="pt-12 mb-8">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-[1.5px] bg-accent"></div>
-                <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Capabilities</span>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-light leading-tight section-heading text-primary">
-                <span className="font-extralight text-secondary">Tech</span> <span className="font-bold">Stack</span>
-              </h2>
-            </motion.div>
-
-            <motion.div variants={sectionVariants} className="w-full border border-subtle bg-transparent p-6 md:p-8 rounded-2xl relative overflow-hidden">
-              <div className="absolute inset-0 bg-surface/10 backdrop-blur-[2px] pointer-events-none" />
-              <div className="flex flex-wrap gap-3.5 relative z-10 justify-start">
-                {masterTechStack.map((item) => (
-                  <TechBadge key={item.label} item={item} />
-                ))}
-              </div>
             </motion.div>
           </motion.div>
         </div>

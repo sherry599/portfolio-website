@@ -8,7 +8,7 @@ import { fetchGitHubData } from '../lib/github';
 export const OpenSourceContributions = () => {
   const [gitData, setGitData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { transitionTo, isTransitioning, activeCardId } = usePageTransition();
+  const { transitionTo, isTransitioning, activeCardId, prefetch } = usePageTransition();
   const isThisTransitioning = isTransitioning && activeCardId === 'open-source';
 
   useEffect(() => {
@@ -62,23 +62,22 @@ export const OpenSourceContributions = () => {
           y: 0,
           transition: { duration: 0.5, ease: "easeOut" }
         }}
-        className="py-24 md:py-32 relative z-10"
+        className="py-10 md:py-14 relative z-10"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
           
           {/* Section Header */}
-          <div className="mb-12 max-w-xl">
+          <div className="mb-12 max-w-2xl mx-auto text-center flex flex-col items-center">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-8 h-[1.5px] bg-accent"></div>
               <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Community</span>
             </div>
 
             <h2 className="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">
-              Open Source <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-800 to-neutral-500 dark:from-white dark:to-neutral-400">Contributions</span>
+              Open Source <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300">Contributions</span>
             </h2>
 
-            <p className="text-lg text-secondary font-light leading-relaxed">
+            <p className="text-lg text-secondary font-light leading-relaxed max-w-xl">
               Contributing high-performance updates, security hardening, and structural enhancements to developer tools and community-driven platforms.
             </p>
           </div>
@@ -100,18 +99,9 @@ export const OpenSourceContributions = () => {
               {/* Text, stats & CTA */}
               <div className="lg:col-span-7 space-y-8">
                 <div>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-elevated border border-subtle text-secondary text-[10px] font-bold uppercase tracking-wider rounded mono">
-                    <GitPullRequest className="w-3 h-3 text-secondary" />
-                    Verified Contributor
-                  </span>
-                  
-                  <h3 className="text-xl md:text-2xl font-bold tracking-tight text-primary mb-3">
+                  <h3 className="text-xl md:text-2xl font-bold tracking-tight text-primary">
                     Open Source Contributions
                   </h3>
-                  
-                  <p className="text-sm text-secondary font-light leading-relaxed max-w-lg">
-                    A log of my contributions to community repositories, library optimizations, and open source projects.
-                  </p>
                 </div>
 
                 {/* Dashboard Stats Preview */}
@@ -141,6 +131,7 @@ export const OpenSourceContributions = () => {
                 {/* Trigger Button with Page Transition hook */}
                 <div className="pt-2">
                   <MagneticButton
+                    onMouseEnter={() => prefetch('/open-source')}
                     onClick={(e) => {
                       e.stopPropagation();
                       transitionTo('/open-source', 'open-source');
