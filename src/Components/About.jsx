@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import {
@@ -48,62 +49,80 @@ const stackVariants = {
 };
 
 const masterTechStack = [
-  [
-    { label: 'JavaScript', icon: <SiJavascript className="w-4 h-4" />, color: 'text-[#F7DF1E]' },
-    { label: 'TypeScript', icon: <SiTypescript className="w-4 h-4" />, color: 'text-[#3178C6]' },
-    { label: 'React', icon: <SiReact className="w-4 h-4" />, color: 'text-[#61DAFB]' },
-    { label: 'RTK Query', icon: <SiRedux className="w-4 h-4" />, color: 'text-[#764ABC]' },
-  ],
-  [
-    { label: 'Next.js', icon: <SiNextdotjs className="w-4 h-4" />, color: 'text-primary' },
-    { label: 'Node.js', icon: <SiNodedotjs className="w-4 h-4" />, color: 'text-[#339933]' },
-    { label: 'Express', icon: <SiExpress className="w-4 h-4" />, color: 'text-[#888888]' },
-    { label: 'MongoDB', icon: <SiMongodb className="w-4 h-4" />, color: 'text-[#47A248]' },
-  ],
-  [
-    { label: 'Redis', icon: <SiRedis className="w-4 h-4" />, color: 'text-[#DC382D]' },
-    { label: 'Docker', icon: <SiDocker className="w-4 h-4" />, color: 'text-[#2496ED]' },
-    { label: 'GitHub Actions', icon: <SiGithubactions className="w-4 h-4" />, color: 'text-[#2088FF]' },
-    { label: 'Tailwind CSS', icon: <SiTailwindcss className="w-4 h-4" />, color: 'text-[#06B6D4]' },
-  ],
-  [
-    { label: 'Git', icon: <SiGit className="w-4 h-4" />, color: 'text-[#F05032]' },
-    { label: 'Figma', icon: <SiFigma className="w-4 h-4" />, color: 'text-[#F24E1E]' },
-    { label: 'Python', icon: <SiPython className="w-4 h-4" />, color: 'text-[#3776AB]' },
-    { label: 'Django', icon: <SiDjango className="w-4 h-4" />, color: 'text-[#2BA977]' },
-  ],
+  { label: 'JavaScript', icon: <SiJavascript className="w-4 h-4" />, color: 'text-[#F7DF1E]', hex: '#F7DF1E' },
+  { label: 'TypeScript', icon: <SiTypescript className="w-4 h-4" />, color: 'text-[#3178C6]', hex: '#3178C6' },
+  { label: 'React', icon: <SiReact className="w-4 h-4" />, color: 'text-[#61DAFB]', hex: '#61DAFB' },
+  { label: 'RTK Query', icon: <SiRedux className="w-4 h-4" />, color: 'text-[#764ABC]', hex: '#764ABC' },
+  { label: 'Next.js', icon: <SiNextdotjs className="w-4 h-4" />, color: 'text-primary', hex: '#888888' },
+  { label: 'Node.js', icon: <SiNodedotjs className="w-4 h-4" />, color: 'text-[#339933]', hex: '#339933' },
+  { label: 'Express', icon: <SiExpress className="w-4 h-4" />, color: 'text-secondary', hex: '#888888' },
+  { label: 'MongoDB', icon: <SiMongodb className="w-4 h-4" />, color: 'text-[#47A248]', hex: '#47A248' },
+  { label: 'Redis', icon: <SiRedis className="w-4 h-4" />, color: 'text-[#DC382D]', hex: '#DC382D' },
+  { label: 'Docker', icon: <SiDocker className="w-4 h-4" />, color: 'text-[#2496ED]', hex: '#2496ED' },
+  { label: 'GitHub Actions', icon: <SiGithubactions className="w-4 h-4" />, color: 'text-[#2088FF]', hex: '#2088FF' },
+  { label: 'Tailwind CSS', icon: <SiTailwindcss className="w-4 h-4" />, color: 'text-[#06B6D4]', hex: '#06B6D4' },
+  { label: 'Git', icon: <SiGit className="w-4 h-4" />, color: 'text-[#F05032]', hex: '#F05032' },
+  { label: 'Figma', icon: <SiFigma className="w-4 h-4" />, color: 'text-[#F24E1E]', hex: '#F24E1E' },
+  { label: 'Python', icon: <SiPython className="w-4 h-4" />, color: 'text-[#3776AB]', hex: '#3776AB' },
+  { label: 'Django', icon: <SiDjango className="w-4 h-4" />, color: 'text-[#2BA977]', hex: '#2BA977' }
 ];
+
+const TechBadge = ({ item }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.span
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      whileHover={{ scale: 1.05, y: -2 }}
+      className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-subtle bg-transparent text-sm text-primary transition-all duration-300 relative overflow-hidden"
+      style={{
+        borderColor: isHovered ? `${item.hex}50` : 'var(--border-default)',
+        background: isHovered ? `${item.hex}08` : 'transparent',
+        boxShadow: isHovered ? `0 8px 24px -6px ${item.hex}30` : 'none',
+      }}
+    >
+      <span 
+        className={`${item.color} flex items-center justify-center transition-transform duration-300`} 
+        style={{ transform: isHovered ? 'scale(1.1) rotate(8deg)' : 'scale(1)' }}
+      >
+        {item.icon}
+      </span>
+      <span className="font-medium">{item.label}</span>
+    </motion.span>
+  );
+};
 
 const About = () => {
   const aboutSlides = [
     {
       name: "Who I Am",
       designation: "01 / Bio",
-      quote: "I am Ali Mahmood, a Full-Stack Software Engineer who bridges the gap between premium, high-end UI design and robust, scalable backend architecture. I don't just write code; I architect end-to-end solutions, specializing in complex marketplaces, real-time AI assistants, and production-ready Learning Management Systems.",
+      quote: "I am Ali Mahmood, a Full Stack Software Engineer who designs clean, premium user interfaces and builds strong, scalable backends. Rather than just writing code, I focus on creating complete digital products, from multivendor marketplaces and interactive learning hubs to real-time utilities.",
       src: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1368&auto=format&fit=crop"
     },
     {
       name: "Why Me",
       designation: "02 / Value",
-      quote: "Hiring specialists often leads to fragmented results. I provide a single point of ownership, handling everything from pixel-perfect UI design with Framer Motion to secure backend architecture with Node.js and Stripe. You get consistent quality and zero handoff friction.",
+      quote: "Hiring different freelancers often leads to fragmented and inconsistent results. I take full responsibility for the entire project, crafting everything from smooth, polished animations to secure payment integrations. This ensures high quality and a seamless development process from start to finish.",
       src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1368&auto=format&fit=crop"
     },
     {
       name: "Open Source",
       designation: "03 / Contributions",
-      quote: "Beyond client work, I am an active open-source contributor. My patches have landed in foundational projects like Apache Arrow (C++), tackling deprecated API removals and sparse tensor safety—proving my commitment to writing code that holds up under enterprise-level scrutiny.",
+      quote: "I enjoy contributing back to the open source community. My contributions have been merged into major libraries like Apache Arrow in C plus plus, where I refactored deprecated APIs and solved memory safety issues. This shows my focus on writing clean, reliable code that performs well under heavy use.",
       src: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1368&auto=format&fit=crop"
     },
     {
       name: "Technical Excellence",
       designation: "04 / Projects",
-      quote: "My projects represent the peak of modern stack engineering. From Noretmy (freelancing platform) to CampusCore (scalable, Redis-cached LMS) and MultiMart (multivendor marketplace), I engineer high-performance systems with secure payment releases, low latency, and optimized assets.",
+      quote: "My projects showcase modern web engineering. I have built platforms like Noretmy (a freelancing marketplace), CampusCore (a fast, cached learning management system), and MultiMart (a vendor marketplace). Each one is optimized for speed, reliability, and security.",
       src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1368&auto=format&fit=crop"
     },
     {
       name: "Problem Solving",
       designation: "05 / Logic",
-      quote: "I am a passionate problem solver who views algorithmic efficiency as the cornerstone of great software engineering. My deep understanding of complex data structures and optimized algorithms allows me to write code that is not only functional but performant at scale, backed by daily progress on LeetCode.",
+      quote: "I really enjoy solving complex problems and finding efficient ways to organize data. A deep understanding of algorithms helps me write clean, readable code that runs efficiently. I keep my skills sharp by tackling challenging coding problems every day.",
       src: "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=1368&auto=format&fit=crop"
     }
   ];
@@ -159,17 +178,11 @@ const About = () => {
               </h2>
             </motion.div>
 
-            <motion.div variants={sectionVariants} className="w-full border border-subtle bg-surface p-6 md:p-8 shadow-2xl">
-              <div className="space-y-3.5">
-                {masterTechStack.map((row, rowIndex) => (
-                  <div key={rowIndex} className="flex flex-wrap gap-4">
-                    {row.map((item) => (
-                      <span key={item.label} className="inline-flex items-center gap-2 px-3.5 py-2 rounded-md border border-subtle bg-elevated text-sm text-primary hover:border-default hover:bg-surface transition-all duration-200">
-                        <span className={item.color}>{item.icon}</span>
-                        <span>{item.label}</span>
-                      </span>
-                    ))}
-                  </div>
+            <motion.div variants={sectionVariants} className="w-full border border-subtle bg-transparent p-6 md:p-8 rounded-2xl relative overflow-hidden">
+              <div className="absolute inset-0 bg-surface/10 backdrop-blur-[2px] pointer-events-none" />
+              <div className="flex flex-wrap gap-3.5 relative z-10 justify-start">
+                {masterTechStack.map((item) => (
+                  <TechBadge key={item.label} item={item} />
                 ))}
               </div>
             </motion.div>

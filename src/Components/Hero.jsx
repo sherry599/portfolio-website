@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link as ScrollLink } from 'react-scroll';
 import { ChevronDown, ArrowRight } from 'lucide-react';
+import { usePageTransition } from './PageTransitionContext';
+import MagneticButton from './ui/MagneticButton';
+
 
 // BlurText animation component
 const BlurText = ({
@@ -62,6 +65,7 @@ const BlurText = ({
 };
 
 const Hero = () => {
+  const { transitionTo } = usePageTransition();
   const profileImage = "/my_image.png";
 
   const containerVariants = {
@@ -182,15 +186,13 @@ const Hero = () => {
               variants={itemVariants}
               className="flex flex-col sm:flex-row gap-4 z-30"
             >
-              <ScrollLink
-                to="projects"
-                smooth={true}
-                duration={500}
+              <MagneticButton
+                onClick={() => transitionTo('/projects')}
                 className="group px-8 py-4 bg-accent text-inverse border border-default transition-colors duration-200 cursor-pointer font-medium flex items-center gap-3 justify-center w-full sm:w-fit"
               >
-                <span>View My Work</span>
+                <span>See Projects</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-              </ScrollLink>
+              </MagneticButton>
 
               <ScrollLink
                 to="socials"

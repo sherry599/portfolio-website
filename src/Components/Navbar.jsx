@@ -2,13 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { Link as ScrollLink, scroller } from 'react-scroll';
 import { FaDownload, FaBars, FaTimes, FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { Home, User, Settings, FolderKanban, GitPullRequest, GraduationCap, Award, Share2 } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ExpandableTabs } from '@/Components/ui/expandable-tabs';
+import { usePageTransition } from './PageTransitionContext';
 import ThemeToggle from './ThemeToggle';
+import { motion } from 'framer-motion';
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { transitionTo, isTransitioning } = usePageTransition();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,11 +60,45 @@ const Navbar = () => {
     if (index === null) return;
     const tab = tabs[index];
     if (tab && tab.to) {
-      scroller.scrollTo(tab.to, {
-        duration: 500,
-        smooth: true,
-        offset: -80,
-      });
+      if (location.pathname !== '/') {
+        transitionTo('/');
+        setTimeout(() => {
+          scroller.scrollTo(tab.to, {
+            duration: 500,
+            smooth: true,
+            offset: -80,
+          });
+        }, 1100);
+      } else {
+        scroller.scrollTo(tab.to, {
+          duration: 500,
+          smooth: true,
+          offset: -80,
+        });
+      }
+      setActiveSection(tab.to);
+    }
+  };
+
+  const handleMobileTabChange = (index) => {
+    const tab = tabs[index];
+    if (tab && tab.to) {
+      if (location.pathname !== '/') {
+        transitionTo('/');
+        setTimeout(() => {
+          scroller.scrollTo(tab.to, {
+            duration: 500,
+            smooth: true,
+            offset: -80,
+          });
+        }, 1100);
+      } else {
+        scroller.scrollTo(tab.to, {
+          duration: 500,
+          smooth: true,
+          offset: -80,
+        });
+      }
       setActiveSection(tab.to);
     }
   };
@@ -81,10 +122,17 @@ const Navbar = () => {
         ))}
       </div>
 
-      <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled
+      <motion.nav 
+        animate={{ 
+          y: isTransitioning ? -100 : 0, 
+          opacity: isTransitioning ? 0 : 1 
+        }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled
         ? 'bg-primary/80 backdrop-blur-xl border-b border-subtle shadow-lg'
         : 'bg-transparent'
-        }`}>
+        }`}
+      >
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex justify-between items-center h-20 relative">
             
@@ -139,24 +187,21 @@ const Navbar = () => {
           }`}>
           <div className="bg-surface border-t border-subtle shadow-2xl h-[calc(100vh-80px)] overflow-y-auto">
             <div className="px-6 py-8 space-y-3.5">
-              {tabs.map((tab) => (
+              {tabs.map((tab, index) => (
                 tab.to && (
-                  <ScrollLink
+                  <button
                     key={tab.title}
-                    to={tab.to}
-                    smooth={true}
-                    duration={500}
-                    spy={true}
-                    offset={-80}
-                    onClick={() => setIsOpen(false)}
-                    onSetActive={() => setActiveSection(tab.to)}
-                    className={`block text-base font-bold transition-all duration-300 cursor-pointer ${activeSection === tab.to
+                    onClick={() => {
+                      handleMobileTabChange(index);
+                      setIsOpen(false);
+                    }}
+                    className={`block text-left w-full text-base font-bold transition-all duration-300 cursor-pointer ${activeSection === tab.to
                       ? 'text-primary translate-x-2'
                       : 'text-secondary hover:text-primary hover:translate-x-1'
                       }`}
                   >
                     {tab.title}
-                  </ScrollLink>
+                  </button>
                 )
               ))}
 
@@ -193,7 +238,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-      </nav>
+      </motion.nav>
     </>
   );
 };

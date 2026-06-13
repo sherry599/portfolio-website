@@ -1,19 +1,27 @@
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { SiMongodb, SiExpress, SiReact, SiNodedotjs, SiTailwindcss, SiGit, SiJavascript, SiNextdotjs, SiRedux, SiDocker, SiRedis, SiGithubactions, SiFigma, SiFramer, SiShadcnui } from 'react-icons/si';
 import { Code, Database, Settings, Layout, Zap } from 'lucide-react';
 
 const SkillCard = ({ skill, skillVariants }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <motion.div
       variants={skillVariants}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       whileHover={{
         y: -6,
         scale: 1.02,
-        borderColor: skill.hexColor,
-        boxShadow: `0 20px 40px -15px ${skill.hexColor}35`,
       }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="group relative bg-elevated p-6 border border-subtle rounded-2xl overflow-hidden transition-colors duration-300"
+      className="group relative p-6 border rounded-2xl overflow-hidden transition-all duration-300 bg-transparent"
+      style={{
+        borderColor: isHovered ? `${skill.hexColor}60` : 'var(--border-default)',
+        boxShadow: isHovered ? `0 16px 36px -12px ${skill.hexColor}25` : 'none',
+        background: isHovered ? `${skill.hexColor}06` : 'transparent',
+      }}
       data-cursor="pointer"
     >
       <div className="flex items-center gap-5 relative z-10">
@@ -21,23 +29,24 @@ const SkillCard = ({ skill, skillVariants }) => {
         <motion.div 
           whileHover={{ rotate: 10, scale: 1.1 }}
           transition={{ type: "spring", stiffness: 400, damping: 15 }}
-          className="p-3.5 rounded-xl transition-all duration-300 bg-surface border border-subtle group-hover:border-default group-hover:bg-primary group-hover:shadow-md flex items-center justify-center"
+          className="p-3.5 rounded-xl transition-all duration-300 border flex items-center justify-center"
           style={{ 
-            boxShadow: `inset 0 2px 4px rgba(0,0,0,0.02)`
+            borderColor: isHovered ? `${skill.hexColor}40` : 'var(--border-subtle)',
+            background: isHovered ? `${skill.hexColor}10` : 'var(--bg-surface)',
           }}
         >
-          <div className={`${skill.iconColor} group-hover:scale-105 transition-transform duration-300 flex items-center justify-center`}>
+          <div 
+            className={`${skill.iconColor} transition-transform duration-300 flex items-center justify-center`}
+            style={{ transform: isHovered ? 'scale(1.08)' : 'scale(1)' }}
+          >
             {skill.icon}
           </div>
         </motion.div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex items-center">
           <h4 className="text-base font-bold tracking-wide text-primary transition-colors duration-300">
             {skill.name}
           </h4>
-          <span className="text-[10px] uppercase tracking-widest font-bold mono text-secondary opacity-70 group-hover:text-primary transition-colors duration-300">
-            Proficient
-          </span>
         </div>
       </div>
 
@@ -183,14 +192,14 @@ const Skills = () => {
               <motion.div
                 key={category.title}
                 variants={categoryVariants}
-                className="bg-surface border border-subtle p-8 md:p-10 mb-8 last:mb-0 shadow-lg rounded-3xl relative overflow-hidden"
+                className="bg-transparent border border-subtle p-8 md:p-10 mb-8 last:mb-0 rounded-3xl relative overflow-hidden"
               >
                 {/* Subtle decorative background gradient */}
-                <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-elevated to-transparent opacity-30 -mr-20 -mt-20 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-surface/30 to-transparent opacity-30 -mr-20 -mt-20 rounded-full blur-3xl pointer-events-none" />
 
                 {/* Category Header */}
                 <div className="flex items-center gap-5 mb-10 relative z-10">
-                  <div className="p-3.5 border border-default text-primary bg-elevated rounded-2xl shadow-sm">
+                  <div className="p-3.5 border border-default text-primary bg-surface/50 backdrop-blur-md rounded-2xl shadow-sm">
                     {category.icon}
                   </div>
                   <div>
@@ -198,7 +207,7 @@ const Skills = () => {
                       {category.title}
                     </h3>
                     <div className="flex items-center gap-2 mt-1">
-                      <div className="w-6 h-[1.5px] bg-accent/60"></div>
+                      <div className="w-8 h-[1.5px] bg-zinc-300 dark:bg-zinc-700"></div>
                       <span className="text-[10px] text-secondary uppercase tracking-[0.2em] font-semibold mono">
                         {category.skills.length} Technologies
                       </span>

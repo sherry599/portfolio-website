@@ -1,9 +1,6 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Calendar, Eye } from 'lucide-react';
-import Lightbox from 'yet-another-react-lightbox';
-import 'yet-another-react-lightbox/styles.css';
 import { use3DTilt } from '../hooks/use3DAnimations';
+import { motion } from 'framer-motion'
 
 const CertificateCard = ({ cert, index, onOpen }) => {
   const tiltRef = use3DTilt({ maxRotation: 8, perspective: 800 });
@@ -42,8 +39,6 @@ const CertificateCard = ({ cert, index, onOpen }) => {
 };
 
 const EducationTimeline = () => {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   const timelineEntries = [
     {
@@ -56,12 +51,12 @@ const EducationTimeline = () => {
       badge: 'Current'
     },
     {
-      id: 2,
+      id: 3,
       title: 'DevWeekends Fellowship',
-      subtitle: 'Full Stack Developer Fellow',
-      duration: 'Jun 2025 - Aug 2025',
+      subtitle: 'Co-Mentor',
+      duration: 'Jun 2026 - Present',
       location: 'Remote',
-      description: 'Built production full-stack systems with secure auth, APIs, and performance-focused patterns.',
+      description: 'Guiding and mentoring emerging talent in full-stack development and career development.',
       badge: 'Fellowship'
     },
     {
