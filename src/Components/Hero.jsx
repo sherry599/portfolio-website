@@ -9,6 +9,7 @@ import MagneticButton from './ui/MagneticButton';
 const BlurText = ({
   text,
   delay = 50,
+  startDelay = 0,
   animateBy = "words",
   direction = "top",
   className = "",
@@ -53,10 +54,10 @@ const BlurText = ({
             filter: inView ? "blur(0px)" : "blur(10px)",
             opacity: inView ? 1 : 0,
             transform: inView ? "translateY(0)" : `translateY(${direction === "top" ? "-20px" : "20px"})`,
-            transition: `all 0.5s ease-out ${i * delay}ms`,
+            transition: `all 0.55s cubic-bezier(0.16, 1, 0.3, 1) ${(i * delay) + startDelay}ms`,
           }}
         >
-          {segment}
+          {segment === " " ? "\u00A0" : segment}
           {animateBy === "words" && i < segments.length - 1 ? "\u00A0" : ""}
         </span>
       ))}
@@ -99,12 +100,12 @@ const Hero = () => {
       />
       <div className="relative h-screen w-full bg-primary flex flex-col overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 right-20 w-64 h-64 border border-subtle rotate-45"></div>
-          <div className="absolute bottom-40 left-10 w-32 h-32 border border-subtle rounded-full"></div>
-          <div className="absolute top-1/2 left-1/4 w-2 h-20 bg-border-subtle rotate-12"></div>
+          <div className="absolute top-20 right-20 w-64 h-64 border border-zinc-200 dark:border-zinc-800/40 rotate-45"></div>
+          <div className="absolute bottom-40 left-10 w-32 h-32 border border-zinc-200 dark:border-zinc-800/40 rounded-full"></div>
+          <div className="absolute top-1/2 left-1/4 w-2 h-20 bg-zinc-200 dark:bg-zinc-800/40 rotate-12"></div>
 
           {/* Floating background dots */}
-          <div className="floating-dots text-primary">
+          <div className="floating-dots text-zinc-400/50 dark:text-zinc-800/60">
             <div className="floating-dot dot-1"></div>
             <div className="floating-dot dot-2"></div>
             <div className="floating-dot dot-3"></div>
@@ -133,27 +134,56 @@ const Hero = () => {
             </Motion.div>
 
             {/* Centered Main Name with overlapping profile photo */}
-            <Motion.div variants={itemVariants} className="relative w-full mb-6 sm:mb-8 select-none">
-              <div>
-                <BlurText
-                  text="ALI"
-                  delay={100}
-                  animateBy="letters"
-                  direction="top"
-                  className="font-bold text-[65px] sm:text-[105px] md:text-[140px] lg:text-[165px] leading-[0.78] tracking-tighter uppercase justify-center whitespace-nowrap text-primary"
-                  style={{ fontFamily: "'Fira Code', monospace" }}
-                />
-              </div>
-              <div className="mt-1">
-                <BlurText
-                  text="MAHMOOD"
-                  delay={100}
-                  animateBy="letters"
-                  direction="top"
-                  className="font-bold text-[65px] sm:text-[105px] md:text-[140px] lg:text-[165px] leading-[0.78] tracking-tighter uppercase justify-center whitespace-nowrap text-primary"
-                  style={{ fontFamily: "'Fira Code', monospace" }}
-                />
-              </div>
+            <Motion.div variants={itemVariants} className="relative w-full mb-6 sm:mb-8 select-none flex flex-col items-center">
+              <Motion.h1 
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: {
+                      staggerChildren: 0.04,
+                      delayChildren: 0.1
+                    }
+                  }
+                }}
+                initial="hidden"
+                animate="visible"
+                className="font-black text-[55px] sm:text-[95px] md:text-[130px] lg:text-[150px] leading-[0.8] tracking-tighter uppercase text-primary flex flex-col items-center gap-1 sm:gap-2"
+              >
+                <span className="flex gap-1 sm:gap-2">
+                  {"ALI".split("").map((char, i) => (
+                    <Motion.span
+                      key={i}
+                      initial={{ opacity: 0, y: 75, filter: "blur(6px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      transition={{ 
+                        duration: 1.5, 
+                        ease: [0.22, 1, 0.36, 1], 
+                        delay: i * 0.24 + 0.3 
+                      }}
+                      className="inline-block"
+                    >
+                      {char}
+                    </Motion.span>
+                  ))}
+                </span>
+                <span className="flex gap-1 sm:gap-2">
+                  {"MAHMOOD".split("").map((char, i) => (
+                    <Motion.span
+                      key={i}
+                      initial={{ opacity: 0, y: 75, filter: "blur(6px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      transition={{ 
+                        duration: 1.5, 
+                        ease: [0.22, 1, 0.36, 1], 
+                        delay: (3 + i) * 0.24 + 0.3 
+                      }}
+                      className="inline-block"
+                    >
+                      {char}
+                    </Motion.span>
+                  ))}
+                </span>
+              </Motion.h1>
 
               {/* Profile Picture overlapping the text */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
@@ -177,7 +207,6 @@ const Hero = () => {
                 animateBy="words"
                 direction="top"
                 className="text-[14px] sm:text-[16px] md:text-[18px] text-center transition-colors duration-300 text-secondary hover:text-primary leading-relaxed"
-                style={{ fontFamily: "'Antic', sans-serif" }}
               />
             </Motion.div>
 

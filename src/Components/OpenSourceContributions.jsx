@@ -37,15 +37,15 @@ export const OpenSourceContributions = () => {
   const totalRepos = gitData.repos.length;
 
   return (
-    <div className="relative bg-primary overflow-hidden border-t border-subtle">
+    <div className="relative bg-primary overflow-hidden border-t border-zinc-200 dark:border-zinc-800/40">
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
-        <div className="absolute top-24 right-20 w-80 h-80 rounded-full bg-neutral-300/5 dark:bg-white/5 blur-3xl opacity-60" />
-        <div className="absolute bottom-10 left-10 w-72 h-72 rounded-full bg-neutral-400/5 dark:bg-white/5 blur-3xl opacity-40" />
+        <div className="absolute top-24 right-20 w-80 h-80 rounded-full bg-emerald-500/5 dark:bg-purple-500/5 blur-3xl opacity-60" />
+        <div className="absolute bottom-10 left-10 w-72 h-72 rounded-full bg-purple-500/5 dark:bg-emerald-500/5 blur-3xl opacity-40" />
         
-        {/* Geometric Background Shapes (White border in dark mode, black/gray in light mode) */}
-        <div className="absolute top-20 left-20 w-64 h-64 border border-zinc-200/40 dark:border-white/10 rotate-45 pointer-events-none"></div>
-        <div className="absolute bottom-40 right-10 w-32 h-32 border border-zinc-200/40 dark:border-white/10 rounded-full pointer-events-none"></div>
+        {/* Geometric Background Shapes */}
+        <div className="absolute top-20 left-20 w-64 h-64 border border-zinc-200 dark:border-zinc-800/40 rotate-45 pointer-events-none"></div>
+        <div className="absolute bottom-40 right-10 w-32 h-32 border border-zinc-200 dark:border-zinc-800/40 rounded-full pointer-events-none"></div>
       </div>
 
       {/* Main Section with Exit Animation */}
@@ -85,14 +85,14 @@ export const OpenSourceContributions = () => {
           {/* Morphing Shared-Element Card Container */}
           <motion.div
             layoutId="openSourceHeroCard"
-            className="group relative bg-surface/30 border border-subtle p-8 md:p-12 rounded-3xl backdrop-blur-md shadow-2xl hover:border-default transition-all duration-300 overflow-hidden cursor-pointer"
+            className="group relative bg-surface/30 border border-zinc-200 dark:border-zinc-800/40 p-8 md:p-12 rounded-3xl backdrop-blur-md shadow-2xl hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-300 overflow-hidden cursor-pointer"
             onClick={() => transitionTo('/open-source', 'open-source')}
             style={{
               boxShadow: "0 10px 40px rgba(0,0,0,0.02)",
             }}
           >
-            {/* Hover Glow Light - Monochromatic white */}
-            <div className="absolute -inset-px rounded-3xl bg-gradient-to-br from-neutral-500/5 dark:from-white/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            {/* Hover Glow Light - Teal to Purple gradient */}
+            <div className="absolute -inset-px rounded-3xl bg-gradient-to-br from-emerald-500/10 dark:from-emerald-400/10 via-transparent to-purple-500/10 dark:to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
               

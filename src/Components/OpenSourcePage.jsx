@@ -105,7 +105,7 @@ const TimelineCard = React.memo(({ item, index }) => {
     <motion.div
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.5, delay: Math.min(index, 8) * 0.05, ease: [0.16, 1, 0.3, 1] }}
       className="relative pl-8"
     >
       {/* Vertical line segment */}

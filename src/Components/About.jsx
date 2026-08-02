@@ -87,8 +87,21 @@ const About = () => {
       tabIndex={0}
       onKeyDown={handleKeyDown}
       aria-label="About Ali Mahmood - Software Engineer"
-      className="relative py-8 sm:py-12 md:py-16 bg-primary focus:outline-none"
+      className="relative py-8 sm:py-12 md:py-16 bg-primary focus:outline-none overflow-hidden"
     >
+      {/* Background Decorative Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
+        <div className="absolute top-12 left-10 w-64 h-64 border border-zinc-200 dark:border-zinc-800/40 rotate-12"></div>
+        <div className="absolute bottom-16 right-12 w-48 h-48 border border-zinc-200 dark:border-zinc-800/40 rounded-full"></div>
+        
+        {/* Floating background dots */}
+        <div className="floating-dots text-zinc-400/50 dark:text-zinc-800/60">
+          <div className="floating-dot dot-3"></div>
+          <div className="floating-dot dot-4"></div>
+          <div className="floating-dot dot-5"></div>
+        </div>
+      </div>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-6xl relative z-10">
         {/* Simple & Clean Header */}
         <Motion.div

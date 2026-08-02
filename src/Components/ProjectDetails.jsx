@@ -210,7 +210,7 @@ const ProjectDetails = () => {
             {/* Left: Image container */}
             <motion.div 
               layoutId={`project-card-${project.id}`}
-              className="lg:col-span-5 relative h-[300px] md:h-[420px] overflow-hidden rounded-2xl border border-subtle bg-surface/30 backdrop-blur-md shadow-lg p-4 flex flex-col justify-center"
+              className="lg:col-span-5 relative h-[220px] sm:h-[300px] md:h-[380px] lg:h-[420px] overflow-hidden rounded-2xl border border-subtle bg-surface/30 backdrop-blur-md shadow-lg p-4 flex flex-col justify-center"
             >
               <div className="relative w-full h-full overflow-hidden rounded-xl bg-primary border border-subtle flex items-center justify-center">
                 {imgFile ? (
@@ -219,9 +219,9 @@ const ProjectDetails = () => {
                       layoutId={`project-img-${project.id}`}
                       src={`/${imgFile}`}
                       alt={project.title}
-                      className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-500"
+                      className="w-full h-full object-contain bg-elevated/40 dark:bg-black/10 transition-all duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-60" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-60" />
                   </>
                 ) : (
                   // Stunning tech terminal panel fallback
@@ -259,7 +259,7 @@ const ProjectDetails = () => {
                   {project.title}
                 </h1>
                 
-                <p className="text-base text-secondary leading-relaxed font-light">
+                <p className="text-base text-primary/95 leading-relaxed font-normal">
                   {project.description}
                 </p>
               </div>
@@ -364,7 +364,7 @@ const ProjectDetails = () => {
                       <Target className="w-5 h-5 text-neutral-400 flex-shrink-0" />
                       <h3 className="text-base font-bold tracking-tight text-primary uppercase mono">Project Mission & Architecture</h3>
                     </div>
-                    <p className="text-sm text-secondary leading-relaxed font-light font-sans">
+                    <p className="text-sm text-primary/90 leading-relaxed font-normal font-sans">
                       {project.purpose}
                     </p>
                   </div>
@@ -407,7 +407,7 @@ const ProjectDetails = () => {
                         </div>
                         <div className="space-y-1">
                           <div className="text-[9px] text-secondary font-bold mono">FEATURE {String(idx + 1).padStart(2, '0')}</div>
-                          <p className="text-xs text-secondary leading-relaxed font-light font-sans">
+                          <p className="text-xs text-primary/85 leading-relaxed font-normal font-sans">
                             {feature}
                           </p>
                         </div>
@@ -442,7 +442,7 @@ const ProjectDetails = () => {
                               <AlertCircle className="w-5 h-5 text-neutral-400 flex-shrink-0 mt-0.5" />
                               <div>
                                 <h4 className="font-bold text-primary mb-2 text-sm tracking-tight font-mono">The Obstacle</h4>
-                                <p className="text-xs text-secondary leading-relaxed font-light font-sans">
+                                <p className="text-xs text-primary/85 leading-relaxed font-normal font-sans">
                                   {item.challenge}
                                 </p>
                               </div>
@@ -453,7 +453,7 @@ const ProjectDetails = () => {
                               <Lightbulb className="w-5 h-5 text-neutral-400 flex-shrink-0 mt-0.5" />
                               <div>
                                 <h4 className="font-bold text-primary mb-2 text-sm tracking-tight font-mono">The Resolution</h4>
-                                <p className="text-xs text-secondary leading-relaxed font-light font-sans">
+                                <p className="text-xs text-primary/85 leading-relaxed font-normal font-sans">
                                   {item.solution}
                                 </p>
                               </div>

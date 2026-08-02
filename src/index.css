@@ -8,8 +8,8 @@
   --bg-primary: #ffffff;
   --bg-surface: #fcfcfc;
   --bg-elevated: #f5f5f5;
-  --border-subtle: rgba(0, 0, 0, 0.04);
-  --border-default: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(0, 0, 0, 0.12);
+  --border-default: rgba(0, 0, 0, 0.22);
   --text-primary: #111111;
   --text-secondary: #666666;
   --text-tertiary: #999999;
@@ -22,8 +22,8 @@
   --bg-primary: #0a0a0a;
   --bg-surface: #121212;
   --bg-elevated: #1a1a1a;
-  --border-subtle: rgba(255, 255, 255, 0.04);
-  --border-default: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.09);
+  --border-default: rgba(255, 255, 255, 0.18);
   --text-primary: #f5f5f5;
   --text-secondary: #aaaaaa;
   --text-tertiary: #666666;
@@ -138,7 +138,6 @@ a {
 @keyframes float5 { 0%, 100% { transform: translateY(0) translateX(0); } 50% { transform: translateY(-15px) translateX(8px); } }
 @keyframes float6 { 0%, 100% { transform: translateY(0) translateX(0); } 50% { transform: translateY(20px) translateX(-10px); } }
 @keyframes float7 { 0%, 100% { transform: translateY(0) translateX(0); } 50% { transform: translateY(-18px) translateX(12px); } }
-
 @keyframes gentleBounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
@@ -146,6 +145,17 @@ a {
 
 .scroll-indicator {
   animation: gentleBounce 2s ease-in-out infinite;
+}
+
+@keyframes radar-pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.4); opacity: 0; }
+  100% { transform: scale(1); opacity: 0.6; }
+}
+
+.animate-radar-pulse {
+  animation: radar-pulse 2s infinite ease-in-out;
+  will-change: transform, opacity;
 }
 
 @keyframes heroFloat {
@@ -274,3 +284,32 @@ a {
 .property { color: #aaaaaa; }
 .value { color: #ffffff; }
 .boolean { color: #ffffff; }
+
+/* Background floating mesh CSS animations (GPU-accelerated) */
+@keyframes meshFloat1 {
+  0%, 100% { transform: translateY(0px) translateX(0px) scale(1); }
+  33% { transform: translateY(-40px) translateX(30px) scale(1.08); }
+  66% { transform: translateY(20px) translateX(-20px) scale(0.95); }
+}
+@keyframes meshFloat2 {
+  0%, 100% { transform: translateY(0px) translateX(0px) scale(1); }
+  33% { transform: translateY(50px) translateX(-30px) scale(0.92); }
+  66% { transform: translateY(-30px) translateX(20px) scale(1.05); }
+}
+@keyframes meshFloat3 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-30px) translateX(20px); }
+}
+
+.animate-mesh-float-1 {
+  animation: meshFloat1 25s infinite ease-in-out;
+  will-change: transform;
+}
+.animate-mesh-float-2 {
+  animation: meshFloat2 28s infinite ease-in-out;
+  will-change: transform;
+}
+.animate-mesh-float-3 {
+  animation: meshFloat3 30s infinite ease-in-out;
+  will-change: transform;
+}

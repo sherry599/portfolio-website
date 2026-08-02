@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Grid, Monitor, Smartphone, Terminal, ArrowUpRight, Github, ArrowLeft, Star, GitFork, Code2, Lightbulb, Zap } from 'lucide-react';
+import { Grid, Monitor, Smartphone, Terminal, ArrowUpRight, Github, ArrowLeft, Star, GitFork, Code2, Lightbulb, Zap, Brain } from 'lucide-react';
 import { 
   SiReact, SiNextdotjs, SiNodedotjs, SiMongodb, SiExpress, SiTailwindcss, 
   SiTypescript, SiDocker, SiRedis, SiSocketdotio, SiStripe, SiPrisma, SiPython, SiGo, SiCplusplus,
-  SiJavascript, SiSupabase, SiExpo, SiRedux, SiGooglemaps, SiPaypal, SiAmazons3, SiCloudinary, SiFramer
+  SiJavascript, SiSupabase, SiExpo, SiRedux, SiGooglemaps, SiPaypal, SiAmazons3, SiCloudinary, SiFramer,
+  SiPostgresql, SiShadcnui
 } from 'react-icons/si';
 import { fetchGitHubData } from '../lib/github';
 import { ExpandableTabs } from './ui/expandable-tabs';
@@ -95,29 +96,40 @@ export const ProjectsPage = () => {
       'react native': <SiReact className="w-3.5 h-3.5 text-[#61DAFB]" />,
       'typescript': <SiTypescript className="w-3.5 h-3.5 text-[#3178C6]" />,
       'javascript': <SiJavascript className="w-3.5 h-3.5 text-[#F7DF1E]" />,
-      'next.js': <SiNextdotjs className="w-3.5 h-3.5 text-primary dark:text-white" />,
+      'next.js': <SiNextdotjs className="w-3.5 h-3.5 text-zinc-950 dark:text-white" />,
       'node.js': <SiNodedotjs className="w-3.5 h-3.5 text-[#339933]" />,
       'mongodb': <SiMongodb className="w-3.5 h-3.5 text-[#47A248]" />,
-      'express': <SiExpress className="w-3.5 h-3.5 text-primary dark:text-white" />,
+      'express': <SiExpress className="w-3.5 h-3.5 text-zinc-950 dark:text-white" />,
       'tailwind css': <SiTailwindcss className="w-3.5 h-3.5 text-[#06B6D4]" />,
       'redis': <SiRedis className="w-3.5 h-3.5 text-[#DC382D]" />,
-      'socket.io': <SiSocketdotio className="w-3.5 h-3.5 text-[#010101] dark:text-white" />,
+      'socket.io': <SiSocketdotio className="w-3.5 h-3.5 text-zinc-950 dark:text-white" />,
       'stripe': <SiStripe className="w-3.5 h-3.5 text-[#635BFF]" />,
       'docker': <SiDocker className="w-3.5 h-3.5 text-[#2496ED]" />,
-      'prisma': <SiPrisma className="w-3.5 h-3.5 text-[#2D3748] dark:text-white" />,
+      'prisma': <SiPrisma className="w-3.5 h-3.5 text-[#5A67D8] dark:text-[#a5b4fc]" />,
       'supabase': <SiSupabase className="w-3.5 h-3.5 text-[#3ECF8E]" />,
-      'expo': <SiExpo className="w-3.5 h-3.5 text-primary dark:text-white" />,
+      'expo': <SiExpo className="w-3.5 h-3.5 text-[#000020] dark:text-white" />,
       'redux toolkit': <SiRedux className="w-3.5 h-3.5 text-[#764ABC]" />,
-      'gemini api': <Lightbulb className="w-3.5 h-3.5 text-[#EAB308]" />,
+      'gemini api': <Lightbulb className="w-3.5 h-3.5 text-[#ea80fc]" />,
+      'groq api': <Brain className="w-3.5 h-3.5 text-[#f55a10]" />,
       'google maps': <SiGooglemaps className="w-3.5 h-3.5 text-[#EA4335]" />,
       'paypal': <SiPaypal className="w-3.5 h-3.5 text-[#003087]" />,
       'aws s3': <SiAmazons3 className="w-3.5 h-3.5 text-[#FF9900]" />,
       'cloudinary': <SiCloudinary className="w-3.5 h-3.5 text-[#3448C5]" />,
       'framer motion': <SiFramer className="w-3.5 h-3.5 text-[#FF007F]" />,
-      'shadcn/ui': <SiNextdotjs className="w-3.5 h-3.5 text-primary dark:text-white" />,
+      'shadcn/ui': <SiShadcnui className="w-3.5 h-3.5 text-zinc-950 dark:text-white" />,
       'python': <SiPython className="w-3.5 h-3.5 text-[#3776AB]" />,
       'go': <SiGo className="w-3.5 h-3.5 text-[#00ADD8]" />,
-      'c++': <SiCplusplus className="w-3.5 h-3.5 text-[#00599C]" />
+      'c++': <SiCplusplus className="w-3.5 h-3.5 text-[#00599C]" />,
+      'postgresql': <SiPostgresql className="w-3.5 h-3.5 text-[#4169E1]" />,
+      'bullmq': <Zap className="w-3.5 h-3.5 text-[#FF5050]" />,
+      'multer': <Code2 className="w-3.5 h-3.5 text-[#FFA500]" />,
+      'gsap': <Zap className="w-3.5 h-3.5 text-[#88CE02]" />,
+      'canvas api': <Code2 className="w-3.5 h-3.5 text-[#FF4500]" />,
+      'scrolltrigger': <Zap className="w-3.5 h-3.5 text-[#00FFFF]" />,
+      'app router': <Code2 className="w-3.5 h-3.5 text-[#FF00EA]" />,
+      'jwt': <Code2 className="w-3.5 h-3.5 text-[#D63AFF]" />,
+      'api integration': <Code2 className="w-3.5 h-3.5 text-[#00C853]" />,
+      'ai api': <Brain className="w-3.5 h-3.5 text-[#BF55EC]" />
     };
     return iconMap[lower] || <Code2 className="w-3.5 h-3.5 text-secondary" />;
   };
@@ -126,33 +138,44 @@ export const ProjectsPage = () => {
     if (!tech) return { text: "text-secondary", border: "border-subtle/50", bg: "bg-elevated/40" };
     const lower = tech.toLowerCase();
     const colorMap = {
-      'react': { text: 'text-[#0ea5e9] dark:text-[#38bdf8]', border: 'border-[#38bdf8]/20', bg: 'bg-[#38bdf8]/5' },
-      'react native': { text: 'text-[#0ea5e9] dark:text-[#38bdf8]', border: 'border-[#38bdf8]/20', bg: 'bg-[#38bdf8]/5' },
-      'expo': { text: 'text-[#ea580c] dark:text-[#f97316]', border: 'border-[#f97316]/20', bg: 'bg-[#f97316]/5' },
-      'typescript': { text: 'text-[#2563eb] dark:text-[#60a5fa]', border: 'border-[#60a5fa]/20', bg: 'bg-[#60a5fa]/5' },
-      'javascript': { text: 'text-[#d97706] dark:text-[#fbbf24]', border: 'border-[#fbbf24]/20', bg: 'bg-[#fbbf24]/5' },
-      'next.js': { text: 'text-primary dark:text-white', border: 'border-zinc-500/20', bg: 'bg-zinc-500/5' },
-      'node.js': { text: 'text-[#16a34a] dark:text-[#4ade80]', border: 'border-[#4ade80]/20', bg: 'bg-[#4ade80]/5' },
-      'mongodb': { text: 'text-[#15803d] dark:text-[#22c55e]', border: 'border-[#22c55e]/20', bg: 'bg-[#22c55e]/5' },
-      'express': { text: 'text-secondary dark:text-neutral-300', border: 'border-neutral-500/20', bg: 'bg-neutral-500/5' },
-      'tailwind css': { text: 'text-[#0891b2] dark:text-[#22d3ee]', border: 'border-[#22d3ee]/20', bg: 'bg-[#22d3ee]/5' },
-      'redis': { text: 'text-[#dc2626] dark:text-[#f87171]', border: 'border-[#f87171]/20', bg: 'bg-[#f87171]/5' },
-      'socket.io': { text: 'text-primary dark:text-white', border: 'border-zinc-500/20', bg: 'bg-zinc-500/5' },
-      'stripe': { text: 'text-[#4f46e5] dark:text-[#818cf8]', border: 'border-[#818cf8]/20', bg: 'bg-[#818cf8]/5' },
-      'docker': { text: 'text-[#0284c7] dark:text-[#38bdf8]', border: 'border-[#38bdf8]/20', bg: 'bg-[#38bdf8]/5' },
-      'prisma': { text: 'text-primary dark:text-white', border: 'border-zinc-500/20', bg: 'bg-zinc-500/5' },
-      'supabase': { text: 'text-[#3ecf8e] dark:text-[#3ecf8e]', border: 'border-[#3ecf8e]/20', bg: 'bg-[#3ecf8e]/5' },
-      'redux toolkit': { text: 'text-[#764abc] dark:text-[#a582e2]', border: 'border-[#764abc]/20', bg: 'bg-[#764abc]/5' },
-      'gemini api': { text: 'text-[#1a73e8] dark:text-[#66a3ff]', border: 'border-[#1a73e8]/20', bg: 'bg-[#1a73e8]/5' },
-      'google maps': { text: 'text-[#ea4335] dark:text-[#fb7268]', border: 'border-[#ea4335]/20', bg: 'bg-[#ea4335]/5' },
-      'paypal': { text: 'text-[#00457c] dark:text-[#3b8beb]', border: 'border-[#00457c]/20', bg: 'bg-[#00457c]/5' },
-      'aws s3': { text: 'text-[#ff9900] dark:text-[#ffb74d]', border: 'border-[#ff9900]/20', bg: 'bg-[#ff9900]/5' },
-      'cloudinary': { text: 'text-[#3448c5] dark:text-[#6a7ce8]', border: 'border-[#3448c5]/20', bg: 'bg-[#3448c5]/5' },
-      'framer motion': { text: 'text-[#ff007f] dark:text-[#ff409f]', border: 'border-[#ff007f]/20', bg: 'bg-[#ff007f]/5' },
-      'shadcn/ui': { text: 'text-primary dark:text-white', border: 'border-zinc-500/20', bg: 'bg-zinc-500/5' },
-      'python': { text: 'text-[#3776ab] dark:text-[#63a4db]', border: 'border-[#3776ab]/20', bg: 'bg-[#3776ab]/5' },
-      'go': { text: 'text-[#00add8] dark:text-[#33c9eb]', border: 'border-[#00add8]/20', bg: 'bg-[#00add8]/5' },
-      'c++': { text: 'text-[#00599c] dark:text-[#3382c4]', border: 'border-[#00599c]/20', bg: 'bg-[#00599c]/5' }
+      'react': { text: 'text-[#007a99] dark:text-[#38bdf8]', border: 'border-[#007a99]/20 dark:border-[#38bdf8]/20', bg: 'bg-[#007a99]/5 dark:bg-[#38bdf8]/5' },
+      'react native': { text: 'text-[#007a99] dark:text-[#38bdf8]', border: 'border-[#007a99]/20 dark:border-[#38bdf8]/20', bg: 'bg-[#007a99]/5 dark:bg-[#38bdf8]/5' },
+      'expo': { text: 'text-[#ea580c] dark:text-[#f97316]', border: 'border-[#ea580c]/20 dark:border-[#f97316]/20', bg: 'bg-[#ea580c]/5 dark:bg-[#f97316]/5' },
+      'typescript': { text: 'text-[#1d4ed8] dark:text-[#60a5fa]', border: 'border-[#1d4ed8]/20 dark:border-[#60a5fa]/20', bg: 'bg-[#1d4ed8]/5 dark:bg-[#60a5fa]/5' },
+      'javascript': { text: 'text-[#b45309] dark:text-[#fbbf24]', border: 'border-[#b45309]/20 dark:border-[#fbbf24]/20', bg: 'bg-[#b45309]/5 dark:bg-[#fbbf24]/5' },
+      'next.js': { text: 'text-zinc-800 dark:text-zinc-200', border: 'border-zinc-800/20 dark:border-zinc-200/20', bg: 'bg-zinc-800/5 dark:bg-zinc-200/5' },
+      'node.js': { text: 'text-[#15803d] dark:text-[#4ade80]', border: 'border-[#15803d]/20 dark:border-[#4ade80]/20', bg: 'bg-[#15803d]/5 dark:bg-[#4ade80]/5' },
+      'mongodb': { text: 'text-[#166534] dark:text-[#22c55e]', border: 'border-[#166534]/20 dark:border-[#22c55e]/20', bg: 'bg-[#166534]/5 dark:bg-[#22c55e]/5' },
+      'express': { text: 'text-zinc-700 dark:text-zinc-300', border: 'border-zinc-700/20 dark:border-zinc-300/20', bg: 'bg-zinc-700/5 dark:bg-zinc-300/5' },
+      'tailwind css': { text: 'text-[#0369a1] dark:text-[#22d3ee]', border: 'border-[#0369a1]/20 dark:border-[#22d3ee]/20', bg: 'bg-[#0369a1]/5 dark:bg-[#22d3ee]/5' },
+      'redis': { text: 'text-[#b91c1c] dark:text-[#f87171]', border: 'border-[#b91c1c]/20 dark:border-[#f87171]/20', bg: 'bg-[#b91c1c]/5 dark:bg-[#f87171]/5' },
+      'socket.io': { text: 'text-[#0284c7] dark:text-[#38bdf8]', border: 'border-[#0284c7]/20 dark:border-[#38bdf8]/20', bg: 'bg-[#0284c7]/5 dark:bg-[#38bdf8]/5' },
+      'stripe': { text: 'text-[#4338ca] dark:text-[#818cf8]', border: 'border-[#4338ca]/20 dark:border-[#818cf8]/20', bg: 'bg-[#4338ca]/5 dark:bg-[#818cf8]/5' },
+      'docker': { text: 'text-[#0369a1] dark:text-[#38bdf8]', border: 'border-[#0369a1]/20 dark:border-[#38bdf8]/20', bg: 'bg-[#0369a1]/5 dark:bg-[#38bdf8]/5' },
+      'prisma': { text: 'text-[#4f46e5] dark:text-[#a5b4fc]', border: 'border-[#4f46e5]/20 dark:border-[#a5b4fc]/20', bg: 'bg-[#4f46e5]/5 dark:bg-[#a5b4fc]/5' },
+      'supabase': { text: 'text-[#065f46] dark:text-[#3ecf8e]', border: 'border-[#065f46]/20 dark:border-[#3ecf8e]/20', bg: 'bg-[#065f46]/5 dark:bg-[#3ecf8e]/5' },
+      'redux toolkit': { text: 'text-[#6d28d9] dark:text-[#a582e2]', border: 'border-[#6d28d9]/20 dark:border-[#a582e2]/20', bg: 'bg-[#6d28d9]/5 dark:bg-[#a582e2]/5' },
+      'gemini api': { text: 'text-[#a21caf] dark:text-[#f472b6]', border: 'border-[#a21caf]/20 dark:border-[#f472b6]/20', bg: 'bg-[#a21caf]/5 dark:bg-[#f472b6]/5' },
+      'groq api': { text: 'text-[#c2410c] dark:text-[#f97316]', border: 'border-[#c2410c]/20 dark:border-[#f97316]/20', bg: 'bg-[#c2410c]/5 dark:bg-[#f97316]/5' },
+      'google maps': { text: 'text-[#b91c1c] dark:text-[#fb7268]', border: 'border-[#b91c1c]/20 dark:border-[#fb7268]/20', bg: 'bg-[#b91c1c]/5 dark:bg-[#fb7268]/5' },
+      'paypal': { text: 'text-[#1d4ed8] dark:text-[#3b8beb]', border: 'border-[#1d4ed8]/20 dark:border-[#3b8beb]/20', bg: 'bg-[#1d4ed8]/5 dark:bg-[#3b8beb]/5' },
+      'aws s3': { text: 'text-[#c2410c] dark:text-[#ffb74d]', border: 'border-[#c2410c]/20 dark:border-[#ffb74d]/20', bg: 'bg-[#c2410c]/5 dark:bg-[#ffb74d]/5' },
+      'cloudinary': { text: 'text-[#1d4ed8] dark:text-[#6a7ce8]', border: 'border-[#1d4ed8]/20 dark:border-[#6a7ce8]/20', bg: 'bg-[#1d4ed8]/5 dark:bg-[#6a7ce8]/5' },
+      'framer motion': { text: 'text-[#be185d] dark:text-[#ff409f]', border: 'border-[#be185d]/20 dark:border-[#ff409f]/20', bg: 'bg-[#be185d]/5 dark:bg-[#ff409f]/5' },
+      'shadcn/ui': { text: 'text-zinc-800 dark:text-zinc-200', border: 'border-zinc-800/20 dark:border-zinc-200/20', bg: 'bg-zinc-800/5 dark:bg-zinc-200/5' },
+      'python': { text: 'text-[#1d4ed8] dark:text-[#63a4db]', border: 'border-[#1d4ed8]/20 dark:border-[#63a4db]/20', bg: 'bg-[#1d4ed8]/5 dark:bg-[#63a4db]/5' },
+      'go': { text: 'text-[#0369a1] dark:text-[#33c9eb]', border: 'border-[#0369a1]/20 dark:border-[#33c9eb]/20', bg: 'bg-[#0369a1]/5 dark:bg-[#33c9eb]/5' },
+      'c++': { text: 'text-[#1d4ed8] dark:text-[#3382c4]', border: 'border-[#1d4ed8]/20 dark:border-[#3382c4]/20', bg: 'bg-[#1d4ed8]/5 dark:bg-[#3382c4]/5' },
+      'postgresql': { text: 'text-[#1d4ed8] dark:text-[#60a5fa]', border: 'border-[#1d4ed8]/20 dark:border-[#60a5fa]/20', bg: 'bg-[#1d4ed8]/5 dark:bg-[#60a5fa]/5' },
+      'bullmq': { text: 'text-[#b91c1c] dark:text-[#ff8a8a]', border: 'border-[#b91c1c]/20 dark:border-[#ff8a8a]/20', bg: 'bg-[#b91c1c]/5 dark:bg-[#ff8a8a]/5' },
+      'multer': { text: 'text-[#b45309] dark:text-[#fbbf24]', border: 'border-[#b45309]/20 dark:border-[#fbbf24]/20', bg: 'bg-[#b45309]/5 dark:bg-[#fbbf24]/5' },
+      'gsap': { text: 'text-[#4d7c0f] dark:text-[#a3e635]', border: 'border-[#4d7c0f]/20 dark:border-[#a3e635]/20', bg: 'bg-[#4d7c0f]/5 dark:bg-[#a3e635]/5' },
+      'canvas api': { text: 'text-[#c2410c] dark:text-[#f76d4d]', border: 'border-[#c2410c]/20 dark:border-[#f76d4d]/20', bg: 'bg-[#c2410c]/5 dark:bg-[#f76d4d]/5' },
+      'scrolltrigger': { text: 'text-[#0891b2] dark:text-[#33ffff]', border: 'border-[#0891b2]/20 dark:border-[#33ffff]/20', bg: 'bg-[#0891b2]/5 dark:bg-[#33ffff]/5' },
+      'app router': { text: 'text-[#a21caf] dark:text-[#ff33ed]', border: 'border-[#a21caf]/20 dark:border-[#ff33ed]/20', bg: 'bg-[#a21caf]/5 dark:bg-[#ff33ed]/5' },
+      'jwt': { text: 'text-[#701a75] dark:text-[#e473ff]', border: 'border-[#701a75]/20 dark:border-[#e473ff]/20', bg: 'bg-[#701a75]/5 dark:bg-[#e473ff]/5' },
+      'api integration': { text: 'text-[#15803d] dark:text-[#52b202]', border: 'border-[#15803d]/20 dark:border-[#52b202]/20', bg: 'bg-[#15803d]/5 dark:bg-[#52b202]/5' },
+      'ai api': { text: 'text-[#6d28d9] dark:text-[#d24dff]', border: 'border-[#6d28d9]/20 dark:border-[#d24dff]/20', bg: 'bg-[#6d28d9]/5 dark:bg-[#d24dff]/5' }
     };
     return colorMap[lower] || { text: "text-secondary", border: "border-subtle/50", bg: "bg-elevated/40" };
   };
@@ -343,14 +366,14 @@ export const ProjectsPage = () => {
                     </div>
 
                     {/* Tech Stack badge row */}
-                    <div className="mt-3 pt-3 border-t border-subtle">
+                    <div className="mt-3 pt-3 border-t border-zinc-200 dark:border-neutral-800/50">
                       <div className="flex flex-wrap gap-2">
                         {techTags.map((tag) => {
                           const styleInfo = getTechColor(tag);
                           return (
                             <span
                               key={tag}
-                              className={`inline-flex items-center gap-1.5 px-2 py-0.5 border ${styleInfo.border} ${styleInfo.bg} ${styleInfo.text} text-[9px] mono rounded`}
+                              className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 border ${styleInfo.border} ${styleInfo.bg} ${styleInfo.text} text-[10px] mono rounded-full`}
                             >
                               {getTechIcon(tag)}
                               <span className="capitalize">{tag}</span>

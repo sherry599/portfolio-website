@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { Award, Calendar, ExternalLink, CheckCircle, Eye, X } from 'lucide-react';
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
+import { SiAnthropic } from 'react-icons/si';
 
 const CertificationCard = ({ cert, index, onOpen, onViewDetails }) => {
   return (
@@ -11,29 +13,40 @@ const CertificationCard = ({ cert, index, onOpen, onViewDetails }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
       viewport={{ once: true, amount: 0.2 }}
-      className="group border border-subtle bg-surface p-5 transition-all duration-300 hover:border-default hover:shadow-xl"
+      className={`group relative border border-subtle bg-surface/30 p-5 rounded-2xl transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-xl ${cert.glowShadow} transform-gpu`}
     >
-      <div>
-        <button type="button" className="group/image relative mb-6 block h-52 w-full overflow-hidden border border-subtle bg-primary" onClick={onOpen}>
+      <div className="absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl overflow-hidden" />
+      <div className={`absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl ${cert.bgGlow}`} />
+
+      <div className="relative z-10">
+        <button type="button" className="group/image relative mb-6 block h-52 w-full overflow-hidden border border-subtle bg-primary rounded-xl" onClick={onOpen}>
           <img src={`/${cert.image}`} alt={cert.title} className="h-full w-full object-cover grayscale-[0.2] transition-all duration-500 group-hover/image:grayscale-0" />
           <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover/image:bg-black/40">
             <Eye className="h-8 w-8 text-white opacity-0 transition-all duration-300 group-hover/image:opacity-100" />
           </div>
-          <div className="absolute right-4 top-4 bg-surface/90 p-2.5 backdrop-blur-md border border-subtle">
-            <Award className="h-5 w-5 text-primary" />
+          <div className="absolute right-4 top-4 bg-surface/90 p-2.5 backdrop-blur-md border border-subtle rounded-lg">
+            {cert.issuer === "Anthropic" ? (
+              <SiAnthropic className="h-5 w-5 text-[#cc967a]" />
+            ) : (
+              <Award className="h-5 w-5" style={{ color: cert.color }} />
+            )}
           </div>
         </button>
 
         <div className="space-y-4">
           <div className="flex items-start justify-between gap-3">
-            <h3 className="leading-tight text-primary text-xl font-bold group-hover:text-primary transition-colors duration-200">
+            <h3 className="leading-tight text-primary text-xl font-bold transition-colors duration-200">
               {cert.title}
             </h3>
-            <CheckCircle className="h-5 w-5 flex-shrink-0 text-primary" />
+            {cert.issuer === "Anthropic" ? (
+              <SiAnthropic className="h-5 w-5 flex-shrink-0 text-[#cc967a]" />
+            ) : (
+              <CheckCircle className="h-5 w-5 flex-shrink-0" style={{ color: cert.color }} />
+            )}
           </div>
 
           <div className="flex items-center gap-2 text-sm text-secondary">
-            <Calendar className="h-4 w-4" />
+            <Calendar className="h-4 w-4" style={{ color: cert.color }} />
             <span className="font-medium">{cert.issuer}</span>
           </div>
 
@@ -41,7 +54,7 @@ const CertificationCard = ({ cert, index, onOpen, onViewDetails }) => {
 
           <div className="flex flex-wrap gap-2 pt-1">
             {cert.skills.map((skill) => (
-              <span key={skill} className="mono border border-subtle bg-elevated px-3 py-1 text-[10px] font-medium text-primary uppercase tracking-wider">
+              <span key={skill} className={`mono border px-3 py-1 text-[10px] font-semibold uppercase tracking-wider rounded ${cert.skillBadge}`}>
                 {skill}
               </span>
             ))}
@@ -52,7 +65,7 @@ const CertificationCard = ({ cert, index, onOpen, onViewDetails }) => {
             <button
               type="button"
               onClick={onViewDetails}
-              className="group/link inline-flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-widest transition-all duration-200 hover:text-primary hover:gap-3"
+              className="group/link inline-flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-widest transition-all duration-200 hover:gap-3"
             >
               Details
               <ExternalLink className="h-3 w-3 transition-transform duration-200 group-hover/link:rotate-45" />
@@ -77,20 +90,43 @@ const Certifications = () => {
       date: "2025",
       image: "Dev Weekends Fellowship.png",
       description: "Participated in an intensive software engineering fellowship focused on advanced full-stack development and architectural best practices.",
-      skills: ["Full-Stack Development", "DSA", "Leetcode", "Open-Source"],
+      skills: ["Full-Stack", "DSA", "Leetcode", "Open-Source"],
       credentialUrl: "#",
-      details: "Completed the highly competitive Dev Weekends Fellowship, which emphasizes building scalable applications, writing clean code, and working under the guidance of industry professionals."
+      details: "Completed the highly competitive Dev Weekends Fellowship, which emphasizes building scalable applications, writing clean code, and working under the guidance of industry professionals.",
+      color: '#8B5CF6',
+      bgGlow: 'bg-[#8B5CF6]/5',
+      glowShadow: 'group-hover:border-purple-500/30 group-hover:shadow-[0_20px_40px_rgba(139,92,246,0.08)]',
+      skillBadge: 'border-purple-500/20 text-purple-600 dark:text-purple-400 bg-purple-500/5'
     },
     {
       id: 2,
-      title: "Quiz Competition Winner",
-      issuer: "University of South Asia",
-      date: "2025",
-      image: "Quiz_Competition.jpg",
-      description: "Won university-wide quiz competition demonstrating excellence in Object-Oriented Programming, Data Structures & Algorithms, Database Management Systems, and general knowledge concepts",
-      skills: ["OOP", "DSA", "DBMS", "Problem Solving"],
-      credentialUrl: "#",
-      details: "Secured top position in a competitive university quiz event by solving high-pressure conceptual and problem-solving rounds across OOP, DSA, DBMS, and logical reasoning. Demonstrated strong fundamentals, speed, and analytical accuracy."
+      title: "AI Fluency Framework & Foundations",
+      issuer: "Anthropic",
+      date: "2026",
+      image: "claude_fluency_framework.png",
+      description: "Demonstrated understanding of Claude's architecture, prompt engineering techniques, and deployment strategies for AI agents.",
+      skills: ["Claude AI", "Prompt Eng.", "AI Agents", "LLMs"],
+      credentialUrl: "https://verify.skilljar.com/c/qtdxuawmisyi",
+      details: "Successfully passed the official Anthropic certification covering model capabilities, system prompts, context window management, and programmatic APIs.",
+      color: '#cc967a',
+      bgGlow: 'bg-[#cc967a]/5',
+      glowShadow: 'group-hover:border-[#cc967a]/30 group-hover:shadow-[0_20px_40px_rgba(204,150,122,0.08)]',
+      skillBadge: 'border-[#cc967a]/20 text-[#cc967a] dark:text-[#e4b096] bg-[#cc967a]/5'
+    },
+    {
+      id: 3,
+      title: "Claude 101",
+      issuer: "Anthropic",
+      date: "2026",
+      image: "claude_101.png",
+      description: "Completed the foundational certification for integrating Claude models into software architectures and applications.",
+      skills: ["Claude 3.5 Sonnet", "Anthropic API", "Integration", "AI Workflows"],
+      credentialUrl: "https://verify.skilljar.com/c/ghhpc8g68686",
+      details: "Verified competence in Anthropic API endpoints, tool use (function calling), and optimizing system instructions for low-latency AI responses.",
+      color: '#cc967a',
+      bgGlow: 'bg-[#cc967a]/5',
+      glowShadow: 'group-hover:border-[#cc967a]/30 group-hover:shadow-[0_20px_40px_rgba(204,150,122,0.08)]',
+      skillBadge: 'border-[#cc967a]/20 text-[#cc967a] dark:text-[#e4b096] bg-[#cc967a]/5'
     }
   ];
 
@@ -98,9 +134,9 @@ const Certifications = () => {
     <div className="relative bg-primary">
       {/* Minimal geometric background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-32 w-48 h-48 border border-subtle rotate-12"></div>
-        <div className="absolute bottom-32 left-24 w-32 h-32 border border-subtle rounded-full"></div>
-        <div className="absolute top-2/3 left-1/3 w-2 h-20 bg-border-default rotate-45"></div>
+        <div className="absolute top-20 right-32 w-48 h-48 border border-zinc-200 dark:border-zinc-800/40 rotate-12"></div>
+        <div className="absolute bottom-32 left-24 w-32 h-32 border border-zinc-200 dark:border-zinc-800/40 rounded-full"></div>
+        <div className="absolute top-2/3 left-1/3 w-2 h-20 bg-zinc-200 dark:bg-zinc-800/40 rotate-45"></div>
       </div>
 
         <section id="certifications" className="py-10 md:py-14 relative z-10">
@@ -158,9 +194,9 @@ const Certifications = () => {
               slides={certifications.map((cert) => ({ src: `/${cert.image}`, title: cert.title }))}
             />
 
-            {selectedCert && (
+            {selectedCert && createPortal(
               <div
-                className="fixed inset-0 z-[60] grid place-items-center bg-surface/90 p-4 backdrop-blur-md"
+                className="fixed inset-0 z-[9999] grid place-items-center bg-surface/90 p-4 backdrop-blur-md"
                 onClick={() => setSelectedCert(null)}
               >
                 <motion.div
@@ -212,6 +248,17 @@ const Certifications = () => {
                   </div>
 
                   <div className="flex items-center justify-end gap-3 border-t border-subtle px-6 py-5">
+                    {selectedCert.credentialUrl && selectedCert.credentialUrl !== "#" && (
+                      <a
+                        href={selectedCert.credentialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-accent text-inverse border border-default px-6 py-2.5 text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all duration-300"
+                      >
+                        <span>Verify Credential</span>
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    )}
                     <button
                       type="button"
                       onClick={() => setSelectedCert(null)}
@@ -221,7 +268,8 @@ const Certifications = () => {
                     </button>
                   </div>
                 </motion.div>
-              </div>
+              </div>,
+              document.body
             )}
           </div>
         </section>

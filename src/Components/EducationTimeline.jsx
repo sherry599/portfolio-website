@@ -48,34 +48,32 @@ const EducationTimeline = () => {
       duration: 'Dec 2022 - Present',
       location: 'Lahore, Pakistan',
       description: 'CGPA: 3.55, Fall 2026.',
-      badge: 'Current'
+      badge: 'Current',
+      color: '#10B981',
+      bgGlow: 'bg-[#10B981]/5',
+      badgeColor: 'border-emerald-500/20 text-emerald-600 dark:text-emerald-400 bg-emerald-500/5',
+      glowShadow: 'group-hover:border-emerald-500/30 group-hover:shadow-[0_20px_40px_rgba(16,185,129,0.08)]'
     },
     {
-      id: 3,
+      id: 2,
       title: 'DevWeekends Fellowship',
       subtitle: 'Co-Mentor',
       duration: 'Jun 2026 - Present',
       location: 'Remote',
       description: 'Guiding and mentoring emerging talent in full-stack development and career development.',
-      badge: 'Fellowship'
-    },
-    {
-      id: 3,
-      title: 'Graphic Design Certification',
-      subtitle: 'Peak Solutions College',
-      duration: 'Dec 2022',
-      location: 'Lahore, Pakistan',
-      description: 'Completed professional design training with practical project delivery.',
-      badge: 'Certificate'
+      badge: 'Fellowship',
+      color: '#8B5CF6',
+      bgGlow: 'bg-[#8B5CF6]/5',
+      badgeColor: 'border-purple-500/20 text-purple-600 dark:text-purple-400 bg-purple-500/5',
+      glowShadow: 'group-hover:border-purple-500/30 group-hover:shadow-[0_20px_40px_rgba(139,92,246,0.08)]'
     }
   ];
-
 
   return (
     <div className="relative bg-primary">
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-32 right-24 h-56 w-56 border border-subtle rotate-12" />
-        <div className="absolute bottom-24 left-20 h-32 w-32 border border-subtle rounded-full" />
+        <div className="absolute top-32 right-24 h-56 w-56 border border-zinc-200 dark:border-zinc-800/40 rotate-12" />
+        <div className="absolute bottom-24 left-20 h-32 w-32 border border-zinc-200 dark:border-zinc-800/40 rounded-full" />
       </div>
 
       <section id="education" className="relative z-10 py-10">
@@ -109,29 +107,36 @@ const EducationTimeline = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }}
                 viewport={{ once: true, amount: 0.2 }}
-                className="relative mb-12 last:mb-0"
+                className="relative mb-12 last:mb-0 group"
               >
-                <span className="absolute -left-[41px] top-1 h-4 w-4 rounded-full border-4 border-[var(--accent)] bg-surface shadow-[0_0_10px_rgba(0,0,0,0.05)]" />
+                <span 
+                  className="absolute -left-[41px] top-1.5 h-4 w-4 rounded-full border-4 bg-surface transition-all duration-300 group-hover:scale-110" 
+                  style={{ borderColor: entry.color, boxShadow: `0 0 10px ${entry.color}40` }}
+                />
 
-                <div className="border border-subtle bg-surface p-8 transition-all duration-500 hover:border-default hover:shadow-xl">
-                  <div className="mb-6 flex flex-col md:flex-row md:items-start justify-between gap-4">
+                <div 
+                  className={`relative overflow-hidden border border-subtle bg-surface/30 p-8 rounded-2xl transition-all duration-500 hover:bg-surface/50 hover:border-default ${entry.glowShadow}`}
+                >
+                  <div className={`absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none ${entry.bgGlow}`} />
+
+                  <div className="relative z-10 mb-6 flex flex-col md:flex-row md:items-start justify-between gap-4">
                     <div>
-                      <h3 className="text-xl font-bold text-primary mb-1">{entry.title}</h3>
+                      <h3 className="text-xl font-bold text-primary mb-1 group-hover:text-primary transition-colors">{entry.title}</h3>
                       <p className="text-sm font-medium text-secondary tracking-wide">{entry.subtitle}</p>
                     </div>
-                    <span className="inline-block self-start border border-subtle bg-elevated px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary">{entry.badge}</span>
+                    <span className={`inline-block self-start border px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded ${entry.badgeColor}`}>{entry.badge}</span>
                   </div>
 
-                  <div className="mb-4 flex flex-wrap items-center gap-4 text-xs font-bold uppercase tracking-wider text-secondary">
+                  <div className="relative z-10 mb-4 flex flex-wrap items-center gap-4 text-xs font-bold uppercase tracking-wider text-secondary">
                     <span className="inline-flex items-center gap-2">
-                      <Calendar className="h-3.5 w-3.5" />
+                      <Calendar className="h-3.5 w-3.5" style={{ color: entry.color }} />
                       {entry.duration}
                     </span>
                     <span className="hidden md:inline opacity-20 text-primary">•</span>
                     <span>{entry.location}</span>
                   </div>
 
-                  <p className="leading-relaxed text-secondary font-light text-sm max-w-3xl">{entry.description}</p>
+                  <p className="relative z-10 leading-relaxed text-secondary font-light text-sm max-w-3xl">{entry.description}</p>
                 </div>
               </motion.div>
             ))}

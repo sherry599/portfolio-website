@@ -1,4 +1,81 @@
 export const projectsData = {
+  medeaz: {
+    id: 'medeaz',
+    title: "MedEaz",
+    description: "A premium web-based SaaS healthcare platform connecting patients, doctors, and clinic admins. Features a voice-powered prescription workflow, an automated OPD queue waiting room console, and interactive clinical copilots.",
+    image: "medeaz.jpeg",
+    objectPosition: "center 10%",
+    tech: ["Next.js", "React", "Redux Toolkit", "Node.js", "Express", "MongoDB", "Redis", "Gemini API", "Groq API", "Socket.io", "Tailwind CSS"],
+    link: "https://medeaz.vercel.app/",
+    githubLink: "https://github.com/ahadalireach/medeaz",
+    category: "Web App",
+    featured: true,
+    purpose: "MedEaz was built to streamline healthcare workflows in the Pakistani market. By integrating voice-to-prescription parsing via Gemini AI, realtime OPD queue management, and automated consultation split ledgers, the platform replaces fragmented manual processes with cohesive, role-based workflows.",
+    keyFeatures: [
+      "Voice-powered prescription parsing translating raw dictations (English/Urdu/Roman Urdu) to structured JSON",
+      "Automated OPD queue waiting room management with a realtime TV display board",
+      "Interactive Clinical Copilots (Doctor, Clinic, Patient) powered by Gemini and Groq",
+      "Multi-tenant clinic workspace isolation allowing customized branding and operational parameters per clinic branch",
+      "Integrated interactive Clinical Copilots providing real-time diagnosis suggestions and drug interaction warnings during consultations",
+      "Dynamic RTL Nastaliq layout engine for natural prescription generation in local languages",
+      "Integrated automated OPD token dispenser console generating digital QR-code-based waiting passes",
+      "Gamified Doctor Performance Leaderboard with automated 20/80 revenue splits",
+      "Realtime messaging, notifications, and SMTP transactional emails"
+    ],
+    challenges: [
+      {
+        challenge: "Accurate Bilingual Voice Prescription Parsing",
+        solution: "Engineered customized prompt templates for Gemini and Groq to parse noisy code-mixed Roman Urdu & English voice transcripts, auto-populating complex clinical forms with 94%+ accuracy."
+      },
+      {
+        challenge: "Centralization of Data across Doctors, Patients, and Clinics",
+        solution: "Architected a unified relational-graph inspired MongoDB schema with strict role-based access control, optimizing dual-directional collection lookups for medical records, OPD waiting tokens, and ledger payments."
+      },
+      {
+        challenge: "Real-time Waiting Room Synchronization",
+        solution: "Built a Socket.io-driven token broadcast system coupled with audio chime notifications to instantly update TV displays in clinics without page refreshes."
+      },
+      {
+        challenge: "Automated Revenue Splitting Ledger",
+        solution: "Designed database transaction hooks that automatically partition patient consultation billing into separate doctor (80%) and clinic (20%) ledgers upon session completion."
+      }
+    ]
+  },
+  maintainermind: {
+    id: 'maintainermind',
+    title: "MaintainerMind",
+    description: "Long-term cognitive memory for open-source repositories. Continually ingests PRs, commits, issues, and discussions into a Cognee semantic knowledge graph for AI-driven contextual recall.",
+    image: "maintainermind.png",
+    objectPosition: "center 10%",
+    tech: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL", "Redis", "BullMQ", "Docker", "Tailwind CSS", "Framer Motion"],
+    link: "http://maintainer-mind-nu.vercel.app/",
+    githubLink: "https://github.com/AliRana30/maintainermind",
+    category: "Web & CLI",
+    featured: true,
+    purpose: "MaintainerMind solves the developer code-review bottleneck. By building a persistent semantic graph of historical repository actions, the system helps maintainers instantly recall prior decisions, rejected approaches, and related bugs when reviewing new PRs.",
+    keyFeatures: [
+      "Ingests GitHub webhook events into a semantic knowledge graph using Cognee",
+      "Surfaces context suggestions on new PRs to prevent regressions and redundant work",
+      "AI chat interface for querying repository architecture, files, and historical discussions",
+      "Memory Evolution dashboard with Memory Quality Score, manual graph improvement, and pruning",
+      "Background queues powered by BullMQ and Redis for robust asynchronous ingestion",
+      "Self-hosted capability with Docker Compose compatibility"
+    ],
+    challenges: [
+      {
+        challenge: "Stale Knowledge Graph Pruning",
+        solution: "Implemented Cognee's `forget()` operation to remove obsolete node epochs during major refactors, preventing outdated architecture from influencing AI advice."
+      },
+      {
+        challenge: "Async Background Worker Orchestration",
+        solution: "Designed a multi-stage background worker pipeline using BullMQ and Redis to handle bursty GitHub webhook payloads without dropping events."
+      },
+      {
+        challenge: "Relationship Traversal over Simple Vector Search",
+        solution: "Utilized Cognee's `recall()` with `GRAPH_COMPLETION` strategy to enable multi-hop relationship queries that standard vector chunk search cannot solve."
+      }
+    ]
+  },
   envarmor: {
     id: 'envarmor',
     title: "EnvArmor",
@@ -231,40 +308,6 @@ export const projectsData = {
       }
     ]
   },
-  moviemate: {
-    id: 'moviemate',
-    title: "MovieMate",
-    description: "A movie discovery platform that helps users find and explore movies with detailed information, reviews, and recommendations",
-    image: "moviemate.png",
-    tech: ["React", "Node.js", "API Integration", "MongoDB", "Tailwind CSS", "JWT", "Express"],
-    link: "https://moviemate-app-psi.vercel.app/",
-    githubLink: "https://github.com/AliRana30/moviemate",
-    category: "Full-Stack",
-    featured: false,
-    purpose: "To create an intuitive platform for movie enthusiasts to discover, explore, and get detailed information about movies with personalized recommendations.",
-    keyFeatures: [
-      "Advanced movie search with multiple filter options",
-      "Detailed movie information with cast and crew",
-      "Personalized recommendations based on preferences",
-      "User rating and review system",
-      "Watchlist functionality with local storage",
-      "Real-time movie data from external APIs"
-    ],
-    challenges: [
-      {
-        challenge: "API Rate Limiting",
-        solution: "Implemented caching strategy to store frequently accessed movie data, reducing API calls by 70% and improving response times"
-      },
-      {
-        challenge: "Search Performance",
-        solution: "Built indexed MongoDB collections with text search and optimized queries to deliver results under 200ms"
-      },
-      {
-        challenge: "User Personalization",
-        solution: "Created recommendation algorithm analyzing user watch history and ratings to suggest relevant content"
-      }
-    ]
-  },
   promptly: {
     id: 'promptly',
     title: "Promptly (AI Assistant)",
@@ -296,6 +339,40 @@ export const projectsData = {
       {
         challenge: "API Cost Optimization",
         solution: "Created intelligent caching for similar queries and implemented token counting to optimize API usage costs"
+      }
+    ]
+  },
+  moviemate: {
+    id: 'moviemate',
+    title: "MovieMate",
+    description: "A movie discovery platform that helps users find and explore movies with detailed information, reviews, and recommendations",
+    image: "moviemate.png",
+    tech: ["React", "Node.js", "API Integration", "MongoDB", "Tailwind CSS", "JWT", "Express"],
+    link: "https://moviemate-app-psi.vercel.app/",
+    githubLink: "https://github.com/AliRana30/moviemate",
+    category: "Full-Stack",
+    featured: false,
+    purpose: "To create an intuitive platform for movie enthusiasts to discover, explore, and get detailed information about movies with personalized recommendations.",
+    keyFeatures: [
+      "Advanced movie search with multiple filter options",
+      "Detailed movie information with cast and crew",
+      "Personalized recommendations based on preferences",
+      "User rating and review system",
+      "Watchlist functionality with local storage",
+      "Real-time movie data from external APIs"
+    ],
+    challenges: [
+      {
+        challenge: "API Rate Limiting",
+        solution: "Implemented caching strategy to store frequently accessed movie data, reducing API calls by 70% and improving response times"
+      },
+      {
+        challenge: "Search Performance",
+        solution: "Built indexed MongoDB collections with text search and optimized queries to deliver results under 200ms"
+      },
+      {
+        challenge: "User Personalization",
+        solution: "Created recommendation algorithm analyzing user watch history and ratings to suggest relevant content"
       }
     ]
   },

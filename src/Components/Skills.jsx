@@ -11,177 +11,135 @@ const TECH_DETAILS = {
   "React": { 
     icon: SiReact, 
     color: "#61DAFB", 
-    colorLight: "#007a99", 
-    bg: "#e0f7fa", 
-    bgDark: "rgba(0,180,216,0.15)", 
-    textLight: "#006064", 
-    textDark: "#80deea" 
+    text: "text-[#007a99] dark:text-[#38bdf8]",
+    border: "border-[#007a99]/20 dark:border-[#38bdf8]/20",
+    bg: "bg-[#007a99]/5 dark:bg-[#38bdf8]/5"
   },
   "Next.js": { 
     icon: SiNextdotjs, 
-    color: "#ffffff", 
-    colorLight: "#000000", 
-    bg: "#e0e0e0", 
-    bgDark: "#222222", 
-    textLight: "#111111", 
-    textDark: "#ffffff" 
+    color: "#000000", 
+    text: "text-zinc-800 dark:text-zinc-200",
+    border: "border-zinc-800/20 dark:border-zinc-200/20",
+    bg: "bg-zinc-800/5 dark:bg-zinc-200/5"
   },
   "JavaScript": { 
     icon: SiJavascript, 
     color: "#F7DF1E", 
-    colorLight: "#856404", 
-    bg: "#fffde7", 
-    bgDark: "rgba(247,223,30,0.1)", 
-    textLight: "#533f03", 
-    textDark: "#f7df1e" 
+    text: "text-amber-700 dark:text-yellow-400",
+    border: "border-amber-500/20",
+    bg: "bg-amber-500/5"
   },
   "Tailwind": { 
     icon: SiTailwindcss, 
     color: "#06B6D4", 
-    colorLight: "#00838f", 
-    bg: "#e0f7fa", 
-    bgDark: "rgba(6,182,212,0.15)", 
-    textLight: "#004d40", 
-    textDark: "#80deea" 
+    text: "text-cyan-600 dark:text-cyan-400",
+    border: "border-cyan-500/20",
+    bg: "bg-cyan-500/5"
   },
   "Redux / RTK": { 
     icon: SiRedux, 
     color: "#764ABC", 
-    colorLight: "#4a148c", 
-    bg: "#f3e5f5", 
-    bgDark: "rgba(118,74,188,0.15)", 
-    textLight: "#311b92", 
-    textDark: "#e1bee7" 
+    text: "text-purple-600 dark:text-purple-400",
+    border: "border-purple-500/20",
+    bg: "bg-purple-500/5"
   },
-  
   "Node.js": { 
     icon: SiNodedotjs, 
     color: "#339933", 
-    colorLight: "#1b5e20", 
-    bg: "#e8f5e9", 
-    bgDark: "rgba(51,153,51,0.15)", 
-    textLight: "#0d3c0e", 
-    textDark: "#a5d6a7" 
+    text: "text-emerald-600 dark:text-emerald-400",
+    border: "border-emerald-500/20",
+    bg: "bg-emerald-500/5"
   },
   "Express": { 
     icon: SiExpress, 
-    color: "#ffffff", 
-    colorLight: "#000000", 
-    bg: "#e0e0e0", 
-    bgDark: "#222222", 
-    textLight: "#111111", 
-    textDark: "#ffffff" 
+    color: "#000000", 
+    text: "text-zinc-700 dark:text-zinc-300",
+    border: "border-zinc-500/20",
+    bg: "bg-zinc-500/5"
   },
   "Agentic AI": { 
     icon: Bot, 
     color: "#A855F7", 
-    colorLight: "#6a1b9a", 
-    bg: "#f3e5f5", 
-    bgDark: "rgba(168,85,247,0.15)", 
-    textLight: "#4a148c", 
-    textDark: "#e9d5ff" 
+    text: "text-indigo-600 dark:text-indigo-400",
+    border: "border-indigo-500/20",
+    bg: "bg-indigo-500/5"
   },
   "LLMs": { 
     icon: Brain, 
     color: "#8B5CF6", 
-    colorLight: "#4527a0", 
-    bg: "#ede7f6", 
-    bgDark: "rgba(139,92,246,0.15)", 
-    textLight: "#311b92", 
-    textDark: "#ddd6fe" 
+    text: "text-violet-600 dark:text-violet-400",
+    border: "border-violet-500/20",
+    bg: "bg-violet-500/5"
   },
-  
   "MongoDB": { 
     icon: SiMongodb, 
     color: "#47A248", 
-    colorLight: "#1b5e20", 
-    bg: "#e8f5e9", 
-    bgDark: "rgba(71,162,72,0.15)", 
-    textLight: "#0d3c0e", 
-    textDark: "#a5d6a7" 
+    text: "text-green-600 dark:text-green-400",
+    border: "border-green-500/20",
+    bg: "bg-green-500/5"
   },
   "Redis": { 
     icon: SiRedis, 
     color: "#DC382D", 
-    colorLight: "#b71c1c", 
-    bg: "#ffebee", 
-    bgDark: "rgba(220,56,45,0.15)", 
-    textLight: "#7f0000", 
-    textDark: "#ffcdd2" 
+    text: "text-red-600 dark:text-red-400",
+    border: "border-red-500/20",
+    bg: "bg-red-500/5"
   },
   "Supabase": { 
     icon: SiSupabase, 
     color: "#3ECF8E", 
-    colorLight: "#117046", 
-    bg: "#e8f8f2", 
-    bgDark: "rgba(62,207,142,0.15)", 
-    textLight: "#064e3b", 
-    textDark: "#a7f3d0" 
+    text: "text-emerald-600 dark:text-emerald-400",
+    border: "border-emerald-500/20",
+    bg: "bg-emerald-500/5"
   },
   "Prisma": { 
     icon: SiPrisma, 
-    color: "#38bdf8", 
-    colorLight: "#0369a1", 
-    bg: "#e0f2fe", 
-    bgDark: "rgba(56,189,248,0.15)", 
-    textLight: "#075985", 
-    textDark: "#bae6fd" 
+    color: "#2D3748", 
+    text: "text-indigo-600 dark:text-indigo-400",
+    border: "border-indigo-500/20",
+    bg: "bg-indigo-500/5"
   },
-  
   "Docker": { 
     icon: SiDocker, 
     color: "#2496ED", 
-    colorLight: "#01579b", 
-    bg: "#e1f5fe", 
-    bgDark: "rgba(36,150,237,0.15)", 
-    textLight: "#004d40", 
-    textDark: "#bae6fd" 
+    text: "text-blue-600 dark:text-blue-400",
+    border: "border-blue-500/20",
+    bg: "bg-blue-500/5"
   },
   "GitHub CI": { 
     icon: SiGithubactions, 
     color: "#2088FF", 
-    colorLight: "#0d47a1", 
-    bg: "#e3f2fd", 
-    bgDark: "rgba(32,136,255,0.15)", 
-    textLight: "#0a2540", 
-    textDark: "#bae6fd" 
+    text: "text-blue-600 dark:text-blue-400",
+    border: "border-blue-500/20",
+    bg: "bg-blue-500/5"
   },
   "Git": { 
     icon: SiGit, 
     color: "#F05032", 
-    colorLight: "#bf360c", 
-    bg: "#fbe9e7", 
-    bgDark: "rgba(240,80,50,0.15)", 
-    textLight: "#5d1900", 
-    textDark: "#ffccbc" 
+    text: "text-orange-600 dark:text-orange-400",
+    border: "border-orange-500/20",
+    bg: "bg-orange-500/5"
   },
-  
   "Figma": { 
     icon: SiFigma, 
     color: "#F24E1E", 
-    colorLight: "#bf360c", 
-    bg: "#fbe9e7", 
-    bgDark: "rgba(242,78,30,0.15)", 
-    textLight: "#5d1900", 
-    textDark: "#ffccbc" 
+    text: "text-rose-600 dark:text-rose-400",
+    border: "border-rose-500/20",
+    bg: "bg-rose-500/5"
   },
   "Framer Motion": { 
     icon: SiFramer, 
     color: "#F43F5E", 
-    colorLight: "#880e4f", 
-    bg: "#fce4ec", 
-    bgDark: "rgba(244,63,94,0.15)", 
-    textLight: "#4a001f", 
-    textDark: "#fecdd3" 
+    text: "text-pink-600 dark:text-pink-400",
+    border: "border-pink-500/20",
+    bg: "bg-pink-500/5"
   },
   "shadcn/ui": { 
     icon: SiShadcnui, 
-    color: "#ffffff", 
-    colorLight: "#000000", 
-    bg: "#e0e0e0", 
-    bgDark: "#222222", 
-    textLight: "#111111", 
-    textDark: "#ffffff" 
+    color: "#000000", 
+    text: "text-zinc-800 dark:text-zinc-200",
+    border: "border-zinc-500/20",
+    bg: "bg-zinc-500/5"
   }
 };
 
@@ -208,23 +166,6 @@ const CATEGORIES = [
   },
 ];
 
-const useDarkMode = () => {
-  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'));
-
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-    return () => observer.disconnect();
-  }, []);
-
-  return isDark;
-};
-
 // Premium character staggered animation
 const characterVariants = {
   hidden: { opacity: 0, y: 8 },
@@ -250,7 +191,7 @@ const AnimatedLabel = ({ text, inView }) => {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           variants={characterVariants}
-          className="text-xs md:text-sm font-extrabold uppercase tracking-[0.18em] select-none"
+          className="text-xs md:text-sm font-extrabold uppercase tracking-[0.18em] select-none text-primary"
         >
           {char === " " ? "\u00A0" : char}
         </Motion.span>
@@ -260,13 +201,8 @@ const AnimatedLabel = ({ text, inView }) => {
 };
 
 const TechPill = ({ name, delay }) => {
-  const isDark = useDarkMode();
-  const details = TECH_DETAILS[name] || { icon: Zap, color: "#888888", colorLight: "#111111", bg: "#f5f5f5", bgDark: "#222222", textLight: "#111111", textDark: "#ffffff" };
+  const details = TECH_DETAILS[name] || { icon: Zap, color: "#888888", text: "text-secondary", border: "border-subtle", bg: "bg-elevated/40" };
   const IconComponent = details.icon;
-
-  const color = isDark ? details.color : details.colorLight;
-  const initialBg = isDark ? details.bgDark : details.bg;
-  const textColor = isDark ? details.textDark : details.textLight;
 
   return (
     <Motion.div
@@ -277,21 +213,9 @@ const TechPill = ({ name, delay }) => {
       whileHover="hover"
       variants={{
         normal: { y: 0, scale: 1 },
-        hover: { y: -5, scale: 1.03 }
+        hover: { y: -4, scale: 1.04 }
       }}
-      style={{
-        backgroundColor: initialBg,
-      }}
-      className="group flex items-center gap-3 px-5 py-3 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.01)] transition-all duration-300 cursor-default border border-transparent"
-      onMouseEnter={(e) => {
-        // Brighten background cleanly on hover
-        e.currentTarget.style.backgroundColor = isDark ? initialBg.replace("0.15", "0.22") : initialBg;
-        e.currentTarget.style.filter = "brightness(1.05)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.backgroundColor = initialBg;
-        e.currentTarget.style.filter = "none";
-      }}
+      className={`group flex items-center gap-3 px-5 py-3 rounded-xl border ${details.border} ${details.bg} transition-[transform,border-color,box-shadow] duration-300 cursor-default transform-gpu hover:shadow-lg`}
     >
       <Motion.span
         variants={{
@@ -299,8 +223,8 @@ const TechPill = ({ name, delay }) => {
           hover: { scale: 1.18, rotate: 8 }
         }}
         transition={{ type: "spring", stiffness: 350, damping: 12 }}
-        style={{ color }}
         className="flex-shrink-0 flex items-center justify-center"
+        style={{ color: details.color }}
       >
         <IconComponent size={20} />
       </Motion.span>
@@ -311,8 +235,7 @@ const TechPill = ({ name, delay }) => {
           hover: { x: 2 }
         }}
         transition={{ duration: 0.2 }}
-        style={{ color: textColor }}
-        className="text-[13px] font-bold tracking-wide whitespace-nowrap"
+        className={`text-[13px] font-bold tracking-wide whitespace-nowrap ${details.text}`}
       >
         {name}
       </Motion.span>
@@ -330,7 +253,7 @@ const CategoryRow = ({ label, techs, rowIndex }) => {
       viewport={{ once: true, amount: 0.2 }}
       onViewportEnter={() => setInView(true)}
       transition={{ duration: 0.7, delay: rowIndex * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      className="flex flex-col md:flex-row md:items-start gap-8 py-8 sm:py-10 border-b border-subtle last:border-0"
+      className="flex flex-col md:flex-row md:items-start gap-8 py-8 sm:py-10 border-b border-zinc-100 dark:border-zinc-800/60 last:border-0"
     >
       {/* Label column with Animated characters */}
       <div className="md:w-56 flex-shrink-0 pt-3 flex items-center gap-3">
@@ -359,7 +282,21 @@ const CategoryRow = ({ label, techs, rowIndex }) => {
 
 const Skills = () => {
   return (
-    <div className="relative bg-primary">
+    <div className="relative bg-primary overflow-hidden">
+      {/* Background Decorative Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
+        <div className="absolute top-20 right-10 w-48 h-48 border border-zinc-200 dark:border-zinc-800/40 rotate-45"></div>
+        <div className="absolute bottom-20 left-12 w-64 h-64 border border-zinc-200 dark:border-zinc-800/40 rounded-full"></div>
+        
+        {/* Floating background dots */}
+        <div className="floating-dots text-zinc-400/50 dark:text-zinc-800/60">
+          <div className="floating-dot dot-1"></div>
+          <div className="floating-dot dot-2"></div>
+          <div className="floating-dot dot-6"></div>
+          <div className="floating-dot dot-7"></div>
+        </div>
+      </div>
+
       {/* Faint radial glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-radial from-zinc-200/30 dark:from-zinc-700/10 to-transparent rounded-full blur-3xl" />
@@ -401,7 +338,7 @@ const Skills = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="relative rounded-2xl border border-default bg-surface/60 backdrop-blur-md px-6 md:px-10 py-5 overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.03)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.25)]"
+            className="relative rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-surface/60 backdrop-blur-md px-6 md:px-10 py-5 overflow-visible shadow-[0_12px_40px_rgba(0,0,0,0.03)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.25)]"
           >
             {/* Faint inner grid */}
             <div

@@ -189,7 +189,7 @@ const Projects = () => {
     );
   }
 
-  const featuredProjectIds = ['envarmor', 'khidmat', 'noretmy'];
+  const featuredProjectIds = ['medeaz', 'maintainermind', 'envarmor', 'khidmat', 'noretmy'];
   const featuredProjects = featuredProjectIds.map(id => {
     const project = projectsData[id];
     const matchedRepo = gitData?.repos?.find(r => 
@@ -280,7 +280,7 @@ const Projects = () => {
 
                   <div>
                     {/* Header */}
-                    <div className="flex items-center justify-between mb-4.5">
+                    <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-2">
                         <span className="text-[9px] tracking-wider font-bold text-secondary uppercase mono bg-elevated border border-subtle px-2 py-0.5 rounded">
                           {project.category}
@@ -336,19 +336,18 @@ const Projects = () => {
                     <h3 className="text-base sm:text-lg font-black tracking-tight text-primary mb-2 truncate group-hover:text-neutral-500 dark:group-hover:text-neutral-300 transition-colors">
                       {project.title}
                     </h3>
-                    <p className="text-[12px] sm:text-xs text-secondary/90 leading-relaxed font-light mb-4.5 line-clamp-3">
+                    <p className="text-[12px] sm:text-xs text-secondary/90 leading-relaxed font-light mb-4 line-clamp-3">
                       {project.description}
                     </p>
 
                     {/* Redesigned Tech Stack Badge Row */}
-                    <div className="mt-4 pt-4 border-t border-subtle">
-                      <div className="flex flex-wrap gap-1.5">
+                    <div className="mt-4 pt-4 border-t border-zinc-200 dark:border-neutral-800/50">
+                      <div className="flex flex-wrap gap-2">
                         {techTags.slice(0, 5).map((tag) => {
                           const lowerTag = tag.toLowerCase();
-                          const fallbackColor = { bg: '#f5f5f5', border: '#e0e0e0', text: '#333333' };
                           const colorMap = TECH_BADGE_COLORS[lowerTag] || {
-                            light: fallbackColor,
-                            dark: fallbackColor
+                            light: { bg: 'rgba(0,0,0,0.03)', border: 'rgba(0,0,0,0.08)', text: 'rgba(0,0,0,0.65)' },
+                            dark: { bg: 'rgba(255,255,255,0.04)', border: 'rgba(255,255,255,0.08)', text: 'rgba(255,255,255,0.75)' }
                           };
                           const colors = isDark ? colorMap.dark : colorMap.light;
                           
@@ -360,7 +359,7 @@ const Projects = () => {
                                 borderColor: colors.border,
                                 color: colors.text
                               }}
-                              className="inline-flex items-center gap-1.5 px-2 py-0.5 border text-[9px] font-bold tracking-wide mono rounded-md shadow-[0_1px_3px_rgba(0,0,0,0.01)]"
+                              className="inline-flex items-center gap-1.5 px-2.5 py-0.5 border text-[10px] font-bold tracking-wide mono rounded-full shadow-[0_1px_3px_rgba(0,0,0,0.01)]"
                             >
                               <span style={{ color: colors.text }} className="flex-shrink-0 flex items-center justify-center">
                                 {getTechIcon(tag)}
@@ -370,7 +369,7 @@ const Projects = () => {
                           );
                         })}
                         {techTags.length > 5 && (
-                          <span className="inline-flex items-center px-1.5 py-0.5 border border-default/40 bg-elevated/40 text-secondary text-[8px] font-bold mono rounded-md">
+                          <span className="inline-flex items-center px-2 py-0.5 border border-zinc-200 dark:border-neutral-800/50 bg-elevated/40 text-secondary text-[9px] font-bold mono rounded-full">
                             +{techTags.length - 5} more
                           </span>
                         )}

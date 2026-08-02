@@ -35,18 +35,14 @@ export const PRCard = React.memo(({ item, index }) => {
     <motion.div
       initial={{ opacity: 0, y: 32 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
-      className={`relative group rounded-2xl border border-subtle bg-gradient-to-br ${theme.bg} ${theme.border} p-6 flex flex-col gap-4 cursor-default transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl`}
+      transition={{ duration: 0.4, delay: Math.min(index, 6) * 0.05, ease: [0.16, 1, 0.3, 1] }}
+      className={`relative group rounded-2xl border border-subtle bg-gradient-to-br ${theme.bg} ${theme.border} p-6 flex flex-col gap-4 cursor-default transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:shadow-2xl transform-gpu`}
     >
       {/* Merged status + org */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="relative flex items-center justify-center w-6 h-6 rounded-full bg-emerald-500/15">
-            <motion.div
-              animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0, 0.6] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute w-6 h-6 rounded-full bg-emerald-400/20"
-            />
+            <div className="absolute w-6 h-6 rounded-full bg-emerald-400/20 animate-radar-pulse" />
             <Check className="w-3 h-3 text-emerald-400" strokeWidth={3} />
           </div>
           <span className="text-[10px] font-bold text-emerald-400 tracking-widest uppercase mono">Merged</span>
@@ -95,17 +91,16 @@ export const PRCard = React.memo(({ item, index }) => {
           <span>{formatDate(item.createdAt)}</span>
         </div>
 
-        <motion.a
+        <a
           href={item.link}
           target="_blank"
           rel="noopener noreferrer"
-          whileHover={{ x: 2 }}
           onClick={(e) => e.stopPropagation()}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider mono border border-subtle bg-elevated/60 text-secondary hover:text-primary hover:border-primary/30 transition-all duration-200"
         >
           View PR
           <ExternalLink className="w-3 h-3" />
-        </motion.a>
+        </a>
       </div>
     </motion.div>
   );
