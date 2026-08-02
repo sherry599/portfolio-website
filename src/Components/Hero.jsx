@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import { Link as ScrollLink } from 'react-scroll';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 import { usePageTransition } from './PageTransitionContext';
 import MagneticButton from './ui/MagneticButton';
-
 
 // BlurText animation component
 const BlurText = ({
@@ -19,6 +18,7 @@ const BlurText = ({
   const ref = useRef(null);
 
   useEffect(() => {
+    const currentRef = ref.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -28,13 +28,13 @@ const BlurText = ({
       { threshold: 0.1 }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -97,8 +97,8 @@ const Hero = () => {
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&family=Antic&display=swap"
       />
-      <div className="relative min-h-screen bg-primary">
-        <div className="absolute inset-0 overflow-hidden">
+      <div className="relative h-screen w-full bg-primary flex flex-col overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 right-20 w-64 h-64 border border-subtle rotate-45"></div>
           <div className="absolute bottom-40 left-10 w-32 h-32 border border-subtle rounded-full"></div>
           <div className="absolute top-1/2 left-1/4 w-2 h-20 bg-border-subtle rotate-12"></div>
@@ -117,40 +117,40 @@ const Hero = () => {
 
         <section
           id="home"
-          className="min-h-screen flex flex-col justify-center items-center relative z-10 px-6 py-20"
+          className="h-full flex flex-col justify-start items-center relative z-10 px-6 pt-28 pb-10 sm:pt-32"
         >
-          <motion.div
+          <Motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="w-full max-w-6xl flex flex-col items-center text-center relative"
+            className="w-full max-w-5xl flex flex-col items-center text-center relative"
           >
             {/* Introduction Label */}
-            <motion.div variants={itemVariants} className="flex items-center gap-4 mb-10">
-              <div className="w-12 h-[1.5px] bg-accent"></div>
-              <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Introduction</span>
-              <div className="w-12 h-[1.5px] bg-accent"></div>
-            </motion.div>
+            <Motion.div variants={itemVariants} className="flex items-center gap-4 mb-4 sm:mb-6">
+              <div className="w-10 h-[1.5px] bg-accent"></div>
+              <span className="text-xs sm:text-sm font-medium text-secondary tracking-wider uppercase mono">Introduction</span>
+              <div className="w-10 h-[1.5px] bg-accent"></div>
+            </Motion.div>
 
             {/* Centered Main Name with overlapping profile photo */}
-            <motion.div variants={itemVariants} className="relative w-full mb-12 select-none">
+            <Motion.div variants={itemVariants} className="relative w-full mb-6 sm:mb-8 select-none">
               <div>
                 <BlurText
                   text="ALI"
                   delay={100}
                   animateBy="letters"
                   direction="top"
-                  className="font-bold text-[85px] sm:text-[130px] md:text-[170px] lg:text-[200px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap text-primary"
+                  className="font-bold text-[65px] sm:text-[105px] md:text-[140px] lg:text-[165px] leading-[0.78] tracking-tighter uppercase justify-center whitespace-nowrap text-primary"
                   style={{ fontFamily: "'Fira Code', monospace" }}
                 />
               </div>
-              <div className="mt-2">
+              <div className="mt-1">
                 <BlurText
                   text="MAHMOOD"
                   delay={100}
                   animateBy="letters"
                   direction="top"
-                  className="font-bold text-[85px] sm:text-[130px] md:text-[170px] lg:text-[200px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap text-primary"
+                  className="font-bold text-[65px] sm:text-[105px] md:text-[140px] lg:text-[165px] leading-[0.78] tracking-tighter uppercase justify-center whitespace-nowrap text-primary"
                   style={{ fontFamily: "'Fira Code', monospace" }}
                 />
               </div>
@@ -158,7 +158,7 @@ const Hero = () => {
               {/* Profile Picture overlapping the text */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                 <div 
-                  className="w-[60px] h-[100px] sm:w-[85px] sm:h-[142px] md:w-[105px] md:h-[175px] lg:w-[124px] lg:h-[208px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 cursor-pointer border border-default bg-surface"
+                  className="w-[50px] h-[85px] sm:w-[75px] sm:h-[125px] md:w-[95px] md:h-[155px] lg:w-[110px] lg:h-[185px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 cursor-pointer border border-default bg-surface"
                 >
                   <img
                     src={profileImage}
@@ -167,28 +167,28 @@ const Hero = () => {
                   />
                 </div>
               </div>
-            </motion.div>
+            </Motion.div>
 
             {/* Tagline */}
-            <motion.div variants={itemVariants} className="max-w-2xl mb-12">
+            <Motion.div variants={itemVariants} className="max-w-xl mb-6 sm:mb-8">
               <BlurText
                 text="I build modern web applications with clean code and thoughtful design. Specializing in the MERN stack to create digital experiences that matter."
                 delay={40}
                 animateBy="words"
                 direction="top"
-                className="text-[15px] sm:text-[18px] md:text-[20px] lg:text-[22px] text-center transition-colors duration-300 text-secondary hover:text-primary leading-relaxed"
+                className="text-[14px] sm:text-[16px] md:text-[18px] text-center transition-colors duration-300 text-secondary hover:text-primary leading-relaxed"
                 style={{ fontFamily: "'Antic', sans-serif" }}
               />
-            </motion.div>
+            </Motion.div>
 
             {/* CTA Buttons */}
-            <motion.div
+            <Motion.div
               variants={itemVariants}
               className="flex flex-col sm:flex-row gap-4 z-30"
             >
               <MagneticButton
                 onClick={() => transitionTo('/projects')}
-                className="group px-8 py-4 bg-accent text-inverse border border-default transition-colors duration-200 cursor-pointer font-medium flex items-center gap-3 justify-center w-full sm:w-fit"
+                className="group px-7 py-3.5 bg-accent text-inverse border border-default transition-colors duration-200 cursor-pointer font-medium flex items-center gap-2.5 justify-center w-full sm:w-fit text-sm"
               >
                 <span>See Projects</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
@@ -198,19 +198,19 @@ const Hero = () => {
                 to="socials"
                 smooth={true}
                 duration={500}
-                className="px-8 py-4 border border-default bg-surface text-primary hover:bg-primary transition-all duration-200 cursor-pointer font-medium flex items-center justify-center w-full sm:w-fit"
+                className="px-7 py-3.5 border border-default bg-surface text-primary hover:bg-primary transition-all duration-200 cursor-pointer font-medium flex items-center justify-center w-full sm:w-fit text-sm"
               >
                 Get In Touch
               </ScrollLink>
-            </motion.div>
-          </motion.div>
+            </Motion.div>
+          </Motion.div>
 
           {/* Scroll indicator */}
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5 }}
-            className="absolute bottom-0 left-12 scroll-indicator"
+            className="absolute bottom-3 left-8 sm:left-12 scroll-indicator hidden sm:block"
           >
             <ScrollLink
               to="about"
@@ -219,12 +219,12 @@ const Hero = () => {
               className="flex items-center text-secondary hover:text-primary transition-colors cursor-pointer group"
             >
               <div className="flex flex-col items-center">
-                <div className="w-[1px] h-16 bg-border-default mb-4 group-hover:bg-primary transition-colors"></div>
+                <div className="w-[1px] h-10 bg-border-default mb-2 group-hover:bg-primary transition-colors"></div>
                 <ChevronDown className="w-4 h-4" />
               </div>
-              <span className="text-sm font-medium ml-4 mono">SCROLL</span>
+              <span className="text-xs font-medium ml-3 mono">SCROLL</span>
             </ScrollLink>
-          </motion.div>
+          </Motion.div>
         </section>
       </div>
     </>

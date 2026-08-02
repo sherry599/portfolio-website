@@ -1,176 +1,287 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ExternalLink } from 'lucide-react';
-import {
-  SiJavascript,
-  SiTypescript,
-  SiReact,
-  SiRedux,
-  SiNextdotjs,
-  SiNodedotjs,
-  SiExpress,
-  SiMongodb,
-  SiRedis,
-  SiDocker,
-  SiGithubactions,
-  SiTailwindcss,
-  SiGit,
-  SiCplusplus,
-  SiPython,
-  SiDjango,
-  SiSocketdotio,
-  SiStripe,
-  SiCloudinary,
-  SiJsonwebtokens,
-  SiPaypal,
-  SiAmazons3,
-  SiFramer,
-  SiShadcnui,
-  SiFigma,
-} from 'react-icons/si';
+import React, { useState, useCallback } from 'react';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight, Code2, Terminal, Cpu, Layers, Sparkles, CheckCircle2 } from 'lucide-react';
 
-import { CircularTestimonials } from '@/Components/ui/circular-testimonials';
-
-const sectionVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+const aboutSlides = [
+  {
+    id: 1,
+    tag: "01 / BIO",
+    category: "Full-Stack Engineer",
+    title: "Full-Stack Engineer & Product Builder",
+    quote: "I am Ali Mahmood, a Full Stack Software Engineer crafting responsive user interfaces and scalable backends. I engineer complete digital products from multi-agent platforms to secure marketplaces.",
+    src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop",
+    alt: "Developer workstation running VS Code editor and dark terminal",
+    icon: <Code2 className="w-4 h-4 text-accent" />,
+    highlights: ["MERN & Next.js Stack", "Clean Architecture", "UI/UX Craftsmanship"]
   },
-};
-
-const stackVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08 },
+  {
+    id: 2,
+    tag: "02 / VALUE",
+    category: "End-to-End Execution",
+    title: "End to End Ownership",
+    quote: "I take full ownership of the project lifecycle, from smooth micro animations and robust REST APIs to secure payment integration and cloud deployment.",
+    src: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop",
+    alt: "Multi-monitor development workstation with code editor and live preview",
+    icon: <Layers className="w-4 h-4 text-accent" />,
+    highlights: ["Full Ownership", "Zero Tech Debt", "Scalable Systems"]
   },
-};
-
-const masterTechStack = [
-  { label: 'JavaScript', icon: <SiJavascript className="w-4 h-4" />, color: 'text-[#F7DF1E]', hex: '#F7DF1E' },
-  { label: 'TypeScript', icon: <SiTypescript className="w-4 h-4" />, color: 'text-[#3178C6]', hex: '#3178C6' },
-  { label: 'React', icon: <SiReact className="w-4 h-4" />, color: 'text-[#61DAFB]', hex: '#61DAFB' },
-  { label: 'RTK Query', icon: <SiRedux className="w-4 h-4" />, color: 'text-[#764ABC]', hex: '#764ABC' },
-  { label: 'Next.js', icon: <SiNextdotjs className="w-4 h-4" />, color: 'text-primary', hex: '#888888' },
-  { label: 'Node.js', icon: <SiNodedotjs className="w-4 h-4" />, color: 'text-[#339933]', hex: '#339933' },
-  { label: 'Express', icon: <SiExpress className="w-4 h-4" />, color: 'text-secondary', hex: '#888888' },
-  { label: 'MongoDB', icon: <SiMongodb className="w-4 h-4" />, color: 'text-[#47A248]', hex: '#47A248' },
-  { label: 'Redis', icon: <SiRedis className="w-4 h-4" />, color: 'text-[#DC382D]', hex: '#DC382D' },
-  { label: 'Docker', icon: <SiDocker className="w-4 h-4" />, color: 'text-[#2496ED]', hex: '#2496ED' },
-  { label: 'GitHub Actions', icon: <SiGithubactions className="w-4 h-4" />, color: 'text-[#2088FF]', hex: '#2088FF' },
-  { label: 'Tailwind CSS', icon: <SiTailwindcss className="w-4 h-4" />, color: 'text-[#06B6D4]', hex: '#06B6D4' },
-  { label: 'Git', icon: <SiGit className="w-4 h-4" />, color: 'text-[#F05032]', hex: '#F05032' },
-  { label: 'Figma', icon: <SiFigma className="w-4 h-4" />, color: 'text-[#F24E1E]', hex: '#F24E1E' },
-  { label: 'Python', icon: <SiPython className="w-4 h-4" />, color: 'text-[#3776AB]', hex: '#3776AB' },
-  { label: 'Django', icon: <SiDjango className="w-4 h-4" />, color: 'text-[#2BA977]', hex: '#2BA977' }
+  {
+    id: 3,
+    tag: "03 / OPEN SOURCE",
+    category: "System Engineering",
+    title: "Core System & Upstream Contributions",
+    quote: "I contribute to open source software with merged pull requests in Apache Arrow, Eventyay, and VoiceyBill.",
+    src: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=1200&auto=format&fit=crop",
+    alt: "Git commits and pull request workspace on dark monitor",
+    icon: <Terminal className="w-4 h-4 text-accent" />,
+    highlights: ["10+ Merged PRs", "Apache Arrow (C++)", "Security & A11y"]
+  },
+  {
+    id: 4,
+    tag: "04 / PROJECTS",
+    category: "Production Scale",
+    title: "Production Systems Built for Real Scale",
+    quote: "I build production systems for real world use, including EnvArmor for secret leak prevention, KHIDMAT for AI orchestration, and Noretmy for escrow transactions.",
+    src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+    alt: "Backend microservices and developer infrastructure code on display",
+    icon: <Cpu className="w-4 h-4 text-accent" />,
+    highlights: ["EnvArmor Suite", "KHIDMAT AI Orchestrator", "Noretmy Escrow Market"]
+  },
+  {
+    id: 5,
+    tag: "05 / LOGIC",
+    category: "Algorithms & Systems",
+    title: "Algorithmic Precision & Data Optimization",
+    quote: "I focus on data structures, query optimization, and efficient algorithms to ensure clean, high performance code.",
+    src: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1200&auto=format&fit=crop",
+    alt: "Clean programming desk with code analytics and logic diagrams",
+    icon: <Sparkles className="w-4 h-4 text-accent" />,
+    highlights: ["Data Structures", "Query Optimization", "High Throughput"]
+  }
 ];
 
-const TechBadge = ({ item }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <motion.span
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ scale: 1.05, y: -2 }}
-      className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-subtle bg-transparent text-sm text-primary transition-all duration-300 relative overflow-hidden"
-      style={{
-        borderColor: isHovered ? `${item.hex}50` : 'var(--border-default)',
-        background: isHovered ? `${item.hex}08` : 'transparent',
-        boxShadow: isHovered ? `0 8px 24px -6px ${item.hex}30` : 'none',
-      }}
-    >
-      <span 
-        className={`${item.color} flex items-center justify-center transition-transform duration-300`} 
-        style={{ transform: isHovered ? 'scale(1.1) rotate(8deg)' : 'scale(1)' }}
-      >
-        {item.icon}
-      </span>
-      <span className="font-medium">{item.label}</span>
-    </motion.span>
-  );
-};
-
 const About = () => {
-  const aboutSlides = [
-    {
-      name: "Who I Am",
-      designation: "01 / Bio",
-      quote: "I am Ali Mahmood, a Full Stack Software Engineer who designs clean, premium user interfaces and builds strong, scalable backends. Rather than just writing code, I focus on creating complete digital products, from multivendor marketplaces and interactive learning hubs to real-time utilities.",
-      src: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1368&auto=format&fit=crop"
-    },
-    {
-      name: "Why Me",
-      designation: "02 / Value",
-      quote: "Hiring different freelancers often leads to fragmented and inconsistent results. I take full responsibility for the entire project, crafting everything from smooth, polished animations to secure payment integrations. This ensures high quality and a seamless development process from start to finish.",
-      src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1368&auto=format&fit=crop"
-    },
-    {
-      name: "Open Source",
-      designation: "03 / Contributions",
-      quote: "I enjoy contributing back to the open source community. My contributions have been merged into major libraries like Apache Arrow in C plus plus, where I refactored deprecated APIs and solved memory safety issues. This shows my focus on writing clean, reliable code that performs well under heavy use.",
-      src: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1368&auto=format&fit=crop"
-    },
-    {
-      name: "Technical Excellence",
-      designation: "04 / Projects",
-      quote: "My projects showcase modern web engineering. I have built platforms like Noretmy (a freelancing marketplace), CampusCore (a fast, cached learning management system), and MultiMart (a vendor marketplace). Each one is optimized for speed, reliability, and security.",
-      src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1368&auto=format&fit=crop"
-    },
-    {
-      name: "Problem Solving",
-      designation: "05 / Logic",
-      quote: "I really enjoy solving complex problems and finding efficient ways to organize data. A deep understanding of algorithms helps me write clean, readable code that runs efficiently. I keep my skills sharp by tackling challenging coding problems every day.",
-      src: "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=1368&auto=format&fit=crop"
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleNext = useCallback(() => {
+    setActiveIndex((prev) => (prev + 1) % aboutSlides.length);
+  }, []);
+
+  const handlePrev = useCallback(() => {
+    setActiveIndex((prev) => (prev - 1 + aboutSlides.length) % aboutSlides.length);
+  }, []);
+
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'ArrowRight') {
+      handleNext();
+    } else if (e.key === 'ArrowLeft') {
+      handlePrev();
     }
-  ];
+  }, [handleNext, handlePrev]);
+
+  const activeSlide = aboutSlides[activeIndex];
 
   return (
-    <div className="relative bg-primary">
-      <section id="about" className="pt-10 pb-6 md:pt-16 md:pb-8 relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={stackVariants}
-            className="space-y-6"
-          >
-            <motion.div variants={sectionVariants} className="mb-8 flex flex-col items-center text-center">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-[1.5px] bg-accent"></div>
-                <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Introduction</span>
-              </div>
-              <h2 className="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">
-                About <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300">Me</span>
-              </h2>
-            </motion.div>
+    <section
+      id="about"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      aria-label="About Ali Mahmood - Software Engineer"
+      className="relative py-8 sm:py-12 md:py-16 bg-primary focus:outline-none"
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-6xl relative z-10">
+        {/* Simple & Clean Header */}
+        <Motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+          className="mb-12 text-center flex flex-col items-center"
+        >
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-8 h-[1.5px] bg-accent" />
+            <span className="text-xs font-semibold text-secondary tracking-widest uppercase mono">
+              Get To Know Me
+            </span>
+            <div className="w-8 h-[1.5px] bg-accent" />
+          </div>
 
-            <motion.div variants={sectionVariants} className="w-full border border-subtle bg-surface p-2 md:p-6 mb-4 shadow-2xl rounded-2xl flex justify-center items-center">
-              <CircularTestimonials
-                testimonials={aboutSlides}
-                autoplay={false}
-                colors={{
-                  name: "var(--text-primary)",
-                  designation: "var(--text-secondary)",
-                  testimony: "var(--text-secondary)",
-                  arrowBackground: "var(--bg-elevated)",
-                  arrowForeground: "var(--text-primary)",
-                  arrowHoverBackground: "var(--text-primary)",
-                }}
-                fontSizes={{
-                  name: "1.75rem",
-                  designation: "0.875rem",
-                  quote: "1rem"
-                }}
-              />
-            </motion.div>
-          </motion.div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-primary">
+            About Me
+          </h2>
+        </Motion.div>
+
+        {/* Two-Column Layout (Carousel Left, Content Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+          {/* LEFT COLUMN: Contained Image Carousel (6 Cols) */}
+          <div className="lg:col-span-6 flex flex-col items-center w-full">
+            <div className="relative w-full max-w-md h-[200px] sm:h-[230px] md:h-[250px] flex items-center justify-center select-none overflow-hidden rounded-2xl px-2">
+              {aboutSlides.map((slide, index) => {
+                let offset = index - activeIndex;
+                if (offset < -2) offset += aboutSlides.length;
+                if (offset > 2) offset -= aboutSlides.length;
+
+                const isActive = offset === 0;
+                const isPrev = offset === -1 || (activeIndex === 0 && index === aboutSlides.length - 1);
+                const isNext = offset === 1 || (activeIndex === aboutSlides.length - 1 && index === 0);
+
+                if (!isActive && !isPrev && !isNext) {
+                  return null;
+                }
+
+                let xTranslate = "0%";
+                let scale = 1;
+                let opacity = 1;
+                let zIndex = 20;
+
+                if (isPrev) {
+                  xTranslate = "-38%";
+                  scale = 0.82;
+                  opacity = 0.35;
+                  zIndex = 10;
+                } else if (isNext) {
+                  xTranslate = "38%";
+                  scale = 0.82;
+                  opacity = 0.35;
+                  zIndex = 10;
+                }
+
+                return (
+                  <Motion.div
+                    key={slide.id}
+                    onClick={() => setActiveIndex(index)}
+                    initial={false}
+                    animate={{
+                      x: xTranslate,
+                      scale: scale,
+                      opacity: opacity,
+                      zIndex: zIndex,
+                    }}
+                    transition={{
+                      duration: 0.4,
+                      ease: [0.25, 1, 0.5, 1]
+                    }}
+                    className={`absolute top-0 w-[78%] h-full rounded-2xl overflow-hidden border cursor-pointer transition-all duration-200 ${
+                      isActive
+                        ? 'border-accent/40 shadow-xl ring-1 ring-white/10'
+                        : 'border-transparent shadow-md hover:opacity-75'
+                    }`}
+                  >
+                    <div className="relative w-full h-full bg-surface overflow-hidden">
+                      <img
+                        src={slide.src}
+                        alt={slide.alt}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white z-20">
+                        <div className="flex items-center gap-2 bg-black/60 px-3 py-1 rounded-full border border-white/10">
+                          {slide.icon}
+                          <span className="text-[11px] font-semibold tracking-wider uppercase mono text-neutral-200">
+                            {slide.category}
+                          </span>
+                        </div>
+
+                        <span className="text-[11px] font-mono text-neutral-300 font-semibold">
+                          {slide.tag}
+                        </span>
+                      </div>
+                    </div>
+                  </Motion.div>
+                );
+              })}
+            </div>
+
+            {/* Navigation Controls */}
+            <div className="flex items-center justify-center gap-4 mt-6 z-20">
+              <Motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handlePrev}
+                aria-label="Previous slide"
+                className="w-10 h-10 rounded-full border border-default bg-surface text-primary flex items-center justify-center hover:bg-accent hover:text-inverse transition-colors duration-200 shadow-sm"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </Motion.button>
+
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface border border-default">
+                {aboutSlides.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveIndex(i)}
+                    aria-label={`Go to slide ${i + 1}`}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      i === activeIndex ? 'w-6 bg-accent' : 'w-2 bg-neutral-500/40 hover:bg-neutral-400'
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <Motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleNext}
+                aria-label="Next slide"
+                className="w-10 h-10 rounded-full border border-default bg-surface text-primary flex items-center justify-center hover:bg-accent hover:text-inverse transition-colors duration-200 shadow-sm"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </Motion.button>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN: Clean Details Content Card (6 Cols) */}
+          <div className="lg:col-span-6 flex flex-col w-full">
+            <AnimatePresence mode="wait">
+              <Motion.div
+                key={activeSlide.id}
+                initial={{ opacity: 0, x: 15 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -15 }}
+                transition={{ duration: 0.3 }}
+                className="w-full rounded-2xl border border-default bg-surface p-5 sm:p-6 shadow-md relative"
+              >
+                {/* Header Tag */}
+                <div className="flex items-center gap-2 mb-2.5">
+                  <span className="px-2 py-0.5 text-xs font-mono font-bold tracking-wider text-accent bg-accent/10 rounded border border-accent/20">
+                    {activeSlide.tag}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-primary mb-2 leading-snug">
+                  {activeSlide.title}
+                </h3>
+
+                {/* Clear & High Contrast Body Text */}
+                <p className="text-xs sm:text-sm text-primary/90 leading-relaxed mb-4 font-normal">
+                  "{activeSlide.quote}"
+                </p>
+
+                {/* Highlights List */}
+                <div className="pt-3 border-t border-default">
+                  <span className="text-[10px] font-semibold text-secondary uppercase tracking-wider mono block mb-1.5">
+                    Highlights
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {activeSlide.highlights.map((highlight, idx) => (
+                      <span
+                        key={idx}
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-primary/5 border border-default text-xs font-medium text-primary"
+                      >
+                        <CheckCircle2 className="w-3.5 h-3.5 text-accent" />
+                        {highlight}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Motion.div>
+            </AnimatePresence>
+          </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 
