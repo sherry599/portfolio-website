@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { scroller } from 'react-scroll';
-import { FaBars, FaTimes, FaLinkedin, FaEnvelope, FaPhone } from 'react-icons/fa';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { usePageTransition } from './PageTransitionContext';
 import ThemeToggle from './ThemeToggle';
@@ -80,17 +80,10 @@ const Navbar = () => {
           <button 
             onClick={() => handleNavClick('home')}
             className="flex items-center gap-2 group text-left cursor-pointer z-10"
+            aria-label="Shaheryar Mahmood Home"
           >
             <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-inverse font-black text-xs tracking-wider shadow-sm group-hover:scale-105 transition-transform">
               SM
-            </div>
-            <div className="flex flex-col">
-              <span className="font-black text-xs sm:text-sm text-primary uppercase tracking-tight group-hover:text-accent transition-colors">
-                Shaheryar Mahmood
-              </span>
-              <span className="text-[9px] text-secondary font-mono tracking-wider uppercase -mt-0.5 hidden sm:inline">
-                AI-First CSM
-              </span>
             </div>
           </button>
 

@@ -166,7 +166,7 @@ const Hero = () => {
                 }}
                 initial="hidden"
                 animate="visible"
-                className="font-black text-[32px] sm:text-[54px] md:text-[72px] lg:text-[88px] leading-[0.9] tracking-tighter uppercase text-primary flex flex-col items-center gap-1 sm:gap-2"
+                className="font-black text-[26px] sm:text-[40px] md:text-[54px] lg:text-[66px] leading-[0.95] tracking-tighter uppercase text-primary flex flex-col items-center gap-1 sm:gap-2"
               >
                 <span className="flex gap-1 sm:gap-2">
                   {"SHAHERYAR".split("").map((char, i) => (

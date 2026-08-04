@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaLinkedin, FaEnvelope, FaPhone } from 'react-icons/fa';
+import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -13,11 +13,8 @@ const Footer = () => {
           <a href="https://linkedin.com/in/sherry599/" target="_blank" rel="noopener noreferrer" className="text-secondary transition-all duration-300 hover:-translate-y-1 hover:text-primary" title="LinkedIn">
             <FaLinkedin size={22} />
           </a>
-          <a href="mailto:sherry33869@gmail.com" className="text-secondary transition-all duration-300 hover:-translate-y-1 hover:text-primary" title="Email">
+          <a href="mailto:shaheryar869@gmail.com" className="text-secondary transition-all duration-300 hover:-translate-y-1 hover:text-primary" title="Email">
             <FaEnvelope size={22} />
-          </a>
-          <a href="tel:+923317733869" className="text-secondary transition-all duration-300 hover:-translate-y-1 hover:text-primary" title="Phone">
-            <FaPhone size={20} />
           </a>
         </div>
       </div>

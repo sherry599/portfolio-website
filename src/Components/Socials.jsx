@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { SiLinkedin, SiGmail } from 'react-icons/si';
-import { Phone, MapPin, ArrowUpRight } from 'lucide-react';
+import { MapPin, ArrowUpRight } from 'lucide-react';
 
 const Socials = () => {
   const socialLinks = [
@@ -19,23 +19,12 @@ const Socials = () => {
       icon: SiGmail,
       title: "Gmail",
       subtitle: "Direct Email",
-      value: "sherry33869@gmail.com",
-      link: "mailto:sherry33869@gmail.com",
+      value: "shaheryar869@gmail.com",
+      link: "mailto:shaheryar869@gmail.com",
       description: "Send an inquiry",
       color: '#EA4335',
       glowClass: 'group-hover:border-[#EA4335]/30 group-hover:shadow-[0_0_30px_rgba(234,67,53,0.15)]',
       bgGlow: 'bg-[#EA4335]/5'
-    },
-    {
-      icon: Phone,
-      title: "Phone & WhatsApp",
-      subtitle: "Direct Contact",
-      value: "+92 331 7733869",
-      link: "tel:+923317733869",
-      description: "Call or message",
-      color: '#10B981',
-      glowClass: 'group-hover:border-[#10B981]/30 group-hover:shadow-[0_0_30px_rgba(16,185,129,0.15)]',
-      bgGlow: 'bg-[#10B981]/5'
     },
     {
       icon: MapPin,
@@ -102,7 +91,7 @@ const Socials = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
           >
             {socialLinks.map((social, index) => {
               const IconComponent = social.icon;

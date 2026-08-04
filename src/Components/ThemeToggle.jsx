@@ -46,7 +46,7 @@ const ThemeToggle = ({ showLabel = true, className = "" }) => {
       </AnimatePresence>
 
       {showLabel && (
-        <span className="text-[11px] font-mono font-medium text-secondary tracking-tight whitespace-nowrap">
+        <span className="text-[11px] font-mono font-medium text-secondary tracking-tight whitespace-nowrap hidden sm:inline">
           {isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
         </span>
       )}
