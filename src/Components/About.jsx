@@ -272,13 +272,13 @@ const About = () => {
     setPage(([prevIndex]) => [targetIndex, targetIndex > prevIndex ? 1 : -1]);
   }, []);
 
-  // Auto slide every 5 seconds (5000ms), paused on hover
+  // Auto slide every 10 seconds (10000ms), paused on hover
   useEffect(() => {
     if (isPaused) return;
 
     const timer = setInterval(() => {
       handleNext();
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(timer);
   }, [handleNext, isPaused]);

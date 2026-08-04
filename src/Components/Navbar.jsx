@@ -27,39 +27,72 @@ const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
 
-      // Active section detection
-      const sections = navItems.map(item => document.getElementById(item.to)).filter(Boolean);
-      const scrollPosition = window.scrollY + 120;
+      // Check if user is at or near bottom of the page
+      const isAtBottom = window.innerHeight + Math.ceil(window.scrollY) >= document.documentElement.scrollHeight - 80;
 
+      if (isAtBottom) {
+        setActiveSection(navItems[navItems.length - 1].to);
+        return;
+      }
+
+      // Viewport threshold distance from top (180px)
+      const threshold = 180;
+
+      const sections = navItems
+        .map(item => ({ id: item.to, element: document.getElementById(item.to) }))
+        .filter(item => item.element !== null);
+
+      let currentSection = 'home';
       for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section.offsetTop <= scrollPosition) {
-          setActiveSection(section.id);
+        const rect = sections[i].element.getBoundingClientRect();
+        if (rect.top <= threshold) {
+          currentSection = sections[i].id;
           break;
         }
       }
+
+      setActiveSection(currentSection);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    if (window.lenis) {
+      window.lenis.on('scroll', handleScroll);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (window.lenis) {
+        window.lenis.off('scroll', handleScroll);
+      }
+    };
+  }, [location.pathname]);
 
   const handleNavClick = (to) => {
     if (location.pathname !== '/') {
       transitionTo('/');
       setTimeout(() => {
+        if (window.lenis) {
+          window.lenis.scrollTo(`#${to}`, { offset: -80 });
+        } else {
+          scroller.scrollTo(to, {
+            duration: 500,
+            smooth: true,
+            offset: -80,
+          });
+        }
+      }, 1000);
+    } else {
+      if (window.lenis) {
+        window.lenis.scrollTo(`#${to}`, { offset: -80 });
+      } else {
         scroller.scrollTo(to, {
           duration: 500,
           smooth: true,
           offset: -80,
         });
-      }, 1000);
-    } else {
-      scroller.scrollTo(to, {
-        duration: 500,
-        smooth: true,
-        offset: -80,
-      });
+      }
     }
     setActiveSection(to);
   };
