@@ -48,105 +48,89 @@ const ExecutiveWidget = ({ slideId }) => {
   switch (slideId) {
     case 1:
       return (
-        <div className="flex flex-col h-full justify-between gap-4 p-6 bg-gradient-to-br from-sky-500/10 via-surface to-amber-500/10 dark:from-sky-950/60 dark:via-zinc-950 dark:to-amber-950/40 rounded-2xl border border-sky-500/30 dark:border-sky-500/50 shadow-[0_10px_35px_rgba(2,132,199,0.15)] relative overflow-hidden">
+        <div className="flex flex-col h-full justify-between gap-4 p-6 bg-gradient-to-br from-blue-600/15 via-surface to-indigo-600/15 dark:from-blue-950/70 dark:via-zinc-950 dark:to-indigo-950/60 rounded-2xl border border-blue-500/40 dark:border-blue-500/60 shadow-[0_10px_35px_rgba(37,99,235,0.15)] relative overflow-hidden">
           {/* Ambient Corner Glow */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/15 rounded-full blur-2xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-32 h-32 bg-amber-500/15 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-indigo-500/20 rounded-full blur-2xl pointer-events-none" />
 
-          <div className="flex items-center justify-between border-b border-sky-500/20 dark:border-sky-500/30 pb-3 relative z-10">
+          <div className="flex items-center justify-between border-b border-blue-500/20 dark:border-blue-500/30 pb-3 relative z-10">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-sky-500 animate-pulse" />
-              <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-sky-600 dark:text-sky-300">EXECUTIVE TELEMETRY</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
+              <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-blue-600 dark:text-blue-300">EXECUTIVE TELEMETRY</span>
             </div>
-            <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-sky-500/15 text-sky-600 dark:text-sky-300 border border-sky-500/30 shadow-xs">
+            <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-blue-500/15 text-blue-600 dark:text-blue-300 border border-blue-500/30 shadow-xs">
               LIVE CS OPS
             </span>
           </div>
 
           <div className="grid grid-cols-2 gap-3 my-auto relative z-10">
-            <div className="p-3.5 rounded-xl bg-surface/90 dark:bg-zinc-900/90 border border-sky-500/20 shadow-xs hover:border-sky-500/40 transition-colors">
-              <div className="text-[10px] font-mono text-secondary uppercase font-bold mb-1">$4M+ ARR</div>
-              <div className="text-xl font-black text-primary">Portfolio</div>
-              <div className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 mt-1 flex items-center gap-1">
-                <span>↑ 107% NRR</span>
+            {/* Portfolio Size Card - Full Width Top Highlight */}
+            <div className="col-span-2 p-4 rounded-xl bg-surface/90 dark:bg-zinc-900/90 border border-blue-500/25 shadow-xs hover:border-blue-500/40 transition-colors flex items-center justify-between">
+              <div>
+                <div className="text-[10px] font-mono text-secondary uppercase font-bold mb-0.5">Portfolio Size</div>
+                <div className="text-2xl sm:text-3xl font-black text-primary">$4M+</div>
+              </div>
+              <div className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold px-2.5 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                ARR Book of Business
               </div>
             </div>
-            <div className="p-3.5 rounded-xl bg-surface/90 dark:bg-zinc-900/90 border border-sky-500/20 shadow-xs hover:border-sky-500/40 transition-colors">
+
+            {/* CSAT & NPS Card */}
+            <div className="p-3.5 rounded-xl bg-surface/90 dark:bg-zinc-900/90 border border-blue-500/25 shadow-xs hover:border-blue-500/40 transition-colors">
               <div className="text-[10px] font-mono text-secondary uppercase font-bold mb-1">CSAT & NPS</div>
               <div className="text-xl font-black text-primary">87% / 54</div>
-              <div className="text-[10px] font-bold text-sky-600 dark:text-sky-400 mt-1">Top Tier CSAT</div>
+              <div className="text-[10px] font-bold text-blue-600 dark:text-blue-400 mt-1">Top Tier CSAT</div>
             </div>
-            <div className="p-3.5 rounded-xl bg-surface/90 dark:bg-zinc-900/90 border border-amber-500/20 shadow-xs hover:border-amber-500/40 transition-colors">
-              <div className="text-[10px] font-mono text-secondary uppercase font-bold mb-1">Onboarding</div>
-              <div className="text-xl font-black text-primary">&lt; 20 min</div>
-              <div className="text-[10px] font-bold text-amber-600 dark:text-amber-400 mt-1">Reduced 55%</div>
-            </div>
-            <div className="p-3.5 rounded-xl bg-surface/90 dark:bg-zinc-900/90 border border-emerald-500/20 shadow-xs hover:border-emerald-500/40 transition-colors">
-              <div className="text-[10px] font-mono text-secondary uppercase font-bold mb-1">Trial Lift</div>
+
+            {/* Trial Conversion Card */}
+            <div className="p-3.5 rounded-xl bg-surface/90 dark:bg-zinc-900/90 border border-emerald-500/25 shadow-xs hover:border-emerald-500/40 transition-colors">
+              <div className="text-[10px] font-mono text-secondary uppercase font-bold mb-1">Trial Conversion</div>
               <div className="text-xl font-black text-primary">60% → 76%</div>
               <div className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 mt-1">Q1-Q2 2026</div>
             </div>
-          </div>
-
-          <div className="pt-3 border-t border-sky-500/20 dark:border-sky-500/30 flex items-center justify-between text-[11px] font-mono relative z-10">
-            <span className="text-secondary">Key Highlight Highlights</span>
-            <span className="font-bold text-sky-600 dark:text-sky-400">7+ Yrs Leadership</span>
           </div>
         </div>
       );
 
     case 2:
       return (
-        <div className="flex flex-col h-full justify-between gap-4 p-6 bg-gradient-to-br from-emerald-500/10 via-surface to-amber-500/10 dark:from-emerald-950/60 dark:via-zinc-950 dark:to-amber-950/40 rounded-2xl border border-emerald-500/30 dark:border-emerald-500/50 shadow-[0_10px_35px_rgba(16,185,129,0.15)] relative overflow-hidden">
+        <div className="flex flex-col h-full justify-between gap-4 p-6 bg-gradient-to-br from-amber-500/15 via-surface to-orange-500/15 dark:from-amber-950/70 dark:via-zinc-950 dark:to-orange-950/60 rounded-2xl border border-amber-500/40 dark:border-amber-500/60 shadow-[0_10px_35px_rgba(245,158,11,0.15)] relative overflow-hidden">
           {/* Ambient Glow */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/15 rounded-full blur-2xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-32 h-32 bg-amber-500/15 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/20 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-orange-500/20 rounded-full blur-2xl pointer-events-none" />
 
-          <div className="flex items-center justify-between border-b border-emerald-500/20 dark:border-emerald-500/30 pb-3 relative z-10">
+          <div className="flex items-center justify-between border-b border-amber-500/20 dark:border-amber-500/30 pb-3 relative z-10">
             <div className="flex items-center gap-2">
-              <LineChart className="w-4 h-4 text-emerald-500" />
-              <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-emerald-600 dark:text-emerald-300">RETENTION ENGINE</span>
+              <LineChart className="w-4 h-4 text-amber-500" />
+              <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-amber-600 dark:text-amber-300">RETENTION ENGINE</span>
             </div>
-            <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30 shadow-xs">
-              GAINSIGHT OPS
+            <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-300 border border-amber-500/30 shadow-xs">
+              RENEWAL MASTERY
             </span>
           </div>
 
-          <div className="space-y-3 my-auto relative z-10">
-            <div className="p-3.5 rounded-xl bg-surface/90 dark:bg-zinc-900/90 border border-emerald-500/20 shadow-xs">
+          <div className="space-y-4 my-auto relative z-10">
+            <div className="p-4 rounded-xl bg-surface/90 dark:bg-zinc-900/90 border border-amber-500/25 shadow-xs">
               <div className="flex justify-between items-center text-xs font-bold text-primary mb-1.5">
-                <span>Gainsight Portfolio Health</span>
-                <span className="text-emerald-600 dark:text-emerald-400 font-mono">88% Green</span>
+                <span>Portfolio Renewal Rate</span>
+                <span className="text-amber-600 dark:text-amber-400 font-mono font-black text-sm">98% Renewal Rate</span>
               </div>
-              <div className="w-full h-2 rounded-full bg-secondary/20 overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 rounded-full w-[88%]" />
+              <div className="w-full h-2 rounded-full bg-secondary/20 overflow-hidden mb-1.5">
+                <div className="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full w-[98%]" />
               </div>
+              <div className="text-[10px] text-secondary font-mono">120+ Mid-Market & Enterprise accounts managed</div>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-surface/90 dark:bg-zinc-900/90 border border-blue-500/20 shadow-xs">
+            <div className="p-4 rounded-xl bg-surface/90 dark:bg-zinc-900/90 border border-orange-500/25 shadow-xs">
               <div className="flex justify-between items-center text-xs font-bold text-primary mb-1.5">
-                <span>180-Day Renewal Playbook</span>
-                <span className="text-blue-600 dark:text-blue-400 font-mono">98% Renewal</span>
+                <span>Net Revenue Retention (NRR)</span>
+                <span className="text-orange-600 dark:text-orange-400 font-mono font-black text-sm">107% NRR</span>
               </div>
-              <div className="w-full h-2 rounded-full bg-secondary/20 overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full w-[98%]" />
+              <div className="w-full h-2 rounded-full bg-secondary/20 overflow-hidden mb-1.5">
+                <div className="h-full bg-gradient-to-r from-orange-500 to-orange-300 rounded-full w-[100%]" />
               </div>
+              <div className="text-[10px] text-secondary font-mono">Consistent high net revenue retention across portfolio</div>
             </div>
-
-            <div className="p-3.5 rounded-xl bg-surface/90 dark:bg-zinc-900/90 border border-amber-500/25 shadow-xs flex items-center justify-between">
-              <div>
-                <div className="text-[10px] font-mono text-secondary uppercase font-bold">Quota Attainment</div>
-                <div className="text-base sm:text-lg font-black text-primary mt-0.5">~200% via Upsell & Cross-sell</div>
-              </div>
-              <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-500 shrink-0">
-                <Award className="w-5 h-5" />
-              </div>
-            </div>
-          </div>
-
-          <div className="pt-3 border-t border-emerald-500/20 dark:border-emerald-500/30 flex items-center justify-between text-[11px] font-mono relative z-10">
-            <span className="text-secondary">EBRs & QBRs Managed</span>
-            <span className="font-bold text-emerald-600 dark:text-emerald-400">Commercial Mastery</span>
           </div>
         </div>
       );
@@ -190,11 +174,6 @@ const ExecutiveWidget = ({ slideId }) => {
               <span>Churn Rate: &lt; 2.3% Consistent</span>
             </div>
           </div>
-
-          <div className="pt-3 border-t border-indigo-500/20 dark:border-indigo-500/30 flex items-center justify-between text-[11px] font-mono relative z-10">
-            <span className="text-secondary">API & Workflow Agents</span>
-            <span className="font-bold text-purple-600 dark:text-purple-400">CS + Code Foundation</span>
-          </div>
         </div>
       );
 
@@ -236,11 +215,6 @@ const ExecutiveWidget = ({ slideId }) => {
               </div>
             </div>
           </div>
-
-          <div className="pt-3 border-t border-teal-500/20 dark:border-teal-500/30 flex items-center justify-between text-[11px] font-mono relative z-10">
-            <span className="text-secondary">Regulated Industry Governance</span>
-            <span className="font-bold text-teal-600 dark:text-teal-400">Zero Compliance Incidents</span>
-          </div>
         </div>
       );
 
@@ -249,16 +223,53 @@ const ExecutiveWidget = ({ slideId }) => {
   }
 };
 
+const slideVariants = {
+  enter: (direction) => ({
+    x: direction > 0 ? 80 : -80,
+    opacity: 0,
+    scale: 0.98
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    transition: {
+      x: { type: "spring", stiffness: 350, damping: 32 },
+      opacity: { duration: 0.25 }
+    }
+  },
+  exit: (direction) => ({
+    x: direction > 0 ? -80 : 80,
+    opacity: 0,
+    scale: 0.98,
+    transition: {
+      x: { type: "spring", stiffness: 350, damping: 32 },
+      opacity: { duration: 0.25 }
+    }
+  })
+};
+
 const About = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [[activeIndex, direction], setPage] = useState([0, 1]);
   const [isPaused, setIsPaused] = useState(false);
 
-  const handleNext = useCallback(() => {
-    setActiveIndex((prev) => (prev + 1) % aboutSlides.length);
+  const paginate = useCallback((newDirection) => {
+    setPage(([prevIndex]) => {
+      const nextIndex = (prevIndex + newDirection + aboutSlides.length) % aboutSlides.length;
+      return [nextIndex, newDirection];
+    });
   }, []);
 
+  const handleNext = useCallback(() => {
+    paginate(1);
+  }, [paginate]);
+
   const handlePrev = useCallback(() => {
-    setActiveIndex((prev) => (prev - 1 + aboutSlides.length) % aboutSlides.length);
+    paginate(-1);
+  }, [paginate]);
+
+  const handleDotClick = useCallback((targetIndex) => {
+    setPage(([prevIndex]) => [targetIndex, targetIndex > prevIndex ? 1 : -1]);
   }, []);
 
   // Auto slide every 5 seconds (5000ms), paused on hover
@@ -318,22 +329,34 @@ const About = () => {
           </div>
         </div>
 
-        {/* Slide Content Box with Pause-on-Hover */}
-        <div 
+        {/* Slide Content Box with Mouse Drag & Touch Swipe Support */}
+        <Motion.div 
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.15}
+          onDragEnd={(e, { offset, velocity }) => {
+            const swipeThreshold = 40;
+            if (offset.x < -swipeThreshold || velocity.x < -200) {
+              handleNext();
+            } else if (offset.x > swipeThreshold || velocity.x > 200) {
+              handlePrev();
+            }
+          }}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch cursor-grab active:cursor-grabbing select-none touch-pan-y"
         >
           
           {/* Left Text Column */}
-          <div className="lg:col-span-7 flex flex-col justify-between bg-surface p-6 sm:p-8 rounded-2xl border border-default shadow-lg">
-            <AnimatePresence mode="wait">
+          <div className="lg:col-span-7 flex flex-col justify-between bg-surface p-6 sm:p-8 rounded-2xl border border-default shadow-lg overflow-hidden">
+            <AnimatePresence mode="wait" custom={direction}>
               <Motion.div
                 key={activeSlide.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
                 className="flex flex-col h-full justify-between gap-6"
               >
                 <div>
@@ -370,12 +393,12 @@ const About = () => {
             </AnimatePresence>
 
             {/* Carousel Navigation Controls */}
-            <div className="flex items-center justify-between border-t border-default/50 pt-4 mt-auto">
+            <div className="flex items-center justify-between border-t border-default/50 pt-4 mt-auto z-20">
               <div className="flex items-center gap-2">
                 {aboutSlides.map((slide, index) => (
                   <button
                     key={slide.id}
-                    onClick={() => setActiveIndex(index)}
+                    onClick={() => handleDotClick(index)}
                     className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                       index === activeIndex ? 'w-8 bg-accent' : 'w-2 bg-secondary/30 hover:bg-secondary'
                     }`}
@@ -406,13 +429,14 @@ const About = () => {
 
           {/* Right Executive Telemetry Column */}
           <div className="lg:col-span-5 relative rounded-2xl overflow-hidden min-h-[300px] sm:min-h-[360px] flex flex-col justify-between shadow-xl">
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" custom={direction}>
               <Motion.div
                 key={activeSlide.id}
-                initial={{ opacity: 0, y: 10, scale: 0.97 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -10, scale: 1.03 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
                 className="h-full"
               >
                 <ExecutiveWidget slideId={activeSlide.id} />
@@ -420,7 +444,7 @@ const About = () => {
             </AnimatePresence>
           </div>
 
-        </div>
+        </Motion.div>
 
       </div>
     </section>

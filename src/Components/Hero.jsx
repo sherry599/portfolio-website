@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion as Motion } from 'framer-motion';
 import { Link as ScrollLink } from 'react-scroll';
-import { ChevronDown, ArrowRight, TrendingUp, ShieldCheck, Award, Zap } from 'lucide-react';
+import { ChevronDown, TrendingUp, Cpu, Zap, UserCheck } from 'lucide-react';
 import { FaLinkedin } from 'react-icons/fa';
 import { usePageTransition } from './PageTransitionContext';
 
@@ -92,10 +92,10 @@ const Hero = () => {
   };
 
   const metricBadges = [
+    { label: "7+ Yrs Exp", sub: "B2B SaaS CS Leadership", icon: UserCheck, color: "text-purple-500 bg-purple-500/10 border-purple-500/20" },
     { label: "$4M+ ARR", sub: "Managing Book of Business", icon: Zap, color: "text-amber-500 bg-amber-500/10 border-amber-500/20" },
     { label: "107% NRR", sub: "Net Revenue Retention", icon: TrendingUp, color: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20" },
-    { label: "87%+ CSAT", sub: "Portfolio Average", icon: Award, color: "text-blue-500 bg-blue-500/10 border-blue-500/20" },
-    { label: "54 NPS", sub: "Customer NPS", icon: ShieldCheck, color: "text-indigo-500 bg-indigo-500/10 border-indigo-500/20" }
+    { label: "AI-First CS", sub: "Deployed AI Workflows", icon: Cpu, color: "text-sky-500 bg-sky-500/10 border-sky-500/20" }
   ];
 
   return (
@@ -206,9 +206,9 @@ const Hero = () => {
             </Motion.div>
 
             {/* Tagline */}
-            <Motion.div variants={itemVariants} className="max-w-xl mb-4 sm:mb-5 px-2">
+            <Motion.div variants={itemVariants} className="max-w-2xl mb-4 sm:mb-5 px-2">
               <BlurText
-                text="7 years driving B2B SaaS customer retention, revenue growth, and AI-powered CS operations across regulated industries. Managing $4M+ ARR while delivering 107% NRR and 87%+ CSAT."
+                text="B2B SaaS Customer Success Leader with 7+ years of experience managing $4M+ ARR books, driving 107% NRR, and designing AI-powered CS operations across regulated healthcare, transport and technology sectors."
                 delay={30}
                 animateBy="words"
                 direction="top"

@@ -18,8 +18,8 @@ const Portfolio = () => {
       <main className="flex-1 w-full relative z-10">
         <Hero />
         <About />
-        <Skills />
         <EducationTimeline />
+        <Skills />
         <Certifications />
         <Socials />
       </main>

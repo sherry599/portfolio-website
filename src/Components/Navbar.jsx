@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link as ScrollLink, scroller } from 'react-scroll';
-import { FaDownload, FaBars, FaTimes, FaLinkedin, FaEnvelope, FaPhone } from 'react-icons/fa';
-import { Home, User, Settings, FolderKanban, BookOpen, GraduationCap, Award, Share2 } from 'lucide-react';
+import { scroller } from 'react-scroll';
+import { FaBars, FaTimes, FaLinkedin, FaEnvelope, FaPhone } from 'react-icons/fa';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ExpandableTabs } from '@/Components/ui/expandable-tabs';
 import { usePageTransition } from './PageTransitionContext';
 import ThemeToggle from './ThemeToggle';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,206 +12,172 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
   const navigate = useNavigate();
   const location = useLocation();
-  const { transitionTo, isTransitioning, prefetch } = usePageTransition();
+  const { transitionTo } = usePageTransition();
 
-  const handleHoverTab = (index) => {
-    const tab = tabs[index];
-    if (tab && tab.to) {
-      if (tab.to === 'projects') {
-        prefetch('/projects');
-      } else if (tab.to === 'openSource') {
-        prefetch('/open-source');
-      } else {
-        prefetch('/');
-      }
-    }
-  };
+  const navItems = [
+    { title: "Home", to: "home" },
+    { title: "About", to: "about" },
+    { title: "Experience", to: "education" },
+    { title: "Tools", to: "skills" },
+    { title: "Certifications", to: "certifications" },
+    { title: "Contact", to: "socials" }
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 40);
+
+      // Active section detection
+      const sections = navItems.map(item => document.getElementById(item.to)).filter(Boolean);
+      const scrollPosition = window.scrollY + 120;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section.offsetTop <= scrollPosition) {
+          setActiveSection(section.id);
+          break;
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleResumeDownload = () => {
-    const resumeUrl = "/Shaheryar_Mahmood_CV.pdf";
-    const link = document.createElement('a');
-    link.href = resumeUrl;
-    link.download = "Shaheryar_Mahmood_CV.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  const tabs = [
-    { title: "Home", icon: Home, to: "home" },
-    { title: "About", icon: User, to: "about" },
-    { title: "Tools", icon: Settings, to: "skills" },
-    { type: "separator" },
-    { title: "Experience", icon: GraduationCap, to: "education" },
-    { title: "Certifications", icon: Award, to: "certifications" },
-    { title: "Contact", icon: Share2, to: "socials" }
-  ];
-
-  const socialLinks = [
-    { icon: FaLinkedin, href: "https://linkedin.com/in/sherry599/", label: "LinkedIn" },
-    { icon: FaEnvelope, href: "mailto:sherry33869@gmail.com", label: "Email" },
-    { icon: FaPhone, href: "tel:+923317733869", label: "Phone" }
-  ];
-
-  const activeTabIndex = tabs.findIndex(tab => tab.to === activeSection);
-
-  const handleTabChange = (index) => {
-    if (index === null) return;
-    const tab = tabs[index];
-    if (tab && tab.to) {
-      if (location.pathname !== '/') {
-        transitionTo('/');
-        setTimeout(() => {
-          scroller.scrollTo(tab.to, {
-            duration: 500,
-            smooth: true,
-            offset: -80,
-          });
-        }, 1100);
-      } else {
-        scroller.scrollTo(tab.to, {
+  const handleNavClick = (to) => {
+    if (location.pathname !== '/') {
+      transitionTo('/');
+      setTimeout(() => {
+        scroller.scrollTo(to, {
           duration: 500,
           smooth: true,
           offset: -80,
         });
-      }
-      setActiveSection(tab.to);
+      }, 1000);
+    } else {
+      scroller.scrollTo(to, {
+        duration: 500,
+        smooth: true,
+        offset: -80,
+      });
     }
-  };
-
-  const handleMobileTabChange = (index) => {
-    const tab = tabs[index];
-    if (tab && tab.to) {
-      if (location.pathname !== '/') {
-        transitionTo('/');
-        setTimeout(() => {
-          scroller.scrollTo(tab.to, {
-            duration: 500,
-            smooth: true,
-            offset: -80,
-          });
-        }, 1100);
-      } else {
-        scroller.scrollTo(tab.to, {
-          duration: 500,
-          smooth: true,
-          offset: -80,
-        });
-      }
-      setActiveSection(tab.to);
-    }
+    setActiveSection(to);
   };
 
   return (
     <>
-      {/* Top Navbar */}
+      {/* Top Floating Navbar Container */}
       <nav 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled 
-            ? 'bg-surface/80 backdrop-blur-md border-b border-default py-3 shadow-md' 
-            : 'bg-transparent py-5'
+            ? 'py-3 bg-surface/85 backdrop-blur-xl border-b border-default shadow-md' 
+            : 'py-4 bg-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between relative">
           
-          {/* Logo / Brand Name */}
+          {/* Left Brand / Name Logo */}
           <button 
-            onClick={() => {
-              if (location.pathname !== '/') {
-                transitionTo('/');
-              } else {
-                scroller.scrollTo('home', { duration: 500, smooth: true });
-              }
-            }}
-            className="flex items-center gap-2 group text-left cursor-pointer"
+            onClick={() => handleNavClick('home')}
+            className="flex items-center gap-2 group text-left cursor-pointer z-10"
           >
-            <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-inverse font-black text-sm tracking-wider shadow-sm group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-inverse font-black text-xs tracking-wider shadow-sm group-hover:scale-105 transition-transform">
               SM
             </div>
             <div className="flex flex-col">
-              <span className="font-extrabold text-sm sm:text-base text-primary uppercase tracking-tight group-hover:text-accent transition-colors">
+              <span className="font-black text-xs sm:text-sm text-primary uppercase tracking-tight group-hover:text-accent transition-colors">
                 Shaheryar Mahmood
               </span>
-              <span className="text-[10px] text-secondary font-mono tracking-widest uppercase -mt-0.5">
-                AI-First Customer Success Manager
+              <span className="text-[9px] text-secondary font-mono tracking-wider uppercase -mt-0.5 hidden sm:inline">
+                AI-First CSM
               </span>
             </div>
           </button>
 
-          {/* Desktop Navigation Tabs */}
-          <div className="hidden lg:flex items-center">
-            <ExpandableTabs 
-              tabs={tabs} 
-              activeTab={activeTabIndex}
-              onChange={handleTabChange}
-              onHoverTab={handleHoverTab}
-            />
+          {/* Center Floating Pill Section Menu (Matching Reference Image) */}
+          <div className="hidden md:flex items-center justify-center absolute left-1/2 transform -translate-x-1/2">
+            <div className="bg-surface/90 dark:bg-zinc-900/90 backdrop-blur-xl border border-default/80 shadow-lg rounded-full px-4 py-1 flex items-center gap-1 sm:gap-2">
+              {navItems.map((item) => {
+                const isActive = activeSection === item.to;
+                return (
+                  <button
+                    key={item.to}
+                    onClick={() => handleNavClick(item.to)}
+                    className={`relative px-3.5 py-1.5 text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer rounded-full ${
+                      isActive 
+                        ? 'text-accent font-extrabold' 
+                        : 'text-secondary hover:text-accent hover:bg-accent/10 hover:shadow-xs'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="activePill"
+                        className="absolute inset-0 bg-accent/15 dark:bg-accent/20 rounded-full -z-10 border border-accent/30 dark:border-accent/40 shadow-xs"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    <span>{item.title}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Right Action Items */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Right Action Items: Theme Toggle */}
+          <div className="hidden sm:flex items-center gap-3 z-10">
             <ThemeToggle />
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2 sm:hidden">
+          {/* Mobile Navigation Trigger */}
+          <div className="flex items-center gap-2 sm:hidden z-10">
             <ThemeToggle />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-primary focus:outline-none"
+              className="p-2 text-primary focus:outline-none rounded-lg border border-default bg-surface"
               aria-label="Toggle menu"
             >
-              {isOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+              {isOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
             </button>
           </div>
 
         </div>
       </nav>
 
-      {/* Mobile Drawer Menu */}
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="fixed inset-x-0 top-16 z-40 bg-surface border-b border-default p-6 sm:hidden shadow-2xl flex flex-col gap-4"
-        >
-          <div className="flex flex-col gap-2">
-            {tabs.filter(t => t.title).map((tab, index) => (
-              <button
-                key={tab.title}
-                onClick={() => {
-                  setIsOpen(false);
-                  handleMobileTabChange(index);
-                }}
-                className="flex items-center gap-3 p-3 rounded-xl hover:bg-primary/50 text-primary text-sm font-semibold transition-colors text-left"
-              >
-                {tab.icon && <tab.icon className="w-4 h-4 text-accent" />}
-                <span>{tab.title}</span>
-              </button>
-            ))}
-          </div>
-
-          <div className="pt-4 border-t border-default flex items-center justify-center">
-            <div className="flex items-center gap-4">
-              {socialLinks.map((s, idx) => (
-                <a key={idx} href={s.href} target="_blank" rel="noopener noreferrer" className="text-secondary hover:text-accent">
-                  <s.icon size={18} />
-                </a>
-              ))}
+      {/* Mobile Drawer Menu with Clear Text Labels */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-x-0 top-16 z-40 bg-surface/95 backdrop-blur-xl border-b border-default p-5 sm:hidden shadow-2xl flex flex-col gap-3"
+          >
+            <div className="flex flex-col gap-1">
+              {navItems.map((item) => {
+                const isActive = activeSection === item.to;
+                return (
+                  <button
+                    key={item.to}
+                    onClick={() => {
+                      setIsOpen(false);
+                      handleNavClick(item.to);
+                    }}
+                    className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors text-left flex items-center justify-between ${
+                      isActive 
+                        ? 'bg-accent/15 text-accent font-bold border border-accent/30' 
+                        : 'text-primary hover:bg-primary/5'
+                    }`}
+                  >
+                    <span>{item.title}</span>
+                    {isActive && <span className="w-2 h-2 rounded-full bg-accent" />}
+                  </button>
+                );
+              })}
             </div>
-          </div>
-        </motion.div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
