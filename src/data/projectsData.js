@@ -1,412 +1,106 @@
 export const projectsData = {
-  medeaz: {
-    id: 'medeaz',
-    title: "MedEaz",
-    description: "A premium web-based SaaS healthcare platform connecting patients, doctors, and clinic admins. Features a voice-powered prescription workflow, an automated OPD queue waiting room console, and interactive clinical copilots.",
-    image: "medeaz.jpeg",
-    objectPosition: "center 10%",
-    tech: ["Next.js", "React", "Redux Toolkit", "Node.js", "Express", "MongoDB", "Redis", "Gemini API", "Groq API", "Socket.io", "Tailwind CSS"],
-    link: "https://medeaz.vercel.app/",
-    githubLink: "https://github.com/ahadalireach/medeaz",
-    category: "Web App",
+  'ai-workflow-agents': {
+    id: 'ai-workflow-agents',
+    title: "AI-Powered Workflow Agents for CS Operations & Churn Risk",
+    description: "Designed custom AI-powered workflow agents to optimize Customer Success operations by automating onboarding QA, customer health scoring in Gainsight, and churn-risk detection.",
+    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
+    objectPosition: "center center",
+    tech: ["Claude API", "Gainsight", "AI Workflow Agents", "Salesforce", "Antigravity"],
+    link: "https://linkedin.com/in/sherry599/",
+    githubLink: "https://linkedin.com/in/sherry599/",
+    category: "AI CS Operations",
     featured: true,
-    purpose: "MedEaz was built to streamline healthcare workflows in the Pakistani market. By integrating voice-to-prescription parsing via Gemini AI, realtime OPD queue management, and automated consultation split ledgers, the platform replaces fragmented manual processes with cohesive, role-based workflows.",
+    purpose: "Eliminated manual CSM operational overhead while providing predictive customer health insights across Enterprise and mid-market accounts.",
     keyFeatures: [
-      "Voice-powered prescription parsing translating raw dictations (English/Urdu/Roman Urdu) to structured JSON",
-      "Automated OPD queue waiting room management with a realtime TV display board",
-      "Interactive Clinical Copilots (Doctor, Clinic, Patient) powered by Gemini and Groq",
-      "Multi-tenant clinic workspace isolation allowing customized branding and operational parameters per clinic branch",
-      "Integrated interactive Clinical Copilots providing real-time diagnosis suggestions and drug interaction warnings during consultations",
-      "Dynamic RTL Nastaliq layout engine for natural prescription generation in local languages",
-      "Integrated automated OPD token dispenser console generating digital QR-code-based waiting passes",
-      "Gamified Doctor Performance Leaderboard with automated 20/80 revenue splits",
-      "Realtime messaging, notifications, and SMTP transactional emails"
+      "Designed AI-powered workflow agents automating onboarding QA and verification",
+      "Automated customer health scoring in Gainsight & early sentiment churn-risk detection",
+      "Saved 20+ hours monthly per CSM through automated workflow triggers",
+      "Held customer churn consistently below 2.3% (a 2.1% improvement)",
+      "Maintained 107% Net Revenue Retention (NRR) across $4M+ book of business"
     ],
     challenges: [
       {
-        challenge: "Accurate Bilingual Voice Prescription Parsing",
-        solution: "Engineered customized prompt templates for Gemini and Groq to parse noisy code-mixed Roman Urdu & English voice transcripts, auto-populating complex clinical forms with 94%+ accuracy."
+        challenge: "Manual & Reactive Account Monitoring",
+        solution: "Integrated Claude API with Gainsight and Salesforce event logs to calculate real-time health scores and flag early churn risks."
       },
       {
-        challenge: "Centralization of Data across Doctors, Patients, and Clinics",
-        solution: "Architected a unified relational-graph inspired MongoDB schema with strict role-based access control, optimizing dual-directional collection lookups for medical records, OPD waiting tokens, and ledger payments."
-      },
-      {
-        challenge: "Real-time Waiting Room Synchronization",
-        solution: "Built a Socket.io-driven token broadcast system coupled with audio chime notifications to instantly update TV displays in clinics without page refreshes."
-      },
-      {
-        challenge: "Automated Revenue Splitting Ledger",
-        solution: "Designed database transaction hooks that automatically partition patient consultation billing into separate doctor (80%) and clinic (20%) ledgers upon session completion."
+        challenge: "Time-Consuming Onboarding Audits",
+        solution: "Deployed automated QA workflow bots to verify account configuration completeness, cutting manual CSM effort by 20+ hours monthly."
       }
     ]
   },
-  maintainermind: {
-    id: 'maintainermind',
-    title: "MaintainerMind",
-    description: "Long-term cognitive memory for open-source repositories. Continually ingests PRs, commits, issues, and discussions into a Cognee semantic knowledge graph for AI-driven contextual recall.",
-    image: "maintainermind.png",
-    objectPosition: "center 10%",
-    tech: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL", "Redis", "BullMQ", "Docker", "Tailwind CSS", "Framer Motion"],
-    link: "http://maintainer-mind-nu.vercel.app/",
-    githubLink: "https://github.com/AliRana30/maintainermind",
-    category: "Web & CLI",
+  'sonic-hire-ai-onboarding': {
+    id: 'sonic-hire-ai-onboarding',
+    title: "SonicHire AI Product Adoption & Conversational AI Success",
+    description: "Managed onboarding, account adoption, and lifecycle success for a $4M+ book of accounts spanning AI-native products: SonicHire, AI voice & chat agents.",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop",
+    objectPosition: "center center",
+    tech: ["SonicHire AI", "AI Voice Agents", "AI Chat Agents", "Automation"],
+    link: "https://linkedin.com/in/sherry599/",
+    githubLink: "https://linkedin.com/in/sherry599/",
+    category: "AI Product Enablement",
     featured: true,
-    purpose: "MaintainerMind solves the developer code-review bottleneck. By building a persistent semantic graph of historical repository actions, the system helps maintainers instantly recall prior decisions, rejected approaches, and related bugs when reviewing new PRs.",
+    purpose: "Drove customer value realization and account retention for AI-driven hiring automation and conversational AI voice/chat agents across mid-market and enterprise accounts.",
     keyFeatures: [
-      "Ingests GitHub webhook events into a semantic knowledge graph using Cognee",
-      "Surfaces context suggestions on new PRs to prevent regressions and redundant work",
-      "AI chat interface for querying repository architecture, files, and historical discussions",
-      "Memory Evolution dashboard with Memory Quality Score, manual graph improvement, and pruning",
-      "Background queues powered by BullMQ and Redis for robust asynchronous ingestion",
-      "Self-hosted capability with Docker Compose compatibility"
+      "Managed onboarding & adoption for $4M+ book of core SaaS and AI-native products",
+      "Deployed SonicHire AI hiring automation and AI voice/chat agents for Enterprise clients",
+      "Maintained 87%+ portfolio CSAT and an average customer NPS of 54 across four quarters",
+      "Maintained full HIPAA compliance across regulated healthcare accounts"
     ],
     challenges: [
       {
-        challenge: "Stale Knowledge Graph Pruning",
-        solution: "Implemented Cognee's `forget()` operation to remove obsolete node epochs during major refactors, preventing outdated architecture from influencing AI advice."
-      },
-      {
-        challenge: "Async Background Worker Orchestration",
-        solution: "Designed a multi-stage background worker pipeline using BullMQ and Redis to handle bursty GitHub webhook payloads without dropping events."
-      },
-      {
-        challenge: "Relationship Traversal over Simple Vector Search",
-        solution: "Utilized Cognee's `recall()` with `GRAPH_COMPLETION` strategy to enable multi-hop relationship queries that standard vector chunk search cannot solve."
+        challenge: "Customer Adoption Friction with AI Voice & Chat Agents",
+        solution: "Established tailored customer training programs and prompt optimization sessions to ensure seamless AI agent deployment."
       }
     ]
   },
-  envarmor: {
-    id: 'envarmor',
-    title: "EnvArmor",
-    description: "A secure, local-first secret leak prevention suite. Intercepts API keys, variables, and credentials before they leave the developer machine using CLI pre-commit hooks and an encrypted web dashboard.",
-    image: "EnvArmor.png",
-    objectPosition: "center 10%",
-    tech: ["Next.js", "Supabase", "Prisma", "Redis", "TypeScript", "Node.js", "Framer Motion", "Tailwind CSS"],
-    link: "https://env-armor.vercel.app/",
-    githubLink: "https://github.com/AliRana30/EnvArmor",
-    category: "Web & CLI",
+  'onboarding-qa-conversion': {
+    id: 'onboarding-qa-conversion',
+    title: "AI-Assisted Onboarding Redesign & Conversion Acceleration",
+    description: "Redesigned customer onboarding workflows alongside Development and Outbound Sales, leveraging automated QA to slash meeting time from 45 to <20 mins.",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+    objectPosition: "center center",
+    tech: ["Automated QA Bots", "Salesforce", "Gainsight", "Time-to-Value"],
+    link: "https://linkedin.com/in/sherry599/",
+    githubLink: "https://linkedin.com/in/sherry599/",
+    category: "Lifecycle Optimization",
     featured: true,
-    purpose: "EnvArmor was built to eliminate the risk of accidental secret leaks. By combining a zero-trust local-first CLI scanner with an end-to-end encrypted web dashboard, it intercepts API keys, environment files, and credentials before they leave the developer's machine—without exposing raw variables to cloud servers.",
+    purpose: "Accelerated time-to-value for newly onboarded accounts while boosting trial-to-paid conversion rates across the account portfolio.",
     keyFeatures: [
-      "Pre-commit hook scanning utilizing regex signatures and Shannon Entropy",
-      "AI context protection generating auto-exclusion files (.cursorignore, .claudeignore)",
-      "Financial abuse risk mapping dynamically calculating leak cost estimates ($200–$5000)",
-      "E2E AES-256 encrypted configuration vault with client-side zero-knowledge sync",
-      "Project workspace auto-provisioning and dynamic CLI context switching",
-      "Prisma database persistence and Upstash Redis rate-limiting"
+      "Redesigned onboarding workflows alongside Dev and Sales teams",
+      "Cut mandatory setup meeting duration from 45 to under 20 minutes",
+      "Lifted trial conversion for newly onboarded accounts from 60% to 76% in Q1-Q2 2026",
+      "Shortened overall customer time-to-value and eliminated onboarding bottlenecks"
     ],
     challenges: [
       {
-        challenge: "Zero-Knowledge Cloud Secret Synchronization",
-        solution: "Implemented client-side AES-256 encryption. Plaintext secrets are encrypted in the local CLI runtime before dispatch, ensuring the dashboard database only stores ciphertext that the user decrypts on the client."
-      },
-      {
-        challenge: "Balancing Low-Latency Scanning with High Detection Accuracy",
-        solution: "Combined static regular expression patterns (Stripe, AWS, OpenAI signature matching) with lightweight Shannon Entropy calculation for high-randomness strings to catch custom or structured secret leaks in milliseconds."
-      },
-      {
-        challenge: "Cross-Environment Project Context Switching",
-        solution: "Architected a global selector in the web app header synchronized with the CLI's --project flag, allowing developers to switch between workspaces and auto-provision project credentials dynamically."
+        challenge: "Long Customer Time-to-Value",
+        solution: "Automated pre-onboarding intake and data verification, reserving live meetings for strategic executive alignment."
       }
     ]
   },
-  khidmat: {
-    id: 'khidmat',
-    title: "KHIDMAT",
-    description: "An AI-powered service orchestration platform built for Pakistan's informal economy, allowing users to discover, rank, price, and schedule local service providers using natural language chat (English/Urdu/Roman Urdu).",
-    image: "Khidmat.png",
-    objectPosition: "center 10%",
-    tech: ["React Native", "Expo", "TypeScript", "Redux Toolkit", "Express", "Supabase", "Gemini API", "Google Maps", "Docker", "Tailwind CSS"],
-    link: "https://khidmat-orchestrator.vercel.app/",
-    githubLink: "https://github.com/AliRana30/KHIDMAT",
-    category: "Mobile App",
+  'predictive-health-scoring': {
+    id: 'predictive-health-scoring',
+    title: "Predictive Health Scoring & 180-Day Proactive Renewal Strategy",
+    description: "Implemented automated customer health scoring rules and 180-day proactive renewal playbooks across $4M+ Enterprise and Mid-Market accounts.",
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
+    objectPosition: "center center",
+    tech: ["Gainsight Rules Engine", "Predictive Analytics", "Claude AI", "HIPAA Compliance"],
+    link: "https://linkedin.com/in/sherry599/",
+    githubLink: "https://linkedin.com/in/sherry599/",
+    category: "Customer Health Automation",
     featured: true,
-    purpose: "KHIDMAT was engineered to resolve trust and discovery bottlenecks in Pakistan's informal service sector. By leveraging natural-language inputs, geocoding, and multi-agent orchestration, the platform replaces unstructured chats and phone calls with structured workflows—automating everything from intent parsing and radius expansion mapping to dynamic surge pricing, double-booking checks, and trace-logged dispute handling.",
+    purpose: "Proactively mitigated churn risks 180 days prior to renewal while maintaining 100% HIPAA compliance across healthcare enterprise accounts.",
     keyFeatures: [
-      "Multilingual natural language parsing (English, Urdu, Roman Urdu)",
-      "Multi-agent orchestration pipeline (Intent, Discovery, Ranking, Pricing, Dispute)",
-      "Geocoded provider discovery with progressive radius expansion",
-      "Dynamic surge pricing considering travel, complexity, and urgency",
-      "Double-booking prevention and travel-time buffers",
-      "Interactive live booking tracking screen with real-time updates",
-      "Explainable AI trace viewer to debug backend decisions",
-      "Supabase persistence and JWT-based session security",
-      "Dockerized backend ready for Cloud Run deployment"
+      "Owned renewal management across $4M+ book, upholding 107% Net Revenue Retention",
+      "Initiated proactive renewal engagement 180 days prior to contract expiration",
+      "Sustained 100% HIPAA compliance and audit readiness in healthcare segment",
+      "Achieved ~200% quota attainment through targeted upselling and cross-selling"
     ],
     challenges: [
       {
-        challenge: "Noisy Multilingual Intent Parsing",
-        solution: "Built a customized prompt matrix for Gemini and Groq model templates to parse code-mixed Roman Urdu & English inputs ('kal subah AC check krwana ha'), mapping them to clean ISO schedules, urgency classes, and service sectors with over 94% accuracy."
-      },
-      {
-        challenge: "Dynamic Geographic Coverage in Sparse Areas",
-        solution: "Developed an expansion ring algorithm inside the Discovery Agent that automatically increments search radii from 5km up to 25km when nearby matches are unavailable, falling back to verified reputation-ranked providers."
-      },
-      {
-        challenge: "AI Agent Observability and Explanations",
-        solution: "Integrated a custom Trace Agent logging system mapping agent execution sequences, prompt payloads, and confidence ratings to a dashboard, rendering an explainable decision timeline for end-user trust."
-      }
-    ]
-  },
-  noretmy: {
-    id: 'noretmy',
-    title: "Noretmy",
-    description: "A production-level freelancing marketplace combining Fiverr's gig model with Upwork's milestone-based project flow, featuring real-time chat, automated seller leveling, and secure multi-payment gateway integration.",
-    image: "Noretmy.png",
-    objectPosition: "center 10%",
-    tech: ["Next.js", "Node.js", "MongoDB", "Express", "Redux Toolkit", "Socket.io", "Stripe", "PayPal", "AWS S3", "Cloudinary", "Framer Motion", "Tailwind CSS", "Shadcn/UI"],
-    link: "https://noretmy.vercel.app/",
-    githubLink: "https://github.com/AliRana30/Noretmy",
-    category: "Full-Stack",
-    featured: true,
-    purpose: "Noretmy was engineered to solve the fragmentation in freelance platforms by merging gig-based services with milestone-driven project management. The goal was to build a robust system that handles the entire lifecycle of a freelance contract—from service listing and job posting to secure escrow-style payments, real-time collaboration, and automated performance tracking. It focuses on closing the operational gaps found in basic marketplace clones, such as formal dispute handling, VAT calculations, and dynamic seller leveling.",
-    keyFeatures: [
-      "Gig-based services and milestone-driven job posts",
-      "Secure milestone-based payment release system (Escrow logic)",
-      "Real-time chat with file sharing via Socket.io",
-      "Automated seller leveling system via background Cron schedulers",
-      "Dual gateway checkout (Stripe and PayPal) for global compliance",
-      "Resolution center with automated dispute escalation workflows",
-      "Asset uploads and file versioning using AWS S3 & Cloudinary",
-      "Optimized query performance and aggregation indices in MongoDB"
-    ],
-    challenges: [
-      {
-        challenge: "Secure Escrow-Style Milestones",
-        solution: "Designed database transaction pipelines that secure funds upon milestone activation, releasing payouts only when deliverables are formally signed off by buyers or resolved through the dispute flow."
-      },
-      {
-        challenge: "Real-time Messaging Stability",
-        solution: "Configured a Socket.io cluster using Redis adapter to synchronise workspace chat events, file uploads, and online statuses with low latency."
-      },
-      {
-        challenge: "Seller Activity Schedulers",
-        solution: "Created node-cron jobs that query vendor stats nightly, updating seller tiers (Level 1, 2, Top Rated) dynamically depending on milestones completed, rating averages, and response rates."
-      }
-    ]
-  },
-  campuscore: {
-    id: 'campuscore',
-    title: "CampusCore LMS",
-    description: "Production-oriented LMS built for scalability, security, and real-world EdTech workflows with secure streaming, paid enrollments, analytics, and admin controls.",
-    image: "LMS-homepage.png",
-    objectPosition: "center 10%",
-    tech: ["Next.js", "Node.js", "MongoDB", "Express", "Redis", "Stripe", "Cloudinary", "Socket.io", "JWT", "Tailwind CSS"],
-    link: "https://lms-e-learning-system.vercel.app/",
-    githubLink: "https://github.com/AliRana30/LMS",
-    category: "Full-Stack",
-    featured: true,
-    purpose: "Designed and developed CampusCore to cover the full lifecycle of online learning platforms, from instructor-side course publishing and monetization to student-side content consumption, progress tracking, and interaction. The system is engineered around secure media delivery, payment reliability, operational visibility, and scalable architecture for real deployment conditions.",
-    keyFeatures: [
-      "Course creation and management with secure VDOCipher video streaming",
-      "Paid enrollments with Stripe payment integration",
-      "Multi-authentication support (Email, Google, GitHub OAuth)",
-      "Real-time notifications using Socket.io",
-      "Role-based admin dashboard with analytics for users, courses, and orders",
-      "Q&A module with threaded discussions",
-      "Course reviews and rating system",
-      "Redis-based caching for performance optimization",
-      "Email notifications via Nodemailer",
-      "Dark and light theme support",
-      "Fully responsive, cross-device UI"
-    ],
-    challenges: [
-      {
-        challenge: "Cross-Origin Authentication",
-        solution: "Configured cookies with sameSite: 'none' and secure: true for production, enabling cross-origin authentication between Vercel frontend and Render backend"
-      },
-      {
-        challenge: "Email Template Resolution in Production",
-        solution: "Fixed template path resolution using __dirname instead of process.cwd() ensuring EJS templates are found correctly in the build directory"
-      },
-      {
-        challenge: "Real-time Notification System",
-        solution: "Implemented Socket.io for instant notifications when students purchase courses or post questions, with Redis for pub/sub in production"
-      },
-      {
-        challenge: "Stripe Payment Integration",
-        solution: "Built secure payment flow with payment intent creation, client-side confirmation, and server-side verification before order creation"
-      }
-    ]
-  },
-  multimart: {
-    id: 'multimart',
-    title: "MultiMart",
-    description: "A comprehensive full-stack multivendor e-commerce platform where vendors can list products, manage inventory, and customers can shop across multiple stores with secure payments",
-    image: "multivendor.png",
-    objectPosition: "center 10%",
-    tech: ["React", "Node.js", "MongoDB", "Express", "Multer", "Tailwind CSS", "JWT"],
-    link: "http://multimarts.vercel.app/",
-    githubLink: "https://github.com/AliRana30/multimart",
-    category: "Full-Stack",
-    featured: true,
-    purpose: "To create a complete multivendor marketplace that empowers small businesses to sell online while providing customers with a diverse shopping experience across multiple vendors.",
-    keyFeatures: [
-      "Multi-vendor product management with role-based access",
-      "Secure payment processing with order confirmation",
-      "Real-time inventory tracking and stock management",
-      "Vendor dashboard with sales analytics and insights",
-      "Advanced product filtering and search capabilities",
-      "Complete order lifecycle management system",
-      "Image optimization using Cloudinary CDN",
-      "Fully responsive design across all devices"
-    ],
-    challenges: [
-      {
-        challenge: "Complex Multi-Vendor Architecture",
-        solution: "Implemented role-based authentication system with separate dashboards for vendors and customers, using JWT tokens and middleware for access control"
-      },
-      {
-        challenge: "Payment Processing Integration",
-        solution: "Built secure payment gateway integration with proper error handling and order confirmation workflow"
-      },
-      {
-        challenge: "Inventory Synchronization",
-        solution: "Built real-time inventory management using MongoDB transactions to prevent overselling and maintain data consistency across vendors"
-      },
-      {
-        challenge: "Image Storage & Performance",
-        solution: "Leveraged Cloudinary for automatic image optimization, lazy loading, and responsive image delivery to reduce load times"
-      }
-    ]
-  },
-  "sonicwave-pro": {
-    id: 'sonicwave-pro',
-    title: "SonicWave Pro",
-    description: "A premium scrollytelling product page built with Next.js 14, TypeScript, Framer Motion, and Canvas-based frame sequencing for cinematic product reveal.",
-    image: "SonicWave.png",
-    tech: ["Next.js", "TypeScript", "Framer Motion", "GSAP", "Tailwind CSS", "Canvas API", "ScrollTrigger", "App Router"],
-    link: "https://sonicwave-animate.vercel.app/",
-    githubLink: "https://github.com/AliRana30/SonicWave",
-    category: "Frontend",
-    featured: true,
-    keyFeatures: [
-      "Floating text overlays synchronized to timeline checkpoints",
-      "Premium dark visual system with noise grain and glassmorphism components",
-      "Responsive behavior for mobile, tablet, and desktop scrollytelling",
-      "Feature grid, marquee separator, specs comparison, and CTA funnel",
-      "Magnetic button interactions and custom cursor for brand feel",
-      "Performance-oriented rendering with requestAnimationFrame draw loop"
-    ],
-    challenges: [
-      {
-        challenge: "Smooth Frame Scrubbing During Fast Scroll",
-        solution: "Mapped scroll progress to frame index through a spring-smoothed motion value and rendered updates inside requestAnimationFrame to avoid jank and flicker."
-      },
-      {
-        challenge: "Canvas Sharpness and Responsive Fit Across Devices",
-        solution: "Implemented devicePixelRatio-aware canvas sizing and contain-style draw calculations so frames stay sharp and visually centered on mobile, tablet, and desktop."
-      },
-      {
-        challenge: "Heavy Asset Preload Without Visible Hitches",
-        solution: "Preloaded the sequence using Promise.all, tracked loading progress, and gated reveal behind a branded loader so playback begins only when frames are ready."
-      },
-      {
-        challenge: "Complex Motion Layering While Maintaining Performance",
-        solution: "Split animation responsibilities between Framer Motion transforms, CSS compositing, and lightweight section triggers to keep interactions fluid without layout thrash."
-      }
-    ]
-  },
-  promptly: {
-    id: 'promptly',
-    title: "Promptly (AI Assistant)",
-    description: "An advanced AI-powered assistant that provides intelligent responses, helps with problem-solving, and offers personalized assistance for various tasks",
-    image: "AIAssistant.jpg",
-    tech: ["React", "Node.js", "AI API", "MongoDB", "Express", "Tailwind CSS", "JWT"],
-    link: "https://assitant-livid.vercel.app/",
-    githubLink: "https://github.com/AliRana30/AI_Assistant",
-    category: "Full-Stack",
-    featured: true,
-    purpose: "To develop an intelligent AI assistant that can understand context, provide meaningful responses, and assist users with various tasks efficiently.",
-    keyFeatures: [
-      "Natural language understanding and processing",
-      "Context-aware multi-turn conversations",
-      "Real-time streaming response generation",
-      "User session and conversation history",
-      "Customizable AI behavior and personality",
-      "Secure user authentication"
-    ],
-    challenges: [
-      {
-        challenge: "Response Latency",
-        solution: "Implemented streaming responses with real-time updates to display AI output as it generates, improving perceived performance"
-      },
-      {
-        challenge: "Context Management",
-        solution: "Built efficient conversation history system storing only relevant context to maintain coherent multi-turn dialogues"
-      },
-      {
-        challenge: "API Cost Optimization",
-        solution: "Created intelligent caching for similar queries and implemented token counting to optimize API usage costs"
-      }
-    ]
-  },
-  moviemate: {
-    id: 'moviemate',
-    title: "MovieMate",
-    description: "A movie discovery platform that helps users find and explore movies with detailed information, reviews, and recommendations",
-    image: "moviemate.png",
-    tech: ["React", "Node.js", "API Integration", "MongoDB", "Tailwind CSS", "JWT", "Express"],
-    link: "https://moviemate-app-psi.vercel.app/",
-    githubLink: "https://github.com/AliRana30/moviemate",
-    category: "Full-Stack",
-    featured: false,
-    purpose: "To create an intuitive platform for movie enthusiasts to discover, explore, and get detailed information about movies with personalized recommendations.",
-    keyFeatures: [
-      "Advanced movie search with multiple filter options",
-      "Detailed movie information with cast and crew",
-      "Personalized recommendations based on preferences",
-      "User rating and review system",
-      "Watchlist functionality with local storage",
-      "Real-time movie data from external APIs"
-    ],
-    challenges: [
-      {
-        challenge: "API Rate Limiting",
-        solution: "Implemented caching strategy to store frequently accessed movie data, reducing API calls by 70% and improving response times"
-      },
-      {
-        challenge: "Search Performance",
-        solution: "Built indexed MongoDB collections with text search and optimized queries to deliver results under 200ms"
-      },
-      {
-        challenge: "User Personalization",
-        solution: "Created recommendation algorithm analyzing user watch history and ratings to suggest relevant content"
-      }
-    ]
-  },
-  "rental-car": {
-    id: 'rental-car',
-    title: "DriveEase",
-    description: "A React-based car rental website that allows users to rent cars from the comfort of their home, featuring modern UI/UX and seamless booking experience",
-    image: "Drive-Ease.png",
-    tech: ["React", "Node.js", "MongoDB", "API Integration", "Tailwind CSS", "JWT"],
-    link: "https://drive-ease-rental.netlify.app/",
-    githubLink: "https://github.com/AliRana30/Drive-Ease",
-    category: "Full-Stack",
-    featured: false,
-    purpose: "To simplify car rental process by providing a user-friendly platform where customers can browse, select, and rent cars online with ease.",
-    keyFeatures: [
-      "Comprehensive car catalog with detailed specifications",
-      "Real-time availability and booking calendar",
-      "Dynamic pricing based on rental duration",
-      "User account with booking history",
-      "Mobile-responsive booking interface",
-      "Secure payment processing"
-    ],
-    challenges: [
-      {
-        challenge: "Booking Conflicts",
-        solution: "Implemented date range validation and real-time availability checking to prevent double bookings"
-      },
-      {
-        challenge: "Pricing Calculations",
-        solution: "Built flexible pricing engine handling seasonal rates, duration discounts, and additional service charges"
-      },
-      {
-        challenge: "Mobile Experience",
-        solution: "Designed touch-optimized interface with simplified booking flow specifically for mobile users"
+        challenge: "Unforeseen Churn at Contract Expiration",
+        solution: "Automated Gainsight health alerts triggered 180 days out, allowing CSMs to address executive priorities early."
       }
     ]
   }

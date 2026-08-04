@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion as Motion } from 'framer-motion';
 import { Link as ScrollLink } from 'react-scroll';
-import { ChevronDown, ArrowRight } from 'lucide-react';
+import { ChevronDown, ArrowRight, TrendingUp, ShieldCheck, Award, Zap } from 'lucide-react';
+import { FaLinkedin } from 'react-icons/fa';
 import { usePageTransition } from './PageTransitionContext';
-import MagneticButton from './ui/MagneticButton';
 
 // BlurText animation component
 const BlurText = ({
@@ -67,7 +67,6 @@ const BlurText = ({
 
 const Hero = () => {
   const { transitionTo } = usePageTransition();
-  const profileImage = "/my_image.png";
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -92,16 +91,22 @@ const Hero = () => {
     }
   };
 
+  const metricBadges = [
+    { label: "$4M+ ARR", sub: "Managing Book of Business", icon: Zap, color: "text-amber-500 bg-amber-500/10 border-amber-500/20" },
+    { label: "107% NRR", sub: "Net Revenue Retention", icon: TrendingUp, color: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20" },
+    { label: "87%+ CSAT", sub: "Portfolio Average", icon: Award, color: "text-blue-500 bg-blue-500/10 border-blue-500/20" },
+    { label: "54 NPS", sub: "Customer NPS", icon: ShieldCheck, color: "text-indigo-500 bg-indigo-500/10 border-indigo-500/20" }
+  ];
+
   return (
     <>
       <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&family=Antic&display=swap"
       />
-      <div className="relative h-screen w-full bg-primary flex flex-col overflow-hidden">
+      <div className="relative min-h-screen w-full bg-primary flex flex-col overflow-hidden py-12 sm:py-16">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 right-20 w-64 h-64 border border-zinc-200 dark:border-zinc-800/40 rotate-45"></div>
-          <div className="absolute bottom-40 left-10 w-32 h-32 border border-zinc-200 dark:border-zinc-800/40 rounded-full"></div>
           <div className="absolute top-1/2 left-1/4 w-2 h-20 bg-zinc-200 dark:bg-zinc-800/40 rotate-12"></div>
 
           {/* Floating background dots */}
@@ -118,23 +123,37 @@ const Hero = () => {
 
         <section
           id="home"
-          className="h-full flex flex-col justify-start items-center relative z-10 px-6 pt-28 pb-10 sm:pt-32"
+          className="h-full flex flex-col justify-start items-center relative z-10 px-4 sm:px-6 pt-16 pb-8 sm:pt-20"
         >
           <Motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="w-full max-w-5xl flex flex-col items-center text-center relative"
+            className="w-full max-w-4xl flex flex-col items-center text-center relative"
           >
-            {/* Introduction Label */}
-            <Motion.div variants={itemVariants} className="flex items-center gap-4 mb-4 sm:mb-6">
-              <div className="w-10 h-[1.5px] bg-accent"></div>
-              <span className="text-xs sm:text-sm font-medium text-secondary tracking-wider uppercase mono">Introduction</span>
-              <div className="w-10 h-[1.5px] bg-accent"></div>
+            {/* Top Centered Profile Photo (Visible on all desktop & mobile screens) */}
+            <Motion.div variants={itemVariants} className="flex flex-col items-center mb-3 sm:mb-4">
+              <div className="relative group cursor-pointer">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-2 border-accent/80 p-0.5 shadow-xl bg-surface transition-transform duration-300 group-hover:scale-105">
+                  <img
+                    src="/shaheryar-headshot.jpg"
+                    alt="Shaheryar Mahmood Headshot"
+                    className="w-full h-full object-cover rounded-full object-top rotate-[4deg] scale-[1.08]"
+                  />
+                </div>
+                <span className="absolute bottom-1 right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-primary rounded-full animate-pulse" title="Available for CS Ops & Leadership" />
+              </div>
             </Motion.div>
 
-            {/* Centered Main Name with overlapping profile photo */}
-            <Motion.div variants={itemVariants} className="relative w-full mb-6 sm:mb-8 select-none flex flex-col items-center">
+            {/* Introduction Label */}
+            <Motion.div variants={itemVariants} className="flex items-center gap-3 sm:gap-4 mb-2 sm:mb-3">
+              <div className="w-8 sm:w-10 h-[1.5px] bg-accent"></div>
+              <span className="text-xs sm:text-sm font-semibold text-accent tracking-widest uppercase mono">AI-First Customer Success Manager</span>
+              <div className="w-8 sm:w-10 h-[1.5px] bg-accent"></div>
+            </Motion.div>
+
+            {/* Centered Main Name */}
+            <Motion.div variants={itemVariants} className="relative w-full mb-3 sm:mb-4 select-none flex flex-col items-center">
               <Motion.h1 
                 variants={{
                   hidden: {},
@@ -147,18 +166,18 @@ const Hero = () => {
                 }}
                 initial="hidden"
                 animate="visible"
-                className="font-black text-[55px] sm:text-[95px] md:text-[130px] lg:text-[150px] leading-[0.8] tracking-tighter uppercase text-primary flex flex-col items-center gap-1 sm:gap-2"
+                className="font-black text-[32px] sm:text-[54px] md:text-[72px] lg:text-[88px] leading-[0.9] tracking-tighter uppercase text-primary flex flex-col items-center gap-1 sm:gap-2"
               >
                 <span className="flex gap-1 sm:gap-2">
-                  {"ALI".split("").map((char, i) => (
+                  {"SHAHERYAR".split("").map((char, i) => (
                     <Motion.span
                       key={i}
                       initial={{ opacity: 0, y: 75, filter: "blur(6px)" }}
                       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                       transition={{ 
-                        duration: 1.5, 
+                        duration: 1.2, 
                         ease: [0.22, 1, 0.36, 1], 
-                        delay: i * 0.24 + 0.3 
+                        delay: i * 0.12 + 0.2 
                       }}
                       className="inline-block"
                     >
@@ -173,9 +192,9 @@ const Hero = () => {
                       initial={{ opacity: 0, y: 75, filter: "blur(6px)" }}
                       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                       transition={{ 
-                        duration: 1.5, 
+                        duration: 1.2, 
                         ease: [0.22, 1, 0.36, 1], 
-                        delay: (3 + i) * 0.24 + 0.3 
+                        delay: (9 + i) * 0.12 + 0.2 
                       }}
                       className="inline-block"
                     >
@@ -184,53 +203,64 @@ const Hero = () => {
                   ))}
                 </span>
               </Motion.h1>
-
-              {/* Profile Picture overlapping the text */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                <div 
-                  className="w-[50px] h-[85px] sm:w-[75px] sm:h-[125px] md:w-[95px] md:h-[155px] lg:w-[110px] lg:h-[185px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 cursor-pointer border border-default bg-surface"
-                >
-                  <img
-                    src={profileImage}
-                    alt="Ali Mahmood"
-                    className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-300"
-                  />
-                </div>
-              </div>
             </Motion.div>
 
             {/* Tagline */}
-            <Motion.div variants={itemVariants} className="max-w-xl mb-6 sm:mb-8">
+            <Motion.div variants={itemVariants} className="max-w-xl mb-4 sm:mb-5 px-2">
               <BlurText
-                text="I build modern web applications with clean code and thoughtful design. Specializing in the MERN stack to create digital experiences that matter."
-                delay={40}
+                text="7 years driving B2B SaaS customer retention, revenue growth, and AI-powered CS operations across regulated industries. Managing $4M+ ARR while delivering 107% NRR and 87%+ CSAT."
+                delay={30}
                 animateBy="words"
                 direction="top"
-                className="text-[14px] sm:text-[16px] md:text-[18px] text-center transition-colors duration-300 text-secondary hover:text-primary leading-relaxed"
+                className="text-xs sm:text-sm md:text-base text-center transition-colors duration-300 text-secondary hover:text-primary leading-relaxed font-normal"
               />
             </Motion.div>
 
-            {/* CTA Buttons */}
+            {/* Metric Badges Strip */}
+            <Motion.div variants={itemVariants} className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 w-full max-w-2xl px-4 mb-4 sm:mb-5 z-30">
+              {metricBadges.map((badge, idx) => {
+                const IconComponent = badge.icon;
+                return (
+                  <div 
+                    key={idx} 
+                    className={`flex flex-col items-center p-2 sm:p-2.5 rounded-xl border backdrop-blur-md transition-all duration-300 hover:-translate-y-1 ${badge.color}`}
+                  >
+                    <div className="flex items-center gap-1.5 font-bold text-xs sm:text-sm">
+                      <IconComponent className="w-3.5 h-3.5" />
+                      <span>{badge.label}</span>
+                    </div>
+                    <span className="text-[9px] sm:text-[10px] opacity-80 mt-0.5">{badge.sub}</span>
+                  </div>
+                );
+              })}
+            </Motion.div>
+
+            {/* Action Buttons Row (Matching Reference Design) */}
             <Motion.div
               variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4 z-30"
+              className="flex items-center justify-center gap-3 sm:gap-4 mt-2 z-30 flex-wrap"
             >
-              <MagneticButton
-                onClick={() => transitionTo('/projects')}
-                className="group px-7 py-3.5 bg-accent text-inverse border border-default transition-colors duration-200 cursor-pointer font-medium flex items-center gap-2.5 justify-center w-full sm:w-fit text-sm"
-              >
-                <span>See Projects</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-              </MagneticButton>
-
+              {/* Contact me here -> Pill Button */}
               <ScrollLink
                 to="socials"
                 smooth={true}
                 duration={500}
-                className="px-7 py-3.5 border border-default bg-surface text-primary hover:bg-primary transition-all duration-200 cursor-pointer font-medium flex items-center justify-center w-full sm:w-fit text-sm"
+                className="group px-6 py-3 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-bold text-xs sm:text-sm rounded-full shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl cursor-pointer flex items-center gap-2 border border-zinc-700/50 dark:border-zinc-300"
               >
-                Get In Touch
+                <span>Contact</span>
               </ScrollLink>
+
+              {/* LinkedIn Button Icon */}
+              <a
+                href="https://linkedin.com/in/sherry599/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Shaheryar Mahmood on LinkedIn"
+                className="p-3 rounded-full border border-default bg-surface text-primary hover:text-accent hover:border-accent transition-all duration-200 hover:scale-105 shadow-sm flex items-center justify-center cursor-pointer"
+                title="LinkedIn Profile"
+              >
+                <FaLinkedin className="w-4 h-4 sm:w-5 sm:h-5 text-[#0A66C2]" />
+              </a>
             </Motion.div>
           </Motion.div>
 

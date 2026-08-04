@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, useSpring, useMotionValue } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion';
 
 const ArrowCursorSVG = () => (
   <svg
@@ -24,12 +24,8 @@ const CustomCursor = () => {
   const [isPointer, setIsPointer] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   
-  const rawX = useMotionValue(-100);
-  const rawY = useMotionValue(-100);
-  
-  const springConfig = { stiffness: 450, damping: 40, mass: 0.5 };
-  const cursorX = useSpring(rawX, springConfig);
-  const cursorY = useSpring(rawY, springConfig);
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
 
   useEffect(() => {
     const touchQuery = window.matchMedia('(hover: none)');
@@ -38,8 +34,8 @@ const CustomCursor = () => {
     touchQuery.addEventListener('change', handleTouchChange);
 
     const handleMouseMove = (e) => {
-      rawX.set(e.clientX);
-      rawY.set(e.clientY);
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
 
       const target = e.target;
       const isInteractive = target.closest('a, button, [data-cursor="pointer"], .cursor-pointer');
@@ -51,7 +47,7 @@ const CustomCursor = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       touchQuery.removeEventListener('change', handleTouchChange);
     };
-  }, [rawX, rawY]);
+  }, [cursorX, cursorY]);
 
   if (isMobile) return null;
 

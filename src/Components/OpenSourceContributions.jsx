@@ -1,40 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { GitPullRequest, ArrowRight, GitBranch, GitMerge, Star, Terminal } from 'lucide-react';
+import { BookOpen, ArrowRight, ShieldCheck, TrendingUp, Award, Zap } from 'lucide-react';
 import { usePageTransition } from './PageTransitionContext';
 import MagneticButton from './ui/MagneticButton';
-import { fetchGitHubData } from '../lib/github';
+import { repositoryShowcase } from '../data/openSourceData';
 
 export const OpenSourceContributions = () => {
-  const [gitData, setGitData] = useState(null);
-  const [loading, setLoading] = useState(true);
   const { transitionTo, isTransitioning, activeCardId, prefetch } = usePageTransition();
   const isThisTransitioning = isTransitioning && activeCardId === 'open-source';
-
-  useEffect(() => {
-    const loadData = async () => {
-      const data = await fetchGitHubData();
-      setGitData(data);
-      setLoading(false);
-    };
-    loadData();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="py-24 bg-primary text-center">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-6 h-6 border-2 border-t-transparent border-neutral-400 rounded-full animate-spin" />
-          <span className="text-xs uppercase mono text-secondary">Syncing Community Logs...</span>
-        </div>
-      </div>
-    );
-  }
-
-  // Compile real-time metrics
-  const totalPRs = gitData.prs.length;
-  const totalStars = gitData.repos.reduce((sum, r) => sum + r.stars, 0);
-  const totalRepos = gitData.repos.length;
 
   return (
     <div className="relative bg-primary overflow-hidden border-t border-zinc-200 dark:border-zinc-800/40">
@@ -70,19 +43,19 @@ export const OpenSourceContributions = () => {
           <div className="mb-12 max-w-2xl mx-auto text-center flex flex-col items-center">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-8 h-[1.5px] bg-accent"></div>
-              <span className="text-sm font-medium text-secondary tracking-wider uppercase mono">Community</span>
+              <span className="text-sm font-semibold text-accent tracking-wider uppercase mono">Strategic CS Operations</span>
             </div>
 
             <h2 className="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">
-              Open Source <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300">Contributions</span>
+              CS Playbooks & <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300">Frameworks</span>
             </h2>
 
             <p className="text-lg text-secondary font-light leading-relaxed max-w-xl">
-              Contributing high-performance updates, security hardening, and structural enhancements to developer tools and community-driven platforms.
+              Proven account management methodologies, executive QBR/EBR playbooks, and AI-powered customer health scoring systems.
             </p>
           </div>
 
-          {/* Morphing Shared-Element Card Container */}
+          {/* Shared-Element Card Container */}
           <motion.div
             layoutId="openSourceHeroCard"
             className="group relative bg-surface/30 border border-zinc-200 dark:border-zinc-800/40 p-8 md:p-12 rounded-3xl backdrop-blur-md shadow-2xl hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-300 overflow-hidden cursor-pointer"
@@ -91,7 +64,7 @@ export const OpenSourceContributions = () => {
               boxShadow: "0 10px 40px rgba(0,0,0,0.02)",
             }}
           >
-            {/* Hover Glow Light - Teal to Purple gradient */}
+            {/* Hover Glow Light */}
             <div className="absolute -inset-px rounded-3xl bg-gradient-to-br from-emerald-500/10 dark:from-emerald-400/10 via-transparent to-purple-500/10 dark:to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
@@ -100,35 +73,38 @@ export const OpenSourceContributions = () => {
               <div className="lg:col-span-7 space-y-8">
                 <div>
                   <h3 className="text-xl md:text-2xl font-bold tracking-tight text-primary">
-                    Open Source Contributions
+                    Executive CS Strategy & Playbook Architecture
                   </h3>
+                  <p className="text-sm text-secondary mt-2">
+                    Repeatable account retention playbooks, Voice-of-Customer loops, and automated health triggers driving 107% NRR across Enterprise & Mid-Market SaaS portfolios.
+                  </p>
                 </div>
 
                 {/* Dashboard Stats Preview */}
                 <div className="grid grid-cols-3 gap-4 border-t border-subtle pt-6">
                   <div>
-                    <div className="text-2xl font-black text-primary tracking-tight">
-                      {totalPRs}+
+                    <div className="text-2xl font-black text-emerald-500 tracking-tight">
+                      107%
                     </div>
-                    <span className="text-[10px] mono uppercase tracking-wider text-secondary">PRs Checked</span>
+                    <span className="text-[10px] mono uppercase tracking-wider text-secondary">Net Rev Retention</span>
                   </div>
 
                   <div>
-                    <div className="text-2xl font-black text-primary tracking-tight">
-                      {totalStars}
+                    <div className="text-2xl font-black text-blue-500 tracking-tight">
+                      87%+
                     </div>
-                    <span className="text-[10px] mono uppercase tracking-wider text-secondary">Stars Accrued</span>
+                    <span className="text-[10px] mono uppercase tracking-wider text-secondary">Average CSAT</span>
                   </div>
 
                   <div>
-                    <div className="text-2xl font-black text-primary tracking-tight">
-                      {totalRepos}
+                    <div className="text-2xl font-black text-amber-500 tracking-tight">
+                      $4M+
                     </div>
-                    <span className="text-[10px] mono uppercase tracking-wider text-secondary">Repositories</span>
+                    <span className="text-[10px] mono uppercase tracking-wider text-secondary">Managing Book of Business</span>
                   </div>
                 </div>
 
-                {/* Trigger Button with Page Transition hook */}
+                {/* Trigger Button */}
                 <div className="pt-2">
                   <MagneticButton
                     onMouseEnter={() => prefetch('/open-source')}
@@ -138,41 +114,31 @@ export const OpenSourceContributions = () => {
                     }}
                     className="group bg-accent text-inverse border border-default px-8 py-4 font-bold uppercase tracking-widest text-xs rounded-xl shadow-2xl transition-colors duration-300"
                   >
-                    <span>View Open Source Contributions</span>
+                    <span>Explore All CS Playbooks</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-300" />
                   </MagneticButton>
                 </div>
               </div>
 
-              {/* GitHub Pulse Representation preview (Real log elements) */}
-              <div className="lg:col-span-5 bg-elevated/20 border border-subtle rounded-2xl p-6 relative overflow-hidden backdrop-blur-sm">
-                <div className="flex items-center justify-between mb-4 border-b border-subtle pb-3">
+              {/* Framework Showcase Preview */}
+              <div className="lg:col-span-5 bg-elevated/20 border border-subtle rounded-2xl p-6 relative overflow-hidden backdrop-blur-sm space-y-3">
+                <div className="flex items-center justify-between border-b border-subtle pb-3">
                   <div className="flex items-center gap-2">
-                    <Terminal className="w-3.5 h-3.5 text-secondary" />
-                    <span className="text-[10px] font-bold text-secondary tracking-widest mono uppercase">Live Contributions Log</span>
+                    <BookOpen className="w-3.5 h-3.5 text-accent" />
+                    <span className="text-[10px] font-bold text-secondary tracking-widest mono uppercase">CS Framework Modules</span>
                   </div>
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 </div>
 
-                {/* Simulated Terminal logs built from real GitHub PR events */}
-                <div className="space-y-3 font-light text-xs text-secondary leading-relaxed">
-                  {gitData.prs.slice(0, 3).map((pr, index) => (
-                    <div key={pr.id || index} className="flex items-start gap-2.5">
-                      <GitMerge className="w-3.5 h-3.5 text-neutral-400 mt-0.5" />
-                      <div>
-                        <span className="text-primary font-bold">{pr.org}/{pr.repo}</span>
-                        <p className="text-[11px] font-light text-secondary line-clamp-1">{pr.title}</p>
-                      </div>
+                {repositoryShowcase.map((item, idx) => (
+                  <div key={idx} className="p-3 rounded-xl bg-primary/40 border border-default">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs font-bold text-primary">{item.name}</span>
+                      <span className="text-[10px] font-mono text-emerald-500 font-bold">{item.stars}</span>
                     </div>
-                  ))}
-                  {gitData.prs.length === 0 && (
-                    <div className="text-xs text-secondary/50 mono">No recent merges found in public logs.</div>
-                  )}
-                </div>
-
-                <div className="mt-5 pt-3 border-t border-subtle/60 flex items-center justify-between text-[9px] text-secondary mono">
-                  <span className="uppercase truncate">ACTIVE: {gitData.prs.slice(0, 3).map(p => p.repo).join(', ') || 'N/A'}</span>
-                </div>
+                    <p className="text-[11px] text-secondary line-clamp-2">{item.description}</p>
+                  </div>
+                ))}
               </div>
 
             </div>

@@ -242,19 +242,19 @@ const Projects = () => {
           <div className="mb-16 max-w-2xl mx-auto flex flex-col items-center text-center">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-8 h-[1.5px] bg-accent"></div>
-              <span className="text-xs font-bold text-secondary tracking-[0.2em] uppercase mono">Portfolio</span>
+              <span className="text-xs font-bold text-accent tracking-[0.2em] uppercase mono">03 / AI IN CUSTOMER SUCCESS</span>
               <div className="w-8 h-[1.5px] bg-accent"></div>
             </div>
 
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-primary mb-5 font-display">
-              Featured{' '}
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-primary mb-5 font-display text-center">
+              AI Forward Customer Success{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-950 to-neutral-600 dark:from-white dark:to-neutral-300">
-                Projects
+                Initiatives
               </span>
             </h2>
 
-            <p className="text-sm md:text-base text-secondary font-light max-w-md leading-relaxed mx-auto">
-              Explore my featured project creations and case studies.
+            <p className="text-sm md:text-base text-secondary font-light max-w-lg leading-relaxed mx-auto text-center">
+              AI-powered workflow agents, automated onboarding QA, predictive Gainsight health scoring, and AI product adoption driving customer retention and revenue expansion.
             </p>
           </div>
 
@@ -310,7 +310,7 @@ const Projects = () => {
                       {project.image ? (
                         <>
                           <img
-                            src={`/${project.image}`}
+                            src={project.image.startsWith('http') ? project.image : `/${project.image}`}
                             alt={project.title}
                             loading="lazy"
                             className="w-full h-full object-cover grayscale-[0.1] group-hover:grayscale-0 group-hover:scale-103 group-hover:brightness-105 transition-all duration-300 ease-out"
